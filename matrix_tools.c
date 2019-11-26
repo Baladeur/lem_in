@@ -34,7 +34,7 @@ int	**destroy_matrix(int ***matrix)
 }
 
 /*
-**	Allocates an int** matrix of size count*count.
+**	Allocates an int** matrix of size count*count, setting each value at 0.
 */
 
 int	**init_matrix(int count)
@@ -53,5 +53,8 @@ int	**init_matrix(int count)
 			return (destroy_matrix(&matrix));
 		i++;
 	}
+	i = 0;
+	while (i < count)
+		ft_memset(matrix[i], 0, count);
 	return (matrix);
 }
