@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2019/11/26 16:39:33 by myener           ###   ########.fr       */
+/*   Updated: 2019/11/26 16:41:23 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,6 @@ typedef struct			s_room  // for start room, end room, and classic in-between roo
     	int				**matrix;
 		struct s_room	*next;			// may be unnecessary.
 }			        t_room;
-
-typedef struct 			s_link			// structure containing a connection between two rooms.
-{
-		t_room			a;				// first of the two connected rooms
-		t_room			b;				// second of the two connected rooms
-}						t_link;
 
 typedef struct			s_ant   // a means of registrating each ant, and their progress through the maze.
 {
