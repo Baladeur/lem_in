@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2019/11/26 16:00:38 by myener           ###   ########.fr       */
+/*   Updated: 2019/11/26 16:39:33 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,24 @@
 
 typedef struct			s_room  // for start room, end room, and classic in-between rooms.
 {
-		int				x;				// easting coordinate.
-		int				y;				// northing coordinate.
+		int				id;				// integer identifying the room.
+        char            *name;          // name of the room.
+		int				x;				// position of the room (easting).
+		int				y;				// position of the room (northing).
         char            type;           // 's' if start room, 'e' if end room, 'c' if classic room.
         int             ant_nb_base;    // nb of ants present from the start.
         int             ant_nb_curr;    // nb of ants currently present. can only be <= 1 if type is 'c'.
                                         // when equal to base nb, current iteration is the first.
-        char            *name;          // name / registration number for each room.
-    	struct s_room	**paths;        // directory containing all the connections this room possesses with other rooms.
-    	struct s_room	*next;			// may be unnecessary.
+    	// struct s_room	**paths;        // directory containing all the connections this room possesses with other rooms.
+    	int				**matrix;
+		struct s_room	*next;			// may be unnecessary.
 }			        t_room;
+
+typedef struct 			s_link			// structure containing a connection between two rooms.
+{
+		t_room			a;				// first of the two connected rooms
+		t_room			b;				// second of the two connected rooms
+}						t_link;
 
 typedef struct			s_ant   // a means of registrating each ant, and their progress through the maze.
 {
