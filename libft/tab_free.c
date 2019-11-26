@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   tab_free.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2019/11/26 18:53:15 by myener           ###   ########.fr       */
+/*   Created: 2019/11/26 18:54:51 by myener            #+#    #+#             */
+/*   Updated: 2019/11/26 18:56:38 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "libft.h"
 
-int     main(int argc, char **argv)
+void	tab_free(char **tab)
 {
-    t_room  *room_list;
-    t_ant   *ant_list;
-    char    **data;
+	int	i;
 
-    data = get_data(data);
-    return (0);
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	tab ? free(tab) : 0;
 }

@@ -6,7 +6,7 @@
 #    By: myener <myener@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/20 17:52:34 by myener            #+#    #+#              #
-#    Updated: 2019/11/20 18:19:17 by myener           ###   ########.fr        #
+#    Updated: 2019/11/26 18:57:46 by myener           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,6 +96,7 @@ SRCS	=	ft_abs.c 						\
 			ft_strnlen.c 					\
 			ft_uintlen.c 					\
 			get_next_line.c 				\
+			tab_free.c		 				\
 			rounder.c 						\
 			ft_printf/cleaner.c 			\
 			ft_printf/dispatcher.c 			\

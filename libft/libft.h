@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/14 13:57:15 by myener            #+#    #+#             */
-/*   Updated: 2019/11/20 18:19:26 by myener           ###   ########.fr       */
+/*   Updated: 2019/11/26 18:56:52 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ char			*ft_strtrim(const char *s);
 int				ft_tolower(int c);
 int				ft_toupper(int c);
 int				get_next_line(const int fd, char **line);
+void			tab_free(char **tab);
 float			roundit_awayzero(float f);
 float			roundit_towardzero(float f);
 float			roundit_halfeven(float f);
