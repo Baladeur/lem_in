@@ -17,7 +17,7 @@
 **	such room exist.
 */
 
-int	find_room(s_room **farm, char *name)
+int	find_room(t_room **farm, char *name)
 {
 	int i;
 

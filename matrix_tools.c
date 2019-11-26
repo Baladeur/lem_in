@@ -14,23 +14,23 @@
 
 /*
 **	Free the memory of an int** where every allocated int* is found before the
-**	first NULL int*. Will leak if there is a NULL int* in between the allocated
+**	first NULL int*. Will leak if there is a NULL int* in-between the allocated
 **	int*
 */
 
 int	**destroy_matrix(int ***matrix)
 {
 	int i;
-	
+
 	i = 0;
 	while (**matrix + i)
 	{
 		free(**matrix + i);
-		**matrix + i = NULL;
 		i++;
 	}
 	free(*matrix);
 	*matrix = NULL;
+	return (NULL);
 }
 
 /*
@@ -57,4 +57,23 @@ int	**init_matrix(int count)
 	while (i < count)
 		ft_memset(matrix[i], 0, count);
 	return (matrix);
+}
+
+void	print_matrix(int **matrix, int count)
+{
+	int x;
+	int y;
+
+	y = 0;
+	while (y < count)
+	{
+		x = 0;
+		while (x < count)
+		{
+			ft_printf("%d\t", matrix[y][x]);
+			x++;
+		}
+		ft_printf("\n");
+		y++;
+	}
 }
