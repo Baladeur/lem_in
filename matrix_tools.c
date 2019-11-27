@@ -41,6 +41,7 @@ int	**init_matrix(int count)
 {
 	int	**matrix;
 	int i;
+	int j;
 
 	i = 0;
 	matrix = NULL;
@@ -53,9 +54,13 @@ int	**init_matrix(int count)
 			return (destroy_matrix(&matrix));
 		i++;
 	}
-	i = 0;
-	while (i < count)
-		ft_memset(matrix[i], 0, count);
+	j = -1;
+	while (++j < count)
+	{
+		i = -1;
+		while (++i < count)
+			matrix[j][i] = 0;
+	}
 	return (matrix);
 }
 
@@ -70,7 +75,7 @@ void	print_matrix(int **matrix, int count)
 		x = 0;
 		while (x < count)
 		{
-			ft_printf("%d\t", matrix[y][x]);
+			ft_printf("%d ", matrix[y][x]);
 			x++;
 		}
 		ft_printf("\n");

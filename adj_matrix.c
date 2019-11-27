@@ -18,7 +18,7 @@
 **	Link syntax : room1-room2
 */
 
-static int	get_link(char *line, char *rooms, t_room **farm, int count)
+static int	get_link(char *line, char **rooms, t_room **farm, int count)
 {
 	int orig;
 	int dest;
@@ -42,8 +42,8 @@ static int	get_link(char *line, char *rooms, t_room **farm, int count)
 	if (dest < 0 || !(*rooms = (char *)malloc(sizeof(char) * ft_strlen(line))))
 		return (0);
 	ft_strcpy(*rooms, farm[orig]->name);
+	(*rooms)[ft_strlen(farm[orig]->name)] = 0;
 	ft_strcpy(*rooms + ft_strlen(farm[orig]->name) + 1, farm[dest]->name);
-	*rooms[ft_strlen(farm[orig]->name)] = 0;
 	return (1);
 }
 
@@ -70,10 +70,11 @@ int	**adj_matrix(char **data, t_room **farm, int count, int start)
 			id1 = find_room(farm, rooms);
 			id2 = find_room(farm, rooms + ft_strlen(rooms) + 1);
 			matrix[id1][id2] = 1;
-			matrix[id2][id1] = -1;
+			matrix[id2][id1] = 1;
 		}
 		else
 			return (destroy_matrix(&matrix));
+		i++;
 	}
 	return (matrix);
 }
