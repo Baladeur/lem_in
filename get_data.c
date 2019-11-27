@@ -6,15 +6,24 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:20:24 by myener            #+#    #+#             */
-/*   Updated: 2019/11/26 19:54:51 by myener           ###   ########.fr       */
+/*   Updated: 2019/11/27 19:23:48 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	gates_manager(char **data, t_room *info, int ret, int i) // manages the gates' (start and end rooms) info.
+void	gates_manager(char **data, t_room *rooms, int ret, int i) // manages the gates' (start and end rooms) info.
 {
+	int		j;
+	t_info	*info;
 
+	i += 1; // go to the next line to fetch either start or end data.
+	j = 0;
+	if (ret == 2) // if the command is "start", then the following line contains the start room's data.
+	{
+		while[i][j]
+	}
+	else if (ret == 3)
 }
 
 int		hash_line_manager(char **data, int i) // does what is needed for lines starting with #.
