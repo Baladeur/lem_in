@@ -64,6 +64,10 @@ int	**init_matrix(int count)
 	return (matrix);
 }
 
+/*
+**	Displays the matrix of count*count size on standart outpout
+*/
+
 void	print_matrix(int **matrix, int count)
 {
 	int x;
