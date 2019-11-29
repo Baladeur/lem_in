@@ -55,4 +55,11 @@ typedef struct			s_ant   // a means of registrating each ant, and their progress
 
 }						t_ant;
 
+typedef struct			s_path	// Register informations about a path
+{
+	int	*nodes;					// Tab of size room_nb. nodes[i] = 1 if the path goes through the room i, 0 otherwise.
+	int	*edges;					// Order of the rooms (id) the path goes through, ex: 5, 2, 3, 0. 
+	int len;					// Length of the path aka number of rooms the path goes through
+}						t_path;
+
 #endif
