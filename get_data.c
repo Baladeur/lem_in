@@ -6,24 +6,53 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:20:24 by myener            #+#    #+#             */
-/*   Updated: 2019/11/27 19:23:48 by myener           ###   ########.fr       */
+/*   Updated: 2019/11/29 17:44:30 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	gates_manager(char **data, t_room *rooms, int ret, int i) // manages the gates' (start and end rooms) info.
+int		parsing_error(char **data)
+{
+	tab_free(data);
+	ft_putendl("ERROR");
+	return (0);
+}
+
+void	room_parser(char *line)
+{
+	
+}
+
+int		room_or_path(char *line)
+{
+	int 	i;
+	char	*first_elem;
+
+	i = 0; // first let's start by checking whether it's a room or path.
+	while (/*line[i] && */line[i] != ' ' && line[i] != '-') // let's parse the first element of the string.
+		i++;
+	first_elem = ft_strsub(line, 0, i);
+	if (line[i + 1] == ' ') // if the next element is a space, then it's a room
+		return (1);
+	else if (line[i + 1] == '-') // if it's a hyphen, then it's a path
+		return (2);
+	return (0); // else it's an error.
+}
+
+void	gates_manager(char **data, t_info *info, int ret, int i) // manages the gates' (start and end rooms) info.
 {
 	int		j;
 	t_info	*info;
 
 	i += 1; // go to the next line to fetch either start or end data.
 	j = 0;
-	if (ret == 2) // if the command is "start", then the following line contains the start room's data.
-	{
-		while[i][j]
-	}
-	else if (ret == 3)
+	if ((ret == 2 && info->s_enc) || (ret == 3 && info->e_enc)) // if this is the second start or end, error.
+		parsing_error(data);
+	if (info->s_enc = (ret == 2)) // if the command is "start", then the line contains the start room's data.
+		info->start_nb = i; // marks the line of the start name and coordinates.
+	else if (info->e_enc = (ret == 3))
+		info->end_nb = i; // marks the line of the start name and coordinates.
 }
 
 int		hash_line_manager(char **data, int i) // does what is needed for lines starting with #.
@@ -61,25 +90,26 @@ int     get_counts(char **data, t_room *rooms) // parses the given data to get v
 	t_info	info;
 
 	if ((ant_nb = ft_atoi(data[0])) <= 0) // if the number of ants is equal to 0 or negative, we stop.
-	{
-		tab_free(data);
-		ft_putendl("ERROR");
-		return (0);
-	}
+		parsing_error(data);
 	info.ant_nb = ant_nb;
     i = 1; // data[0] has already been treated above, now we can proceed to parse the rest.
+    j = 0;
     while (data[i])
     {
-        j = 0;
-		if (data[i][0] == '#')
-			ret = hash_line_manager(data, i); // this function will increment i to ignore the current line if it is deemed necessary.
-        ((ret == 2) || (ret == 3)) ? gates_manager(data, &info, ret, i) : 0; // if ret is 2 or 3, it means start or end was encountered
-		i += (ret == 1) ? 1 : 0;
-		while (data[i][j])
-        {
-            j++;
-        }
-        i++;
+		if (data[i][0] == 'L') // lines can't start with L. If they do, output error.
+			parsing_error(data);
+		else if (data[i][0] == '#') // if it starts with #, it might be a comment or a command:
+		{
+			ret = hash_line_manager(data, i); // this function will increment i to ignore the current line if necessary.
+        	((ret == 2) || (ret == 3)) ? gates_manager(data, &info, ret, i) : 0; // if ret is 2 or 3, it means start or end was encountered
+			i += (ret == 1) ? 1 : 0;
+		}
+		else if ((data[i][0] >= 33 && data[i][0] <= 126)) // if it starts with a letter, number or special character, it might be a room or a path:
+			if ((ret = room_or_path(data[i])) == 0)
+		   		parsing_error(data);
+			(ret == 1) ? room_parser(data[i]) : path_parser(data[i]);
+
+		i++;
     }
     return (0);
 }
