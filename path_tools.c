@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 15:32:18 by tferrieu          #+#    #+#             */
-/*   Updated: 2019/12/02 20:27:44 by tferrieu         ###   ########.fr       */
+/*   Updated: 2019/12/02 20:47:24 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ t_paths	*new_paths(t_path *path, int count)
 t_paths	*add_path(t_paths *paths, t_path *path, int count)
 {
 	t_paths	*new;
-	int i;
+	int		i;
 
 	if (!path || !paths || !(new = (t_paths *)malloc(sizeof(t_paths))))
 		return (NULL);
@@ -111,25 +111,3 @@ t_paths	*add_path(t_paths *paths, t_path *path, int count)
 	paths->next = new;
 	return (paths);
 }
-
-/*
-void			print_path(t_path *path, int count)
-{
-	int i;
-
-	if (!path)
-	{
-		ft_printf("Error\n");
-		return ;
-	}
-	ft_printf("Edges |");
-	i = -1;
-	while (++i < count && path->edges[i] >= 0)
-		ft_printf(" %d", path->edges[i]);
-	ft_printf("\nNodes |");
-	i = -1;
-	while (++i < count)
-		ft_printf(" %d", path->nodes[i]);
-	ft_printf("\n\nPath length :\t%d\n", path->len);
-}
-*/

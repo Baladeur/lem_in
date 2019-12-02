@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    TODO.txt                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: myener <myener@student.42.fr>              +#+  +:+       +#+         #
+#    By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/26 16:30:35 by myener            #+#    #+#              #
-#    Updated: 2019/11/26 16:39:36 by myener           ###   ########.fr        #
+#    Updated: 2019/12/02 21:26:06 by tferrieu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,3 +22,9 @@ Theo:
 
 -
 
+03.11.2019
+
+Theo :
+- re-arranger le parsing des liens pour matcher le nouveau format de data (liste chainees)
+- tester le fonctionnement de path_tools
+- Finir (commencer) path_selector
