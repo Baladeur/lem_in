@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2019/11/26 19:39:37 by myener           ###   ########.fr       */
+/*   Updated: 2019/12/02 16:14:45 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,7 @@ typedef struct			s_paths	// An ensemble of paths that are compatible with each o
 	int		*nodes;				// Tab of size room_nb. nodes[i] = 1 if one of the paths goes through the room i, 0 otherwise.
 	t_path	*paths;				// A table containing all of the ensemble's path;
 }						t_paths;
+
+t_room			*room_node_malloc(t_room *node);
 
 #endif
