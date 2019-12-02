@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:20:24 by myener            #+#    #+#             */
-/*   Updated: 2019/12/02 16:14:48 by myener           ###   ########.fr       */
+/*   Updated: 2019/12/02 17:38:08 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,9 @@ void	room_parser(char *line, t_room *room_list)
 	name = NULL;
 	coord_x = NULL;
 	coord_y = NULL;
-	while (line[i] && line[i] != ' ' && line[i] != '-') // let's parse the first element of the string.
+	while (line[i] && line[i] != ' ' && line[i] != '-') // let's grab the first element of the string.
 		i++;
 	name = ft_strsub(line, 0, i);
-	
-
 }
 
 int		room_or_path(char *line)
@@ -92,7 +90,7 @@ int		hash_line_manager(char **data, int i) // does what is needed for lines star
 	return (0);
 }
 
-void     get_counts(char **data, t_room *room_list) // parses the given data to get various info.
+void     parser(char **data, t_room *room_list) // parses the given data to get various info.
 {
     int     i;
     int     j;
@@ -113,7 +111,7 @@ void     get_counts(char **data, t_room *room_list) // parses the given data to 
 		{
 			ret = hash_line_manager(data, i); // this function will increment i to ignore the current line if necessary.
         	((ret == 2) || (ret == 3)) ? gates_manager(data, &info, ret, i) : 0; // if ret is 2 or 3, it means start or end was encountered
-			i += (ret == 1) ? 1 : 0;
+			i += (ret == 1) ? 1 : 2; // if it's a comment, we just ignore it, if it's a command we also ignore the next line, which has been recorded.
 		}
 		else if ((data[i][0] >= 33 && data[i][0] <= 126)) // if it starts with a letter, number or special character, it might be a room or a path:
 		{

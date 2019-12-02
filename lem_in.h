@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2019/12/02 16:14:45 by myener           ###   ########.fr       */
+/*   Updated: 2019/12/02 17:38:21 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct			s_room  // for start room, end room, and classic in-between roo
     	// struct s_room	**paths;        // directory containing all the connections this room possesses with other rooms.
     	int				**matrix;
 		struct s_room	*next;			// may be unnecessary.
+		struct s_room	*prev;			// may be unnecessary.
 }			        	t_room;
 
 typedef struct			s_ant   // a means of registrating each ant, and their progress through the maze.
@@ -58,7 +59,7 @@ typedef struct			s_ant   // a means of registrating each ant, and their progress
 typedef struct			s_path	// Register informations about a path
 {
 	int	*nodes;					// Tab of size room_nb. nodes[i] = 1 if the path goes through the room i, 0 otherwise.
-	int	*edges;					// Order of the rooms (id) the path goes through, ex: 5, 2, 3, 0. 
+	int	*edges;					// Order of the rooms (id) the path goes through, ex: 5, 2, 3, 0.
 	int len;					// Length of the path aka number of rooms the path goes through
 }						t_path;
 
@@ -69,5 +70,7 @@ typedef struct			s_paths	// An ensemble of paths that are compatible with each o
 }						t_paths;
 
 t_room			*room_node_malloc(t_room *node);
+char			**get_data(char **data);
+void     		parser(char **data, t_room *room_list);
 
 #endif

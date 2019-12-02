@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2019/12/02 16:15:08 by myener           ###   ########.fr       */
+/*   Updated: 2019/12/02 17:38:18 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ int     main(int argc, char **argv)
 
     room_list = NULL;
     data = get_data(data);
-    get_counts(data, room_list);
+    parser(data, room_list);
     return (0);
 }
