@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:20:24 by myener            #+#    #+#             */
-/*   Updated: 2019/12/02 17:38:08 by myener           ###   ########.fr       */
+/*   Updated: 2019/12/02 18:54:53 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,26 @@ int		parsing_error(char **data)
 void	room_parser(char *line, t_room *room_list)
 {
 	int	i;
-	char	*name;
-	char	*coord_x;
-	char	*coord_y;
+	int	start;
 
 	i = 0;
-	name = NULL;
-	coord_x = NULL;
-	coord_y = NULL;
-	while (line[i] && line[i] != ' ' && line[i] != '-') // let's grab the first element of the string.
+	while(room_list && room_list->name) // goes to the last element of the list, if it's not the first node.
+		room_list = room_list->next;
+	room_list = room_node_malloc(room_list); // malloc and initializes the new node.
+	while (line[i] && line[i] != ' ') // let's grab the first element of the string (room name).
 		i++;
-	name = ft_strsub(line, 0, i);
+	room_list->id = room_list->prev ? room_list->prev->id + 1 : 1;
+	room_list->name = ft_strsub(line, 0, i);
+	i++; // jumps over the ' '
+	start = i;
+	while (line[i] && line[i] != ' ') // let's grab the second element of the string (coord x).
+		i++;
+	room_list->x = ft_atoi(ft_strsub(line, start, i));
+	i++; // jumps over the ' '
+	start = i;
+	while (line[i] && line[i] != ' ') // let's grab the last element of the string (coord y).
+		i++;
+	room_list->y = ft_atoi(ft_strsub(line, start, i));
 }
 
 int		room_or_path(char *line)
