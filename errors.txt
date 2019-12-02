@@ -1,0 +1,2 @@
+- if we encounter the same room name twice
+- if the room's coordinates aren't positive integers
