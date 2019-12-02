@@ -65,7 +65,7 @@ typedef struct			s_path	// Register informations about a path
 typedef struct			s_paths	// An ensemble of paths that are compatible with each other
 {
 	int		*nodes;				// Tab of size room_nb. nodes[i] = 1 if one of the paths goes through the room i, 0 otherwise.
-	t_path	*paths;				// A table containing all of the ensemble;
+	t_path	*paths;				// A table containing all of the ensemble's path;
 }						t_paths;
 
 #endif
