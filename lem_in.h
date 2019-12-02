@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2019/12/02 17:38:21 by myener           ###   ########.fr       */
+/*   Updated: 2019/12/02 17:40:20 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,12 @@ typedef struct			s_path	// Register informations about a path
 	int len;					// Length of the path aka number of rooms the path goes through
 }						t_path;
 
-typedef struct			s_paths	// An ensemble of paths that are compatible with each other
+typedef struct			s_paths	// A group of paths that are compatible with each other (chained list)
 {
-	int		*nodes;				// Tab of size room_nb. nodes[i] = 1 if one of the paths goes through the room i, 0 otherwise.
-	t_path	*paths;				// A table containing all of the ensemble's path;
+	int		*nodes;				// nodes[i] = 1 if one of the group's path goes through the room i, 0 otherwise.
+	int		*count;				// Number of paths in the group.
+	t_path	*path;				// Group's current path.
+	t_paths	*next;				// Group's next path.
 }						t_paths;
 
 t_room			*room_node_malloc(t_room *node);
