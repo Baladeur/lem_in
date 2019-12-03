@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2019/12/03 18:01:46 by myener           ###   ########.fr       */
+/*   Updated: 2019/12/03 18:32:18 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ typedef struct			s_ant   // a means of registrating each ant, and their progress
 {
 	int             ant_id;         // registration number for each ant, going from 1 to the max number of ants.
 	char	        *position;      // room they are located in currently. can be equal to any *name in t_gate or t_room.
-	struct s_pslist	*next;
-	struct s_pslist	*prev;          // may be unnecessary.
+	struct s_ant	*next;
+	struct s_ant	*prev;          // may be unnecessary.
 
 }						t_ant;
 
@@ -65,14 +65,20 @@ typedef struct			s_path	// Register informations about a path
 
 typedef struct			s_paths	// A group of paths that are compatible with each other (chained list)
 {
-	int		*nodes;				// nodes[i] = 1 if one of the group's path goes through the room i, 0 otherwise.
-	int		*count;				// Number of paths in the group.
-	t_path	*path;				// Group's current path.
-	t_paths	*next;				// Group's next path.
+	int				*nodes;				// nodes[i] = 1 if one of the group's path goes through the room i, 0 otherwise.
+	int				*count;				// Number of paths in the group.
+	t_path			*path;				// Group's current path.
+	struct s_paths	*next;				// Group's next path.
 }						t_paths;
 
 t_room			*room_malloc(t_room *node);
 char			**get_data(char **data);
-void     		parser(char **data, t_room *room_list, t_ant *ant_list);
+void     		lem_in_parser(char **data, t_room *room_list, t_ant *ant_list);
+
+int				**init_matrix(int count);
+int				**destroy_matrix(int ***matrix);
+void			print_matrix(int **matrix, int count);
+int				**adj_matrix(char **data, t_room *farm, int count, int start);
+t_room			*find_room(t_room *farm, char *name);
 
 #endif
