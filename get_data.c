@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:20:24 by myener            #+#    #+#             */
-/*   Updated: 2019/12/02 18:54:53 by myener           ###   ########.fr       */
+/*   Updated: 2019/12/03 13:48:55 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,9 +124,9 @@ void     parser(char **data, t_room *room_list) // parses the given data to get 
 		}
 		else if ((data[i][0] >= 33 && data[i][0] <= 126)) // if it starts with a letter, number or special character, it might be a room or a path:
 		{
-			if ((ret = room_or_path(data[i])) == 0)
+			if ((ret = room_or_path(data[i])) == 0) // if the format doesn't match a room or path, it' an error.
 		   		parsing_error(data);
-			(ret == 1) ? room_parser(data[i], room_list) : path_parser(data[i]);
+			(ret == 1) ? room_parser(data[i], room_list) : path_parser(data[i]); // if it's valid, parse accordingly.
 		}
 		i++;
     }

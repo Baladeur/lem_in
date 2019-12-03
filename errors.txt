@@ -1,2 +1,4 @@
 - if we encounter the same room name twice
+- if no start and/or no end were encuntered when parsing is finished
 - if the room's coordinates aren't positive integers
+- if the room's id, name, or coordinates are incomplete (ex: one of them is 0)
