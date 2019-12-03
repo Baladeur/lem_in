@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:20:24 by myener            #+#    #+#             */
-/*   Updated: 2019/12/03 18:21:28 by myener           ###   ########.fr       */
+/*   Updated: 2019/12/03 18:31:52 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,6 @@ int		parsing_error(char **data)
 	tab_free(data);
 	ft_putendl("ERROR");
 	return (0);
-}
-
-void	room_add_start_end(t_room *head)
-{
-	t_room *tmp;
-	t_room *curr;
-
-	curr = head;
-	tmp = curr;
-	curr->prev = room_malloc(curr);
-	curr = curr->prev;
-	curr->next = tmp;
-
-
 }
 
 t_ant	*ant_parser(t_ant *ant_list, int ant_nb)
@@ -57,10 +43,35 @@ t_ant	*ant_parser(t_ant *ant_list, int ant_nb)
 	return (head);
 }
 
+void	room_add_start_end(char **data, t_room *head, t_info *info)
+{
+	t_room	*tmp;
+	t_room	*curr;
+
+	curr = head; // first let's malloc a new head node and initialize the start room.
+	tmp = curr;
+	curr->prev = room_malloc(curr);
+	curr = curr->prev;
+	curr->next = tmp;
+	room_parser_stocker(data[info->start_nb], curr);
+	curr->id = 0;
+	curr->type = 's';
+	head = curr;
+	while (curr && curr->next) // now let's malloc and initialize the last (end) room.
+		curr = curr->next;
+	tmp = curr;
+	curr->next = room_malloc(curr->next);
+	curr = curr->next;
+	curr->prev = tmp;
+	curr->next = NULL;
+	room_parser_stocker(data[info->end_nb], curr);
+	curr->type = 'e';
+}
+
 void	room_parser_stocker(char *line, t_room *room_list) // stocks individual room nodes with data.
 {
-	int	i;
-	int	start;
+	int		i;
+	int		start;
 
 	i = 0;
 	while (line[i] && line[i] != ' ') // let's grab the first element of the string (room name).
@@ -189,7 +200,7 @@ void     lem_in_parser(char **data, t_room *room_list, t_ant *ant_list) // parse
 		}
 		i++;
     }
-	room_add_start_end(room_list);
+	room_add_start_end(data, room_list, &info);
 }
 
 char		**get_data(char **data) // get data from standard input using GNL.
