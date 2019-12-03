@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2019/12/02 17:40:20 by tferrieu         ###   ########.fr       */
+/*   Updated: 2019/12/03 18:01:46 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct			s_room  // for start room, end room, and classic in-between roo
 
 typedef struct			s_ant   // a means of registrating each ant, and their progress through the maze.
 {
-	int             ant_nb;         // registration number for each ant, going from 1 to the max number of ants.
+	int             ant_id;         // registration number for each ant, going from 1 to the max number of ants.
 	char	        *position;      // room they are located in currently. can be equal to any *name in t_gate or t_room.
 	struct s_pslist	*next;
 	struct s_pslist	*prev;          // may be unnecessary.
@@ -71,8 +71,8 @@ typedef struct			s_paths	// A group of paths that are compatible with each other
 	t_paths	*next;				// Group's next path.
 }						t_paths;
 
-t_room			*room_node_malloc(t_room *node);
+t_room			*room_malloc(t_room *node);
 char			**get_data(char **data);
-void     		parser(char **data, t_room *room_list);
+void     		parser(char **data, t_room *room_list, t_ant *ant_list);
 
 #endif

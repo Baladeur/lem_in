@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:20:24 by myener            #+#    #+#             */
-/*   Updated: 2019/12/03 13:48:55 by myener           ###   ########.fr       */
+/*   Updated: 2019/12/03 18:21:28 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,50 @@ int		parsing_error(char **data)
 	return (0);
 }
 
-void	room_parser(char *line, t_room *room_list)
+void	room_add_start_end(t_room *head)
+{
+	t_room *tmp;
+	t_room *curr;
+
+	curr = head;
+	tmp = curr;
+	curr->prev = room_malloc(curr);
+	curr = curr->prev;
+	curr->next = tmp;
+
+
+}
+
+t_ant	*ant_parser(t_ant *ant_list, int ant_nb)
+{
+	int		i;
+	t_ant	*tmp;
+	t_ant	*head;
+
+	ant_list = ant_malloc(ant_list); // malloc first node.
+	tmp = ant_list;
+	head = ant_list;
+	ant_list->ant_id = 1; // give id to first node.
+	i = 2;
+	while (i <= ant_nb)
+	{
+		ant_list->next = ant_malloc(ant_list->next);
+		ant_list = ant_list->next;
+		ant_list->prev = tmp;
+		tmp = ant_list;
+		ant_list->ant_id = i;
+		i++;
+	}
+	ant_list->next = NULL;
+	return (head);
+}
+
+void	room_parser_stocker(char *line, t_room *room_list) // stocks individual room nodes with data.
 {
 	int	i;
 	int	start;
 
 	i = 0;
-	while(room_list && room_list->name) // goes to the last element of the list, if it's not the first node.
-		room_list = room_list->next;
-	room_list = room_node_malloc(room_list); // malloc and initializes the new node.
 	while (line[i] && line[i] != ' ') // let's grab the first element of the string (room name).
 		i++;
 	room_list->id = room_list->prev ? room_list->prev->id + 1 : 1;
@@ -44,6 +79,32 @@ void	room_parser(char *line, t_room *room_list)
 	room_list->y = ft_atoi(ft_strsub(line, start, i));
 }
 
+t_room	*room_parser(char *line, t_room *head) // parses every classic room data.
+{
+	t_room	*tmp;
+	t_room	*room_list;
+
+	room_list = head; // first we keep track of the head, as we will need to return it.
+	if (!room_list) // if this is the first node, initialize accordingly.
+	{
+		room_list = room_malloc(room_list); // malloc and initializes the new node.
+		room_list->prev = NULL; // initializes the first node's prev, aka NULL.
+		room_list->next = NULL;// initializes the first node's next, aka NULL.
+	}
+	else if (room_list && room_list->name) // else if there's already at least one node, fill the next one.
+	{
+		while (room_list && room_list->name && room_list->next) // goes to the last element of the list.
+			room_list = room_list->next;
+		tmp = room_list; // stocks the last known node, which will be NULL if no node is already present.
+		room_list->next = room_malloc(room_list->next); // malloc and initializes the new node.
+		room_list = room_list->next; // goes to the new node;
+		room_list->prev = tmp; // initializes the new last node's prev, aka the old last node.
+		room_list->next = NULL;// initializes the new last node's next, aka NULL.
+	}
+	room_parser_stocker(line, room_list);
+	return (head);
+}
+
 int		room_or_path(char *line)
 {
 	int 	i;
@@ -53,7 +114,7 @@ int		room_or_path(char *line)
 		i++;
 	if (line[i + 1] == ' ') // if the next element is a space, then it's a room
 		return (1);
-	else if (line[i + 1] == '-') // if it's a hyphen, then it's a path
+	else if (line[i + 1] == '-') // if it's a hyphen, then it's a path, so ignore.
 		return (2);
 	return (0); // else it's an error.
 }
@@ -99,10 +160,9 @@ int		hash_line_manager(char **data, int i) // does what is needed for lines star
 	return (0);
 }
 
-void     parser(char **data, t_room *room_list) // parses the given data to get various info.
+void     lem_in_parser(char **data, t_room *room_list, t_ant *ant_list) // parses the given data to get various info.
 {
     int     i;
-    int     j;
 	int		ret;
 	int		ant_nb;
 	t_info	info;
@@ -110,8 +170,8 @@ void     parser(char **data, t_room *room_list) // parses the given data to get 
 	if ((ant_nb = ft_atoi(data[0])) <= 0) // if the number of ants is equal to 0 or negative, we stop.
 		parsing_error(data);
 	info.ant_nb = ant_nb;
+	ant_list = ant_parser(ant_list, ant_nb);
     i = 1; // data[0] has already been treated above, now we can proceed to parse the rest.
-    j = 0;
     while (data[i])
     {
 		if (data[i][0] == 'L') // lines can't start with L. If they do, output error.
@@ -124,13 +184,12 @@ void     parser(char **data, t_room *room_list) // parses the given data to get 
 		}
 		else if ((data[i][0] >= 33 && data[i][0] <= 126)) // if it starts with a letter, number or special character, it might be a room or a path:
 		{
-			if ((ret = room_or_path(data[i])) == 0) // if the format doesn't match a room or path, it' an error.
-		   		parsing_error(data);
-			(ret == 1) ? room_parser(data[i], room_list) : path_parser(data[i]); // if it's valid, parse accordingly.
+			(ret = (room_or_path(data[i])) == 0) ? parsing_error(data) : 0;
+			room_list = (ret == 1) ? room_parser(data[i], room_list) : room_list;
 		}
 		i++;
     }
-    return ;
+	room_add_start_end(room_list);
 }
 
 char		**get_data(char **data) // get data from standard input using GNL.

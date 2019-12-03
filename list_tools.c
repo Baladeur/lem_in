@@ -6,14 +6,35 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:58:11 by myener            #+#    #+#             */
-/*   Updated: 2019/12/02 17:38:20 by myener           ###   ########.fr       */
+/*   Updated: 2019/12/03 16:01:09 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
+t_ant			*ant_malloc(t_ant *node)
+{
+	if (!(node = malloc(sizeof(t_ant))))
+		return (NULL);
+	node->position = NULL;
+	node->next = NULL;
+	return (node);
+}
 
-t_room			*room_node_malloc(t_room *node)
+void			ant_free(t_ant *head)
+{
+	t_ant	*tmp;
+
+	while (head != NULL)
+	{
+		tmp = head;
+		head = head->next;
+		free(tmp);
+	}
+}
+
+
+t_room			*room_malloc(t_room *node)
 {
 	if (!(node = malloc(sizeof(t_room))))
 		return (NULL);
@@ -28,7 +49,7 @@ t_room			*room_node_malloc(t_room *node)
 	return (node);
 }
 
-void			list_free(t_room *head)
+void			room_free(t_room *head)
 {
 	t_room	*tmp;
 
