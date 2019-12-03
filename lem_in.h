@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2019/12/03 18:32:18 by tferrieu         ###   ########.fr       */
+/*   Updated: 2019/12/03 20:39:43 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,15 @@ int				**init_matrix(int count);
 int				**destroy_matrix(int ***matrix);
 void			print_matrix(int **matrix, int count);
 int				**adj_matrix(char **data, t_room *farm, int count, int start);
+
 t_room			*find_room(t_room *farm, char *name);
+
+t_path			*new_path(int *edges, int count);
+t_paths			*new_paths(t_path *path, int count);
+t_paths			*add_path(t_paths *paths, t_path *path, int count);
+t_path			*destroy_path(t_path **path);
+t_paths			*destroy_paths(t_paths **paths);
+void			print_path(t_path *path, int count);
+void			print_paths(t_paths *paths, int count);
 
 #endif

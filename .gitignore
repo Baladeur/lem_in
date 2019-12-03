@@ -4,3 +4,4 @@ testmain.h
 libft.a
 a.out
 tester
+path_test.c
