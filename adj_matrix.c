@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   adj_matrix.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:10:44 by tferrieu          #+#    #+#             */
-/*   Updated: 2019/11/26 18:10:45 by tferrieu         ###   ########.fr       */
+/*   Updated: 2019/12/03 19:04:37 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,32 +18,32 @@
 **	Link syntax : room1-room2
 */
 
-static int	get_link(char *line, char **rooms, t_room **farm, int count)
+static int	get_link(char *line, char **rooms, t_room *farm)
 {
-	int orig;
-	int dest;
-	int curr;
-	int len;
-	int id;
+	t_room	*curr;
+	t_room	*orig;
+	t_room	*dest;
+	t_room	*curr2;
+	int		len;
 
-	curr = 0;
-	dest = -1;
-	while (curr < count)
+	curr = farm;
+	dest = NULL;
+	orig = NULL;
+	while (curr)
 	{
-		len = ft_strlen(farm[curr]->name);
-		id = find_room(farm, line + len + 1);
-		if (ft_strstr(line, farm[curr]->name) == line && line[len] == '-'	//	Check if the current room name match the first part of the link and is followed by '-'
-			&& id > -1 && id != curr && (dest == -1							//	Check if the second part of the link is an existing room different from the current one
-			|| ft_strlen(farm[curr]->name) > ft_strlen(farm[orig]->name))	//	Check if the link has priority over the previously stored one : longer room1 name.
-			&& (dest = id) >= 0)
+		len = ft_strlen(curr->name);
+		curr2 = find_room(farm, line + len + 1);
+		if (ft_strstr(line, curr->name) == line && line[len] == '-' && curr2
+			&& curr2 != curr && (!dest || len > ft_strlen(orig->name)) &&
+			(dest = curr2))
 			orig = curr;
-		curr++;
+		curr = curr->next;
 	}
-	if (dest < 0 || !(*rooms = (char *)malloc(sizeof(char) * ft_strlen(line))))
+	if (!dest || !(*rooms = (char *)malloc(sizeof(char) * ft_strlen(line))))
 		return (0);
-	ft_strcpy(*rooms, farm[orig]->name);
-	(*rooms)[ft_strlen(farm[orig]->name)] = 0;
-	ft_strcpy(*rooms + ft_strlen(farm[orig]->name) + 1, farm[dest]->name);
+	ft_strcpy(*rooms, orig->name);
+	(*rooms)[ft_strlen(orig->name)] = 0;
+	ft_strcpy(*rooms + ft_strlen(orig->name) + 1, dest->name);
 	return (1);
 }
 
@@ -52,7 +52,7 @@ static int	get_link(char *line, char **rooms, t_room **farm, int count)
 **	data isn't valid.
 */
 
-int	**adj_matrix(char **data, t_room **farm, int count, int start)
+int			**adj_matrix(char **data, t_room *farm, int count, int start)
 {
 	char	*rooms;
 	int		**matrix;
@@ -65,10 +65,10 @@ int	**adj_matrix(char **data, t_room **farm, int count, int start)
 	i = start;
 	while (data[i])
 	{
-		if (get_link(data[i], &rooms, farm, count))
+		if (get_link(data[i], &rooms, farm))
 		{
-			id1 = find_room(farm, rooms);
-			id2 = find_room(farm, rooms + ft_strlen(rooms) + 1);
+			id1 = find_room(farm, rooms)->id;
+			id2 = find_room(farm, rooms + ft_strlen(rooms) + 1)->id;
 			matrix[id1][id2] = 1;
 			matrix[id2][id1] = 1;
 		}

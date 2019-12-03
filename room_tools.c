@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:44:24 by tferrieu          #+#    #+#             */
-/*   Updated: 2019/12/02 20:45:41 by tferrieu         ###   ########.fr       */
+/*   Updated: 2019/12/03 19:04:12 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,15 @@
 **	such room exist.
 */
 
-int	find_room(t_room **farm, char *name)
+t_room	*find_room(t_room *farm, char *name)
 {
-	int i;
-
-	i = 0;
-	while (farm[i])
+	t_room	*curr;
+	curr = farm;
+	while (curr)
 	{
-		if (!(ft_strcmp(farm[i]->name, name)))
-			return (i);
-		i++;
+		if (!(ft_strcmp(curr->name, name)))
+			return (curr);
+		curr = curr->next;
 	}
-	return (-1);
+	return (NULL);
 }

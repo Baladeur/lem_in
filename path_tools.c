@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 15:32:18 by tferrieu          #+#    #+#             */
-/*   Updated: 2019/12/02 20:47:24 by tferrieu         ###   ########.fr       */
+/*   Updated: 2019/12/03 18:57:20 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ t_path	*destroy_path(t_path **path)
 
 t_path	*destroy_paths(t_paths **paths)
 {
-	t_path *current;
-	t_path *tmp;
+	t_paths *current;
+	t_paths *tmp;
 
 	if (!paths || !(*paths))
 		return (NULL);
