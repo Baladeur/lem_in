@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2019/12/03 20:39:43 by tferrieu         ###   ########.fr       */
+/*   Updated: 2019/12/04 16:05:05 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define MAX_INT 2147483647
 # define MIN_INT -2147483648
 # include <errno.h>
+# include <fcntl.h>
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -41,7 +42,6 @@ typedef struct			s_room  // for start room, end room, and classic in-between roo
         char            type;           // 's' if start room, 'e' if end room, 'c' if classic room.
         int             ant_nb_curr;    // nb of ants currently present. can only be <= 1 if type is 'c'.
                                         // when equal to base nb, current iteration is the first.
-    	// struct s_room	**paths;        // directory containing all the connections this room possesses with other rooms.
     	int				**matrix;
 		struct s_room	*next;			// may be unnecessary.
 		struct s_room	*prev;			// may be unnecessary.
@@ -49,8 +49,8 @@ typedef struct			s_room  // for start room, end room, and classic in-between roo
 
 typedef struct			s_ant   // a means of registrating each ant, and their progress through the maze.
 {
-	int             ant_id;         // registration number for each ant, going from 1 to the max number of ants.
-	char	        *position;      // room they are located in currently. can be equal to any *name in t_gate or t_room.
+	int             id;         // registration number for each ant, going from 1 to the max number of ants.
+	int		        position;      	// room id they are located in currently. can be equal to any *name in t_gate or t_room.
 	struct s_ant	*next;
 	struct s_ant	*prev;          // may be unnecessary.
 
@@ -72,8 +72,9 @@ typedef struct			s_paths	// A group of paths that are compatible with each other
 }						t_paths;
 
 t_room			*room_malloc(t_room *node);
-char			**get_data(char **data);
-void     		lem_in_parser(char **data, t_room *room_list, t_ant *ant_list);
+t_ant			*ant_malloc(t_ant *node);
+char			**get_data(char **av, char **data);
+t_ant     		*lem_in_parser(char **data, t_room *room_list, t_ant *ant_list);
 
 int				**init_matrix(int count);
 int				**destroy_matrix(int ***matrix);

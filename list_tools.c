@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:58:11 by myener            #+#    #+#             */
-/*   Updated: 2019/12/03 16:01:09 by myener           ###   ########.fr       */
+/*   Updated: 2019/12/04 14:31:13 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_ant			*ant_malloc(t_ant *node)
 {
 	if (!(node = malloc(sizeof(t_ant))))
 		return (NULL);
-	node->position = NULL;
+	node->position = 0;
 	node->next = NULL;
 	return (node);
 }
