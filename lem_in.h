@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2019/12/04 16:05:05 by myener           ###   ########.fr       */
+/*   Updated: 2019/12/08 21:22:15 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,38 +23,29 @@
 # include <unistd.h>
 # include "libft/libft.h"
 
+typedef struct			s_room  // for start room, end room, and classic in-between rooms.
+{
+		int				id;				// integer identifying the room.
+		int				x;				// position of the room (easting).
+		int				y;				// position of the room (northing).
+        char            *name;          // name of the room.
+        char            type;           // 's' if start room, 'e' if end room, 'c' if classic room.
+        int             ant_nb_curr;    // nb of ants currently present. can only be <= 1 if type is 'c'.
+                                        // when equal to base nb, current iteration is the first.
+}			        	t_room;
+
 typedef struct			s_info // useful information that may bee needed regularly.
 {
 	int		room_nb; 		// the number of rooms.
 	int		ant_nb;			// the total number of ants.
+	int		*ant_position;	// a tab containing all the ants numbered (ant 1 is in pos 0, and so on) + their position (room id).
 	int		start_nb; 		// line number of start room coordinates, from input data array.
 	int		end_nb; 		// line number of the end room.
 	bool	s_enc;			// true if start is encountered, false if not.
 	bool	e_enc;			// true if end is encountered, false if not.
+    int		**matrix;		// the adjacency matrix
+	t_room	*room_tab;		// array of structures containing all rooms.
 }						t_info;
-
-typedef struct			s_room  // for start room, end room, and classic in-between rooms.
-{
-		int				id;				// integer identifying the room.
-        char            *name;          // name of the room.
-		int				x;				// position of the room (easting).
-		int				y;				// position of the room (northing).
-        char            type;           // 's' if start room, 'e' if end room, 'c' if classic room.
-        int             ant_nb_curr;    // nb of ants currently present. can only be <= 1 if type is 'c'.
-                                        // when equal to base nb, current iteration is the first.
-    	int				**matrix;
-		struct s_room	*next;			// may be unnecessary.
-		struct s_room	*prev;			// may be unnecessary.
-}			        	t_room;
-
-typedef struct			s_ant   // a means of registrating each ant, and their progress through the maze.
-{
-	int             id;         // registration number for each ant, going from 1 to the max number of ants.
-	int		        position;      	// room id they are located in currently. can be equal to any *name in t_gate or t_room.
-	struct s_ant	*next;
-	struct s_ant	*prev;          // may be unnecessary.
-
-}						t_ant;
 
 typedef struct			s_path	// Register informations about a path
 {
@@ -71,10 +62,14 @@ typedef struct			s_paths	// A group of paths that are compatible with each other
 	struct s_paths	*next;				// Group's next path.
 }						t_paths;
 
-t_room			*room_malloc(t_room *node);
-t_ant			*ant_malloc(t_ant *node);
-char			**get_data(char **av, char **data);
-t_ant     		*lem_in_parser(char **data, t_room *room_list, t_ant *ant_list);
+void			free_struct_array(t_info *info);
+char			**get_map(char **av, char **data);
+void			info_init(t_info *info);
+void     		lem_in_parser(char **map, t_info *info);
+int				parsing_error(char **map);
+int				room_counter(char **map);
+void			room_init(t_room *room);
+
 
 int				**init_matrix(int count);
 int				**destroy_matrix(int ***matrix);

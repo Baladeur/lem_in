@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2019/12/04 16:23:51 by myener           ###   ########.fr       */
+/*   Updated: 2019/12/08 21:21:00 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char		**append_return(char **in)
 	return (in);
 }
 
-char		**get_data(char **av, char **data) // get data from standard input using GNL.
+char		**get_map(char **av, char **map) // get map from standard input using GNL.
 {
 	int		i;
     int     fd;
@@ -56,43 +56,33 @@ char		**get_data(char **av, char **data) // get data from standard input using G
 		(stock[i] == '\n' && stock[i + 1] == '\n') ? ft_putendl("ERROR") : 0;
 		i++;
 	}
-	data = ft_strsplit(stock, '\n');
-	data = append_return(data);
+	map = ft_strsplit(stock, '\n');
+	map = append_return(map);
 	ft_strdel(&stock);
-	return (data);
+	return (map);
 }
 
 int     main(int ac, char **av) // testing main for parsing
 {
-    // int     i;
-    t_room  *room;
-    t_ant   ant;
-    t_ant   *ant_prt;
-    char    **data;
+	t_info	info;
+    char    **map;
 
-    if (ac == 1)
+    if (ac == 1) // if no args are given, return.
         return (0);
-    room = NULL;
-    data = NULL;
-    data = get_data(av, data);
-    // i = 0;
-    // while (data[i])
-    // {
-    //     printf("data[%d] = '%s'\n", i, data[i]);
-    //     i++;
-    // }
-    lem_in_parser(data, room, &ant);
-    // while (room)
-    // {
-    //     printf("room name = %s & room id = %d\n", room->name, room->id);
-    //     room = room->next;
-    // }
-    ant_prt = &ant;
-    while (ant_prt)
-    {
-        printf("ant number = %d & ant position = %d\n", ant_prt->id, ant_prt->position);
-        ant_prt = ant_prt->next;
-    }
+    map = NULL;
+    map = get_map(av, map);
+	info_init(&info);
+	if ((info.ant_nb = ft_atoi(map[0])) <= 0) // if the number of ants is equal to 0 or negative, we stop.
+		parsing_error(map);
+	if (!(info.ant_position = malloc(sizeof(int) * info.ant_nb))) // malloc the int tab in which the ants and their position are stored
+		return (0);
+    info.room_nb = room_counter(map);
+	if (!(info.room_tab = malloc(sizeof(t_room) * info.room_nb))) // malloc the array of struct in which the rooms and their data are stored
+		return (0);
+    lem_in_parser(map, &info);
+	free(info.ant_position);
+	free_struct_array(&info);
+	free(info.room_tab);
     return (0);
 }
 
@@ -100,10 +90,10 @@ int     main(int ac, char **av) // testing main for parsing
 // {
 //     t_room  *room;
 //     t_ant   *ant;
-//     char    **data;
+//     char    **map;
 
 //     room = NULL;
-//     data = get_data(data);
-//     lem_in_parser(data, room, ant);
+//     map = get_map(map);
+//     lem_in_parser(map, room, ant);
 //     return (0);
 // }
