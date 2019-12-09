@@ -6,11 +6,23 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:58:11 by myener            #+#    #+#             */
-/*   Updated: 2019/12/08 21:20:28 by myener           ###   ########.fr       */
+/*   Updated: 2019/12/09 16:45:10 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+void	ant_position_init(t_info *info)
+{
+	int i;
+
+	i = 0;
+	while (i < info->ant_nb)
+	{
+		info->ant_position[i] = 0;
+		i++;
+	}
+}
 
 void	info_init(t_info *info)
 {
@@ -18,7 +30,7 @@ void	info_init(t_info *info)
 	info->start_nb = 0;
 	info->end_nb = 0;
 	info->ant_nb = 0;
-	info->ant_position = 0;
+	info->ant_position = NULL;
 	info->room_tab = NULL;
 	info->matrix = NULL;
 }

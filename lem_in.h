@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2019/12/08 21:22:15 by myener           ###   ########.fr       */
+/*   Updated: 2019/12/09 16:54:48 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct			s_paths	// A group of paths that are compatible with each other
 	struct s_paths	*next;				// Group's next path.
 }						t_paths;
 
+void			ant_position_init(t_info *info);
 void			free_struct_array(t_info *info);
 char			**get_map(char **av, char **data);
 void			info_init(t_info *info);

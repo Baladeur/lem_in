@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2019/12/08 21:21:00 by myener           ###   ########.fr       */
+/*   Updated: 2019/12/09 16:43:37 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ char		**get_map(char **av, char **map) // get map from standard input using GNL.
 
 int     main(int ac, char **av) // testing main for parsing
 {
+	int		i;
 	t_info	info;
     char    **map;
 
@@ -76,24 +77,25 @@ int     main(int ac, char **av) // testing main for parsing
 		parsing_error(map);
 	if (!(info.ant_position = malloc(sizeof(int) * info.ant_nb))) // malloc the int tab in which the ants and their position are stored
 		return (0);
+	ant_position_init(&info);
     info.room_nb = room_counter(map);
 	if (!(info.room_tab = malloc(sizeof(t_room) * info.room_nb))) // malloc the array of struct in which the rooms and their data are stored
 		return (0);
     lem_in_parser(map, &info);
+	i = 0;
+	while (i < info.ant_nb)
+	{
+		printf("ant = %d, position = %d\n", i + 1, info.ant_position[i]);
+		i++;
+	}
+	i = 0;
+	while (i < info.room_nb)
+	{
+		printf("id = %d, name = %s, x = %d, y = %d\n", info.room_tab[i].id, info.room_tab[i].name, info.room_tab[i].x, info.room_tab[i].y);
+		i++;
+	}
 	free(info.ant_position);
 	free_struct_array(&info);
 	free(info.room_tab);
     return (0);
 }
-
-// int     main(int argc, char **argv)
-// {
-//     t_room  *room;
-//     t_ant   *ant;
-//     char    **map;
-
-//     room = NULL;
-//     map = get_map(map);
-//     lem_in_parser(map, room, ant);
-//     return (0);
-// }

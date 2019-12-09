@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:20:24 by myener            #+#    #+#             */
-/*   Updated: 2019/12/08 21:05:23 by myener           ###   ########.fr       */
+/*   Updated: 2019/12/09 16:39:07 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		parsing_error(char **map)
 {
-	tab_free(map);
+	map? tab_free(map) : 0;
 	ft_putendl("ERROR");
 	return (0);
 }
@@ -24,12 +24,10 @@ int		room_or_path(char *line)
 	int 	i;
 
 	i = 0; // first let's start by checking whether it's a room or path.
-	while (/*line[i] (maybe useless) && */line[i] != ' ' && line[i] != '-') // let's parse the first element of the string.
+	while (line[i] && line[i] != ' ' && line[i] != '-') // let's parse the first element of the string.
 		i++;
-	if (line[i + 1] == ' ') // if the next element is a space, then it's a room
+	if (line[i] == ' ') // if the next element is a space, then it's a room
 		return (1);
-	else if (line[i + 1] == '-') // if it's a hyphen, then it's a path, so ignore.
-		return (2);
 	return (0); // else it's an error.
 }
 
@@ -59,7 +57,7 @@ void	room_parser(char *line, t_info *info, int j) // parses every classic room d
 	while (line[i] && line[i] != ' ') // let's grab the first element of the string (room name).
 		i++;
 	info->room_tab[j].id = j;
-	info->room_tab[j].name = ft_strsub(line, 0, i);
+	info->room_tab[j].name = ft_itoa(ft_atoi(ft_strsub(line, 0, i))); // works when name is integers, gotta investigate whether it's a number or something else first.
 	i++; // jumps over the ' '
 	start = i;
 	while (line[i] && line[i] != ' ') // let's grab the second element of the string (coord x).
@@ -100,9 +98,8 @@ int		hash_line_manager(char **map, int i) // does what is needed for lines start
 {
 	char	*command;
 
-	if (!map[i][1]) // if the line was just one single '#', ignore.
-		return (1);
-	else if (map[i][1] != '#') // if the first line character is a # and not the next one, it's a comment, so move on.
+	command = NULL;
+	if (!map[i][1] || map[i][1] != '#') // if the line was just one single '#' or starts with just one, it's a comment, ignore.
 		return (1);
 	else if (map[i][1] == '#') // if there's another # after, then it might be a command.
 	{
@@ -110,10 +107,10 @@ int		hash_line_manager(char **map, int i) // does what is needed for lines start
 			return (1);
 		else // else it might be a command : let's fetch it to see if it exists.
 		{
-			command = ft_strsub(map[i], 2, ft_strlen(map[i] - 2));
-			if (!(ft_strcmp(command, "start")))
+			command = ft_strsub(map[i], 2, ft_strlen(map[i]));
+			if (!(ft_strcmp(command, "start\n")))
 				return (2);
-			else if (!(ft_strcmp(command, "end")))
+			else if (!(ft_strcmp(command, "end\n")))
 				return (3);
 			else // else the command doesn't exist, so move on.
 				return (1);
@@ -129,7 +126,7 @@ void	lem_in_parser(char **map, t_info *info) // parses the given map to get vari
 	int		ret;
 	int		ant_nb;
 
-    i = 1; // map[0] has already been treated above, now we can proceed to parse the rest.
+    i = 1; // map[0] has already been treated, now we can proceed to parse the rest.
 	while (map[i])
     {
 		if (map[i][0] == 'L') // lines can't start with L. If they do, output error.
@@ -137,12 +134,12 @@ void	lem_in_parser(char **map, t_info *info) // parses the given map to get vari
 		if (map[i][0] == '#') // if it starts with #, it might be a comment or a command:
 		{
 			ret = hash_line_manager(map, i); // this function will increment i to ignore the current line if necessary.
-        	((ret == 2) || (ret == 3)) ? gates_manager(map, info, ret, i) : 0; // if ret is 2 or 3, it means start or end was encountered
-			i += (ret == 1) ? 1 : 2; // if it's a comment, we just ignore this line, if it's a command we also ignore the next one.
+			((ret == 2) || (ret == 3)) ? gates_manager(map, info, ret, i) : 0; // if ret is 2 or 3, it means start or end was encountered
+			i += (ret == 1) ? 0 : 1; // if it's a comment, we just ignore this line, if it's a command we also ignore the next one.
 		}
-		else if ((map[i][0] >= 33 && map[i][0] <= 126)) // if it starts with a letter, number or special character, it might be a room or a path:
+		else if ((map[i][0] >= 33 && map[i][0] <= 126 && map[i][0] != '#')) // if it starts with a letter, number or special character, it might be a room or a path:
 		{
-			((room_or_path(map[i])) == 0) ? parsing_error(map) : 0;
+			// ((room_or_path(map[i])) == 0) ? parsing_error(map) : 0;
 			j = 1; // initialized at 1 to ignore the first slot of the array, dedicated to start room
 			while ((room_or_path(map[i])) == 1) // while we go through the room lines, fill the struct array and increment i.
 			{
@@ -153,5 +150,5 @@ void	lem_in_parser(char **map, t_info *info) // parses the given map to get vari
 		}
 		i++;
     }
-	room_add_start_end(map, info);
+	room_add_start_end(map, info); // add the start and end room at beginning end of the array.
 }
