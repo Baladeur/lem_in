@@ -18,32 +18,32 @@
 **	Link syntax : room1-room2
 */
 
-static int	get_link(char *line, char **rooms, t_room *farm)
+static int	get_link(char *line, char **rooms, t_room *farm, t_info *info)
 {
-	t_room	*curr;
-	t_room	*orig;
-	t_room	*dest;
-	t_room	*curr2;
-	int		len;
+	int orig;
+	int dest;
+	int curr;
+	int len;
+	int id;
 
-	curr = farm;
-	dest = NULL;
-	orig = NULL;
-	while (curr)
+	curr = 0;
+	dest = -1;
+	while (curr < info->room_nb)
 	{
-		len = ft_strlen(curr->name);
-		curr2 = find_room(farm, line + len + 1);
-		if (ft_strstr(line, curr->name) == line && line[len] == '-' && curr2
-			&& curr2 != curr && (!dest || len > ft_strlen(orig->name)) &&
-			(dest = curr2))
+		len = ft_strlen(farm[curr].name);
+		id = find_room(farm, line + len + 1);
+		if (ft_strstr(line, farm[curr].name) == line && line[len] == '-'	//	Check if the current room name match the first part of the link and is followed by '-'
+			&& id > -1 && id != curr && (dest == -1							//	Check if the second part of the link is an existing room different from the current one
+			|| ft_strlen(farm[curr].name) > ft_strlen(farm[orig].name))	//	Check if the link has priority over the previously stored one : longer room1 name.
+			&& (dest = id) >= 0)
 			orig = curr;
-		curr = curr->next;
+		curr++;
 	}
-	if (!dest || !(*rooms = (char *)malloc(sizeof(char) * ft_strlen(line))))
+	if (dest < 0 || !(*rooms = (char *)malloc(sizeof(char) * ft_strlen(line))))
 		return (0);
-	ft_strcpy(*rooms, orig->name);
-	(*rooms)[ft_strlen(orig->name)] = 0;
-	ft_strcpy(*rooms + ft_strlen(orig->name) + 1, dest->name);
+	ft_strcpy(*rooms, farm[orig].name);
+	(*rooms)[ft_strlen(farm[orig].name)] = 0;
+	ft_strcpy(*rooms + ft_strlen(farm[orig].name) + 1, farm[dest].name);
 	return (1);
 }
 
@@ -52,7 +52,7 @@ static int	get_link(char *line, char **rooms, t_room *farm)
 **	data isn't valid.
 */
 
-int			**adj_matrix(char **data, t_room *farm, int count, int start)
+int			**adj_matrix(char **data, t_room *farm, t_info *info, int start)
 {
 	char	*rooms;
 	int		**matrix;
@@ -60,15 +60,15 @@ int			**adj_matrix(char **data, t_room *farm, int count, int start)
 	int		id2;
 	int		i;
 
-	if (!(matrix = init_matrix(count)))
+	if (!(matrix = init_matrix(info->room_nb)))
 		return (NULL);
 	i = start;
 	while (data[i])
 	{
-		if (get_link(data[i], &rooms, farm))
+		if (get_link(data[i], &rooms, farm, info))
 		{
-			id1 = find_room(farm, rooms)->id;
-			id2 = find_room(farm, rooms + ft_strlen(rooms) + 1)->id;
+			id1 = find_room(farm, rooms, info);
+			id2 = find_room(farm, rooms + ft_strlen(rooms) + 1, info);
 			matrix[id1][id2] = 1;
 			matrix[id2][id1] = 1;
 		}

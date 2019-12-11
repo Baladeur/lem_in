@@ -17,15 +17,16 @@
 **	such room exist.
 */
 
-t_room	*find_room(t_room *farm, char *name)
+int	find_room(t_room *farm, char *name, t_info *info)
 {
-	t_room	*curr;
-	curr = farm;
-	while (curr)
+	int i;
+
+	i = 0;
+	while (i < info->room_nb)
 	{
-		if (!(ft_strcmp(curr->name, name)))
-			return (curr);
-		curr = curr->next;
+		if (!(ft_strcmp(farm[i].name)))
+			return (i);
+		i++;
 	}
-	return (NULL);
+	return (-1);
 }

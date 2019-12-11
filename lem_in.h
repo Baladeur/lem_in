@@ -75,9 +75,9 @@ void			room_init(t_room *room);
 int				**init_matrix(int count);
 int				**destroy_matrix(int ***matrix);
 void			print_matrix(int **matrix, int count);
-int				**adj_matrix(char **data, t_room *farm, int count, int start);
+int				**adj_matrix(char **data, t_room *farm, t_info *info, int start);
 
-t_room			*find_room(t_room *farm, char *name);
+int				find_room(t_room *farm, char *name, t_info *info);
 
 t_path			*new_path(int *edges, int count);
 t_paths			*new_paths(t_path *path, int count);
