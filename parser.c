@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:20:24 by myener            #+#    #+#             */
-/*   Updated: 2019/12/16 01:11:20 by myener           ###   ########.fr       */
+/*   Updated: 2019/12/16 17:01:22 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,6 @@ void	lem_in_parser(char **map, t_info *info) // parses the given map to get vari
     int     i;
     int     j;
 	int		ret;
-	int		ant_nb;
 
     i = 1; // map[0] has already been treated, now we can proceed to parse the rest.
 	j = 0;
