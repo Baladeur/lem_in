@@ -6,11 +6,17 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:58:11 by myener            #+#    #+#             */
-/*   Updated: 2019/12/09 16:45:10 by myener           ###   ########.fr       */
+/*   Updated: 2019/12/16 01:10:18 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+int		error_output(void)
+{
+	ft_putendl("ERROR");
+	return (0);
+}
 
 void	ant_position_init(t_info *info)
 {

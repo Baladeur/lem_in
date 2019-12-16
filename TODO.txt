@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    TODO.txt                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+         #
+#    By: myener <myener@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/26 16:30:35 by myener            #+#    #+#              #
-#    Updated: 2019/12/02 21:26:06 by tferrieu         ###   ########.fr        #
+#    Updated: 2019/12/16 01:38:17 by myener           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,9 +22,23 @@ Theo:
 
 -
 
-03.11.2019
+03.12.2019
 
 Theo :
 - re-arranger le parsing des liens pour matcher le nouveau format de data (liste chainees)
 - tester le fonctionnement de path_tools
 - Finir (commencer) path_selector
+
+-
+
+11.12.2019
+
+Mae:
+- fini le parsing qui fonctionne avec toutes les maps de base
+- debut de la gestion d'erreur
+
+16.12.2019
+
+Mae:
+- fini + testé la gestion d'erreur
+- début de l'algo

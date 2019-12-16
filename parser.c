@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:20:24 by myener            #+#    #+#             */
-/*   Updated: 2019/12/09 16:39:07 by myener           ###   ########.fr       */
+/*   Updated: 2019/12/16 01:11:20 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,16 @@
 int		parsing_error(char **map)
 {
 	map? tab_free(map) : 0;
-	ft_putendl("ERROR");
-	return (0);
+	return (error_output());
 }
 
-int		room_or_path(char *line)
+int		is_room(char *line)
 {
 	int 	i;
 
 	i = 0; // first let's start by checking whether it's a room or path.
+	if (line[0] == '#')
+		return (0);
 	while (line[i] && line[i] != ' ' && line[i] != '-') // let's parse the first element of the string.
 		i++;
 	if (line[i] == ' ') // if the next element is a space, then it's a room
@@ -40,7 +41,7 @@ int		room_counter(char **map)
 	room_nb = 0;
 	while (map[i])
 	{
-		if (room_or_path(map[i]) == 1)
+		if (is_room(map[i]) == 1)
 			room_nb++;
 		i++;
 	}
@@ -57,7 +58,8 @@ void	room_parser(char *line, t_info *info, int j) // parses every classic room d
 	while (line[i] && line[i] != ' ') // let's grab the first element of the string (room name).
 		i++;
 	info->room_tab[j].id = j;
-	info->room_tab[j].name = ft_itoa(ft_atoi(ft_strsub(line, 0, i))); // works when name is integers, gotta investigate whether it's a number or something else first.
+	info->room_tab[j].name = ft_strsub(line, 0, i);
+	// printf("name = %s\n\n", info->room_tab[j].name);
 	i++; // jumps over the ' '
 	start = i;
 	while (line[i] && line[i] != ' ') // let's grab the second element of the string (coord x).
@@ -89,9 +91,9 @@ void	gates_manager(char **map, t_info *info, int ret, int i) // manages the gate
 	if ((ret == 2 && info->s_enc) || (ret == 3 && info->e_enc)) // if this is the second start or end, error.
 		parsing_error(map);
 	if ((info->s_enc = (ret == 2))) // if the command is "start", then the line contains the start room's map.
-		info->start_nb = i; // marks the line of the start name and coordinates.
+		info->start_nb = i; // marks the line number of the start coordinates.
 	else if ((info->e_enc = (ret == 3)))
-		info->end_nb = i; // marks the line of the start name and coordinates.
+		info->end_nb = i; // marks the line number of the end coordinates.
 }
 
 int		hash_line_manager(char **map, int i) // does what is needed for lines starting with #.
@@ -127,8 +129,10 @@ void	lem_in_parser(char **map, t_info *info) // parses the given map to get vari
 	int		ant_nb;
 
     i = 1; // map[0] has already been treated, now we can proceed to parse the rest.
+	j = 0;
 	while (map[i])
     {
+		// printf("map[i] = %s\n", map[i]);
 		if (map[i][0] == 'L') // lines can't start with L. If they do, output error.
 			parsing_error(map);
 		if (map[i][0] == '#') // if it starts with #, it might be a comment or a command:
@@ -137,14 +141,13 @@ void	lem_in_parser(char **map, t_info *info) // parses the given map to get vari
 			((ret == 2) || (ret == 3)) ? gates_manager(map, info, ret, i) : 0; // if ret is 2 or 3, it means start or end was encountered
 			i += (ret == 1) ? 0 : 1; // if it's a comment, we just ignore this line, if it's a command we also ignore the next one.
 		}
-		else if ((map[i][0] >= 33 && map[i][0] <= 126 && map[i][0] != '#')) // if it starts with a letter, number or special character, it might be a room or a path:
+		else if ((map[i][0] >= 33 && map[i][0] <= 126)) // if it starts with a letter, number or special character, it might be a room or a path:
 		{
-			// ((room_or_path(map[i])) == 0) ? parsing_error(map) : 0;
-			j = 1; // initialized at 1 to ignore the first slot of the array, dedicated to start room
-			while ((room_or_path(map[i])) == 1) // while we go through the room lines, fill the struct array and increment i.
+			// ((is_room(map[i])) == 0) ? parsing_error(map) : 0;
+			j = (j == 0) ? 1 : j; // initialized at 1 to ignore the first slot of the struct array, dedicated to start room
+			if (is_room(map[i])) // while we go through the room lines, fill the struct array and increment i.
 			{
 				room_parser(map[i], info, j);
-				i++;
 				j++;
 			}
 		}

@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2019/12/09 16:54:48 by myener           ###   ########.fr       */
+/*   Updated: 2019/12/16 01:10:38 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,29 +62,31 @@ typedef struct			s_paths	// A group of paths that are compatible with each other
 	struct s_paths	*next;				// Group's next path.
 }						t_paths;
 
-void			ant_position_init(t_info *info);
-void			free_struct_array(t_info *info);
-char			**get_map(char **av, char **data);
-void			info_init(t_info *info);
-void     		lem_in_parser(char **map, t_info *info);
-int				parsing_error(char **map);
-int				room_counter(char **map);
-void			room_init(t_room *room);
+void		ant_position_init(t_info *info);
+int			error_output(void);
+void		free_struct_array(t_info *info);
+char		**get_map(char **av, char **data);
+void		info_init(t_info *info);
+void     	lem_in_parser(char **map, t_info *info);
+int			parsing_error(char **map);
+int			room_counter(char **map);
+void		room_init(t_room *room);
+int			troubleshooter(t_info *info);
 
 
-int				**init_matrix(int count);
-int				**destroy_matrix(int ***matrix);
-void			print_matrix(int **matrix, int count);
-int				**adj_matrix(char **data, t_room *farm, t_info *info, int start);
+int			**init_matrix(int count);
+int			**destroy_matrix(int ***matrix);
+void		print_matrix(int **matrix, int count);
+int			**adj_matrix(char **data, t_room *farm, t_info *info, int start);
 
-int				find_room(t_room *farm, char *name, t_info *info);
+int			find_room(t_room *farm, char *name, t_info *info);
 
-t_path			*new_path(int *edges, int count);
-t_paths			*new_paths(t_path *path, int count);
-t_paths			*add_path(t_paths *paths, t_path *path, int count);
-t_path			*destroy_path(t_path **path);
-t_paths			*destroy_paths(t_paths **paths);
-void			print_path(t_path *path, int count);
-void			print_paths(t_paths *paths, int count);
+t_path		*new_path(int *edges, int count);
+t_paths		*new_paths(t_path *path, int count);
+t_paths		*add_path(t_paths *paths, t_path *path, int count);
+t_path		*destroy_path(t_path **path);
+t_paths		*destroy_paths(t_paths **paths);
+void		print_path(t_path *path, int count);
+void		print_paths(t_paths *paths, int count);
 
 #endif

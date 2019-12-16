@@ -1,4 +1,10 @@
-- if we encounter the same room name twice
-- if no start and/or no end were encuntered when parsing is finished
-- if the room's coordinates aren't positive integers
-- if the room's id, name, or coordinates are incomplete (ex: one of them is 0)
+(Feel free to add any error case you might think of !)
+________________
+
+[x] if we encounter the same room name twice
+[x] if no start and/or no end were encountered when parsing is finished
+[x] if the room's coordinates aren't positive integers
+[x] if the room's id, name, are incomplete (ex: one of them is 0)
+[x] if two rooms have the same coordinates
+[ ] if there are more than two rooms per path line
+[ ]	if the rooms mentioned in the connection lines don't match the rooms before
