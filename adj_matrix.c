@@ -31,7 +31,7 @@ static int	get_link(char *line, char **rooms, t_room *farm, t_info *info)
 	while (curr < info->room_nb)
 	{
 		len = ft_strlen(farm[curr].name);
-		id = find_room(farm, line + len + 1);
+		id = find_room(farm, line + len + 1, info);
 		if (ft_strstr(line, farm[curr].name) == line && line[len] == '-'	//	Check if the current room name match the first part of the link and is followed by '-'
 			&& id > -1 && id != curr && (dest == -1							//	Check if the second part of the link is an existing room different from the current one
 			|| ft_strlen(farm[curr].name) > ft_strlen(farm[orig].name))	//	Check if the link has priority over the previously stored one : longer room1 name.

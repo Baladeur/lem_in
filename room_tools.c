@@ -24,7 +24,7 @@ int	find_room(t_room *farm, char *name, t_info *info)
 	i = 0;
 	while (i < info->room_nb)
 	{
-		if (!(ft_strcmp(farm[i].name)))
+		if (!(ft_strcmp(farm[i].name, name)))
 			return (i);
 		i++;
 	}
