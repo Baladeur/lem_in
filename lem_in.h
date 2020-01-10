@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2019/12/16 01:10:38 by myener           ###   ########.fr       */
+/*   Updated: 2020/01/10 18:41:03 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,12 @@ typedef struct			s_paths	// A group of paths that are compatible with each other
 	struct s_paths	*next;				// Group's next path.
 }						t_paths;
 
+typedef struct			s_queue
+{
+	struct s_queue	*next;
+	int				id;
+}						t_queue;
+
 void		ant_position_init(t_info *info);
 int			error_output(void);
 void		free_struct_array(t_info *info);
@@ -88,5 +94,10 @@ t_path		*destroy_path(t_path **path);
 t_paths		*destroy_paths(t_paths **paths);
 void		print_path(t_path *path, int count);
 void		print_paths(t_paths *paths, int count);
+
+t_queue		*queue_new(int id);
+void		queue_delone(t_queue **queue);
+void		queue_del(t_queue **queue);
+void		queue_add(t_queue **queue, int id);
 
 #endif
