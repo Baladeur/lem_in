@@ -6,13 +6,26 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 12:33:28 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/01/10 18:17:57 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/01/15 17:57:27 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int	*BFS(int **matrix, t_info *info, int *prev, int *dist)
+static t_path	*clean_BFS(t_path **shortest, int **prev, int **dist, int **edges)
+{
+	if (*prev)
+		free(*prev);
+	if (*dist)
+		free(dist);
+	if (*shortest)
+		destroy_path(shortest);
+	*prev = NULL;
+	*dist = NULL;
+	return (NULL);
+}
+
+static int		BFS(int **matrix, t_info *info, int *prev, int *dist)
 {
 	t_queue	*queue;
 	int		*visited;
@@ -22,7 +35,7 @@ int	*BFS(int **matrix, t_info *info, int *prev, int *dist)
 	queue = NULL;
 	i = -1;
 	if (!(visited = (int *)malloc(sizeof(int) * info->room_nb)))
-		return (NULL);
+		return (-1);
 	while (++i < info->room_nb)
 	{
 		visited[i] = i == 0 ? 1 : 0;
@@ -47,4 +60,44 @@ int	*BFS(int **matrix, t_info *info, int *prev, int *dist)
 		}
 	}
 	return (0);
+}
+
+static void		BFS_to_path(int *edges, int *prev, int pos, t_info *info)
+{
+	int cur;
+
+	cur = info->room_nb - 1;
+	while (pos >= 0 && cur >= 0)
+	{
+		edges[pos] = cur;
+		cur = prev[cur];
+		pos--;
+	}
+}
+
+t_path			*shortest_path(int **matrix, t_info *info)
+{
+	t_path	*shortest;
+	int		*edges;
+	int		*prev;
+	int		*dist;
+	int		c;
+
+	shortest = NULL;
+	edges = NULL;
+	prev = NULL;
+	dist = NULL;
+	c = 0;
+	if (!(prev = (int *)malloc(sizeof(int) * info->room_nb)))
+		return (NULL);
+	if (!(dist = (int *)malloc(sizeof(int) * info->room_nb)))
+		return (clean_BFS(&shortest, &prev, &dist, &edges));
+	if (BFS(matrix, info, prev, dist) < 1)
+		return (clean_BFS(&shortest, &prev, &dist, &edges));
+	if (!(edges = (int *)malloc(sizeof(int) * (dist[info->room_nb - 1] + 1))))
+		return (clean_BFS(&shortest, &prev, &dist, &edges));
+	BFS_to_path(edges, prev, dist[info->room_nb - 1], info);
+	if (!(shortest = new_path(edges, info->room_nb)))
+		return (clean_BFS(&shortest, &prev, &dist, &edges));
+	return (shortest);
 }
