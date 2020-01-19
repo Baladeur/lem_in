@@ -6,11 +6,44 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 18:18:29 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/01/10 18:40:23 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/01/19 19:12:08 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+int		queue_size(t_queue *queue)
+{
+	t_queue	*current;
+	int		n;
+
+	n = 0;
+	current = queue;
+	while (current)
+	{
+		n++;
+		current = current->next;
+	}
+	return (n);
+}
+
+int		queue_get_at(t_queue *queue, int id)
+{
+	t_queue *current;
+	int		n;
+
+	n = 0;
+	current = queue;
+	while (current && n < id)
+	{
+		n++;
+		current = current->next;
+	}
+	if (current)
+		return (current->id);
+	else
+		return (-1);
+}
 
 t_queue	*queue_new(int id)
 {
@@ -32,12 +65,6 @@ void	queue_delone(t_queue **queue)
 	tmp = (*queue)->next;
 	free(*queue);
 	*queue = tmp;
-}
-
-void	queue_del(t_queue **queue)
-{
-	while (*queue)
-		queue_delone(queue);
 }
 
 void	queue_add(t_queue **queue, int id)

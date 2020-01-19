@@ -6,13 +6,24 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 12:33:28 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/01/19 15:29:45 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/01/19 19:20:45 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static t_path	*clean_BFS(t_path **shortest, int **prev, int **dist, int **edges)
+static int		BFS_clean(int **visited, t_queue **queue, int ret)
+{
+	if (*visited)
+		free(visited);
+	while (*queue)
+		queue_delone(queue);
+	*queue = NULL;
+	*visited = NULL;
+	return (ret);
+}
+
+static t_path	*shortest_clean(t_path **shortest, int **prev, int **dist, int **edges)
 {
 	if (*prev)
 		free(*prev);
@@ -33,9 +44,10 @@ static int		BFS(int **matrix, t_info *info, int *prev, int *dist)
 	int		i;
 
 	queue = NULL;
+	visited = NULL;
 	i = -1;
 	if (!(visited = (int *)malloc(sizeof(int) * info->room_nb)))
-		return (-1);
+		return (BFS_clean(&visited, &queue, 0));
 	while (++i < info->room_nb)
 	{
 		visited[i] = i == 0 ? 1 : 0;
@@ -49,17 +61,17 @@ static int		BFS(int **matrix, t_info *info, int *prev, int *dist)
 		queue_delone(&queue);
 		i = -1;
 		while (++i <= info->room_nb)
-		if (matrix[c][i] && !visited[i])
-		{
-			visited[i] = 1;
-			dist[i] = dist[c] + 1;
-			prev[i] = c;
-			queue_add(&queue, i);
-			if (i == info->room_nb - 1)
-				return (1);
-		}
+			if (matrix[c][i] && !visited[i])
+			{
+				visited[i] = 1;
+				dist[i] = dist[c] + 1;
+				prev[i] = c;
+				queue_add(&queue, i);
+				if (i == info->room_nb - 1)
+					return (BFS_clean(&visited, &queue,1));
+			}
 	}
-	return (0);
+	return (BFS_clean(&visited, &queue, 0));
 }
 
 static void		BFS_to_path(int *edges, int *prev, int pos, t_info *info)
@@ -91,13 +103,14 @@ t_path			*shortest_path(int **matrix, t_info *info)
 	if (!(prev = (int *)malloc(sizeof(int) * info->room_nb)))
 		return (NULL);
 	if (!(dist = (int *)malloc(sizeof(int) * info->room_nb)))
-		return (clean_BFS(&shortest, &prev, &dist, &edges));
+		return (shortest_clean(&shortest, &prev, &dist, &edges));
 	if (BFS(matrix, info, prev, dist) < 1)
-		return (clean_BFS(&shortest, &prev, &dist, &edges));
+		return (shortest_clean(&shortest, &prev, &dist, &edges));
 	if (!(edges = (int *)malloc(sizeof(int) * (dist[info->room_nb - 1] + 1))))
-		return (clean_BFS(&shortest, &prev, &dist, &edges));
+		return (shortest_clean(&shortest, &prev, &dist, &edges));
 	BFS_to_path(edges, prev, dist[info->room_nb - 1], info);
 	if (!(shortest = new_path(edges, info->room_nb, dist[info->room_nb - 1] + 1)))
-		return (clean_BFS(&shortest, &prev, &dist, &edges));
+		return (shortest_clean(&shortest, &prev, &dist, &edges));
+	shortest_clean(NULL, &prev, &dist, NULL);
 	return (shortest);
 }
