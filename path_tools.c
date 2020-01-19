@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 15:32:18 by tferrieu          #+#    #+#             */
-/*   Updated: 2019/12/03 20:36:38 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/01/19 15:27:27 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,30 +44,28 @@ t_paths	*destroy_paths(t_paths **paths)
 	return (NULL);
 }
 
-t_path	*new_path(int *edges, int count)
+t_path	*new_path(int *edges, int count, int len)
 {
 	t_path	*path;
 	int		i;
 
 	path = NULL;
-	if (!edges || count < 2 || !(path = (t_path *)malloc(sizeof(t_path))))
+	if (!edges || count < 2 || len < 2 || !(path = (t_path *)malloc(sizeof(t_path))))
 		return (NULL);
 	path->edges = edges;
 	path->nodes = NULL;
+	path->len = len;
 	if (!(path->nodes = (int *)malloc(sizeof(int) * count)))
 		return (destroy_path(&path));
 	i = -1;
 	while (++i < count)
 		path->nodes[i] = 0;
-	path->len = 0;
 	i = -1;
-	while (++i < count && edges[i] >= 0)
-	{
+	while (++i < len)
 		if (edges[i] >= count || path->nodes[edges[i]] != 0)
 			return (destroy_path(&path));
-		path->nodes[edges[i]] = 1;
-		path->len++;
-	}
+		else
+			path->nodes[edges[i]] = 1;
 	return (path);
 }
 

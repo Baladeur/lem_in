@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 20:38:58 by tferrieu          #+#    #+#             */
-/*   Updated: 2019/12/03 20:39:10 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/01/19 15:23:13 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	print_path(t_path *path, int count)
 
 	ft_printf("Path size : %d | Path : {", path->len);
 	i = -1;
-	while (++i < count && path->edges[i] >= 0)
-		if (i < count - 1 && path->edges[i + 1] >= 0)
+	while (++i < path->len)
+		if (i < path->len - 1)
 			ft_printf("%d, ", path->edges[i]);
 		else
 			ft_printf("%d} | Nodes : [", path->edges[i]);

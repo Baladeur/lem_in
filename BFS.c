@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 12:33:28 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/01/15 17:57:27 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/01/19 15:29:45 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_path			*shortest_path(int **matrix, t_info *info)
 	if (!(edges = (int *)malloc(sizeof(int) * (dist[info->room_nb - 1] + 1))))
 		return (clean_BFS(&shortest, &prev, &dist, &edges));
 	BFS_to_path(edges, prev, dist[info->room_nb - 1], info);
-	if (!(shortest = new_path(edges, info->room_nb)))
+	if (!(shortest = new_path(edges, info->room_nb, dist[info->room_nb - 1] + 1)))
 		return (clean_BFS(&shortest, &prev, &dist, &edges));
 	return (shortest);
 }
