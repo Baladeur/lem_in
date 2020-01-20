@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/01/19 18:52:15 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/01/20 16:27:29 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ t_path		*shortest_path(int **matrix, t_info *info);
 
 t_queue		*queue_new(int id);
 void		queue_delone(t_queue **queue);
-void		queue_del(t_queue **queue);
 void		queue_add(t_queue **queue, int id);
+int			queue_get_at(t_queue *queue, int id);
 int			queue_size(t_queue *queue);
 
 #endif
