@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/01/20 16:27:29 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/01/21 16:49:42 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ typedef struct			s_path	// Register informations about a path
 
 typedef struct			s_paths	// A group of paths that are compatible with each other (chained list)
 {
-	int				*nodes;				// nodes[i] = 1 if one of the group's path goes through the room i, 0 otherwise.
-	int				*count;				// Number of paths in the group.
-	t_path			*path;				// Group's current path.
-	struct s_paths	*next;				// Group's next path.
+	int				*nodes;		// nodes[i] = 1 if one of the group's path goes through the room i, 0 otherwise.
+	int				*count;		// Number of paths in the group.
+	t_path			*path;		// Group's current path.
+	struct s_paths	*next;		// Group's next path.
 }						t_paths;
 
 typedef struct			s_queue
@@ -94,8 +94,8 @@ t_path		*destroy_path(t_path **path);
 t_paths		*destroy_paths(t_paths **paths);
 void		print_path(t_path *path, int count);
 void		print_paths(t_paths *paths, int count);
-t_path		*shortest_path(int **matrix, t_info *info);
 
+t_path		*BFS(int **matrix, t_info *info);
 
 t_queue		*queue_new(int id);
 void		queue_delone(t_queue **queue);
