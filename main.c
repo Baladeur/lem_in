@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2019/12/16 22:07:43 by myener           ###   ########.fr       */
+/*   Updated: 2020/01/21 16:17:11 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,18 +84,18 @@ int     main(int ac, char **av) // testing main for parsing
     lem_in_parser(map, &info); // parse the map data and stock it accordingly.
 	if (troubleshooter(&info))
 		return (error_output());
-	i = 0;
-	while (i < info.ant_nb)
+	i = 0; // debug
+	while (i < info.ant_nb) // debug
 	{
 		printf("ant = %d, position = %d\n", i + 1, info.ant_position[i]);
 		i++;
 	}
-	i = 0;
+	i = 0; // debug
 	while (i < info.room_nb)
 	{
 		printf("id = %d, name = %s, x = %d, y = %d\n", info.room_tab[i].id, info.room_tab[i].name, info.room_tab[i].x, info.room_tab[i].y);
 		i++;
-	}
+	} // debug
 	free(info.ant_position);
 	free_struct_array(&info);
 	free(info.room_tab);
