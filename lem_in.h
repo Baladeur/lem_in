@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/01/21 16:49:42 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/01/21 17:05:26 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,6 @@ typedef struct			s_path	// Register informations about a path
 	int len;					// Length of the path aka number of rooms the path goes through
 }						t_path;
 
-typedef struct			s_paths	// A group of paths that are compatible with each other (chained list)
-{
-	int				*nodes;		// nodes[i] = 1 if one of the group's path goes through the room i, 0 otherwise.
-	int				*count;		// Number of paths in the group.
-	t_path			*path;		// Group's current path.
-	struct s_paths	*next;		// Group's next path.
-}						t_paths;
-
 typedef struct			s_queue
 {
 	struct s_queue	*next;
@@ -88,12 +80,8 @@ int			**adj_matrix(char **data, t_room *farm, t_info *info, int start);
 int			find_room(t_room *farm, char *name, t_info *info);
 
 t_path		*new_path(int *edges, int count, int len);
-t_paths		*new_paths(t_path *path, int count);
-t_paths		*add_path(t_paths *paths, t_path *path, int count);
 t_path		*destroy_path(t_path **path);
-t_paths		*destroy_paths(t_paths **paths);
 void		print_path(t_path *path, int count);
-void		print_paths(t_paths *paths, int count);
 
 t_path		*BFS(int **matrix, t_info *info);
 

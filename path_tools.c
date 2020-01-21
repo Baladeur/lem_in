@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 15:32:18 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/01/19 15:27:27 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/01/21 17:04:48 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,6 @@ t_path	*destroy_path(t_path **path)
 			free((*path)->edges);
 		free(*path);
 		*path = NULL;
-	}
-	return (NULL);
-}
-
-t_paths	*destroy_paths(t_paths **paths)
-{
-	t_paths *current;
-	t_paths *tmp;
-
-	if (!paths || !(*paths))
-		return (NULL);
-	current = *paths;
-	*paths = NULL;
-	while (current)
-	{
-		tmp = current->next;
-		free(current);
-		current = tmp;
 	}
 	return (NULL);
 }
@@ -69,43 +51,21 @@ t_path	*new_path(int *edges, int count, int len)
 	return (path);
 }
 
-t_paths	*new_paths(t_path *path, int count)
+void	print_path(t_path *path, int count)
 {
-	t_paths	*paths;
-	int		i;
+	int i;
 
-	if (count < 2 || !path || !(paths = (t_paths *)malloc(sizeof(t_paths))))
-		return (NULL);
-	paths->count = NULL;
-	paths->next = NULL;
-	paths->path = path;
-	if (!(paths->nodes = (int *)malloc(sizeof(int) * count)))
-		return (destroy_paths(&paths));
-	if (!(paths->count = (int *)malloc(sizeof(int))))
-		return (destroy_paths(&paths));
+	ft_printf("Path size : %d | Path : {", path->len);
+	i = -1;
+	while (++i < path->len)
+		if (i < path->len - 1)
+			ft_printf("%d, ", path->edges[i]);
+		else
+			ft_printf("%d} | Nodes : [", path->edges[i]);
 	i = -1;
 	while (++i < count)
-		paths->nodes[i] = path->nodes[i];
-	paths->count[0] = 1;
-	return (paths);
-}
-
-t_paths	*add_path(t_paths *paths, t_path *path, int count)
-{
-	t_paths	*new;
-	int		i;
-
-	if (!path || !paths || !(new = (t_paths *)malloc(sizeof(t_paths))))
-		return (NULL);
-	new->nodes = paths->nodes;
-	new->count = paths->count;
-	new->count[0]++;
-	new->path = path;
-	new->next = NULL;
-	i = -1;
-	while (++i < count)
-		if (path->nodes[i])
-			new->nodes[i] = 1;
-	paths->next = new;
-	return (paths);
+		if (i < count - 1)
+			ft_printf("%d, ", path->nodes[i]);
+		else
+			ft_printf("%d]\n", path->nodes[i]);
 }
