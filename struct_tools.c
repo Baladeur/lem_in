@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:58:11 by myener            #+#    #+#             */
-/*   Updated: 2019/12/16 01:10:18 by myener           ###   ########.fr       */
+/*   Updated: 2020/01/22 15:49:20 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,16 @@ int		error_output(void)
 	return (0);
 }
 
-void	ant_position_init(t_info *info)
+void	ant_init(t_info *info)
 {
 	int i;
 
 	i = 0;
 	while (i < info->ant_nb)
 	{
-		info->ant_position[i] = 0;
+		info->ant[i].id = i + 1;
+		info->ant[i].pos = 0;
+		info->ant[i].path = 0;
 		i++;
 	}
 }
@@ -36,7 +38,7 @@ void	info_init(t_info *info)
 	info->start_nb = 0;
 	info->end_nb = 0;
 	info->ant_nb = 0;
-	info->ant_position = NULL;
+	info->ant = NULL;
 	info->room_tab = NULL;
 	info->matrix = NULL;
 }
