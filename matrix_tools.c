@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   matrix_tools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:08:50 by tferrieu          #+#    #+#             */
-/*   Updated: 2019/11/26 16:08:55 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/01/22 16:05:42 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 **	int*
 */
 
-int	**destroy_matrix(int ***matrix)
+int		**destroy_matrix(int ***matrix)
 {
 	int i;
 
@@ -37,7 +37,7 @@ int	**destroy_matrix(int ***matrix)
 **	Allocates an int** matrix of size count*count, setting each value at 0.
 */
 
-int	**init_matrix(int count)
+int		**init_matrix(int count)
 {
 	int	**matrix;
 	int i;
@@ -62,6 +62,30 @@ int	**init_matrix(int count)
 			matrix[j][i] = 0;
 	}
 	return (matrix);
+}
+
+/*
+**	Duplicates an existing matrix.
+*/
+
+int		**dupe_matrix(int **matrix, int count)
+{
+	int	**new;
+	int x;
+	int y;
+
+	new = NULL;
+	if (!(new = (int **)malloc(sizeof(int *) * count)))
+		return (NULL);
+	x = -1;
+	while (++x < count && !(new[x] = NULL))
+		if (!(new[x] = (int *)malloc(sizeof(int) * count)))
+			return (destroy_matrix(&new));
+	y = -1;
+	while (++y < count && (x = -1))
+		while (++x < count)
+			new[y][x] = matrix[y][x];
+	return (new);
 }
 
 /*
