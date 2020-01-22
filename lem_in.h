@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/01/22 16:03:40 by myener           ###   ########.fr       */
+/*   Updated: 2020/01/22 16:06:48 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ typedef struct			s_queue
 }						t_queue;
 
 void		ant_init(t_info *info);
-void		dispatcher(t_info *info, t_path *path_tab, t_room *room);
+void		dispatcher(t_info *info, t_path *path_tab, t_room *room_tab);
+void		displayer(t_info *info, t_path *path_tab, t_room *room_tab, char **map);
 int			error_output(void);
 void		free_struct_array(t_info *info);
 char		**get_map(char **av, char **data);
