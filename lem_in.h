@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/01/22 15:53:16 by myener           ###   ########.fr       */
+/*   Updated: 2020/01/22 15:54:25 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,9 @@ int			troubleshooter(t_info *info);
 
 int			**init_matrix(int count);
 int			**destroy_matrix(int ***matrix);
-void		print_matrix(int **matrix, int count);
+int			**dupe_matrix(int **matrix, int count);
 int			**adj_matrix(char **data, t_room *farm, t_info *info, int start);
+void		print_matrix(int **matrix, int count);
 
 int			find_room(t_room *farm, char *name, t_info *info);
 
