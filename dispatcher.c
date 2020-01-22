@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:22:11 by myener            #+#    #+#             */
-/*   Updated: 2020/01/22 16:05:48 by myener           ###   ########.fr       */
+/*   Updated: 2020/01/22 17:03:31 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,30 @@
 
 void	dispatcher(t_info *info, t_path *path_tab, t_room *room_tab)
 {
-	int		a;	// current ant
-	int		i;	// index
-	int		n;	// path_tab index
-	char	*room_name;
+	int		i; // index.
+	int		a; // current ant's ID.
+	int		n; // index in path_tab.
+	char	*room_name; // pretty self-explanatory.
 
-	i = 0;
-	a = 1;	// as stipulated in the subject, ant IDs start at 1.
-	n = 1;	// 1 and not 0 because path_tab[i].edges[0] = the start room
+	a = 1; // 1 because ant IDs start at 1.
+	n = 1; // 1 because we ignore the first (0) case of the tab as it is the start room.
 	room_name = NULL;
-	while (path_tab[i].len != -1)
+	while (info->ant[info->ant_nb].pos != info->room_nb - 1) // while last ant isn't in end room, roll roll roll.
 	{
-		if (room_is_empty(path_tab[i].edges[n])) // goes thru ant arr. to see if an ant's here
+		i = 0;
+		a = 1; // goes back to ant 1 after the iteration.
+		while (roomisempty(info->ant, path_tab[i].edges[n])) // while there's an empty room on this level of iteration, go through them.
 		{
-			info->ant[a].id = path_tab[i].edges[n];
-			room_name = get_room_from_id(path_tab[i].edges[n], room_tab);
-			ft_printf("L%d-%s ", a, room_name);
+			if (info->ant[a].path[n] == path_tab[i].edges[n]) // if the current path is the same as the ant's path (& room is empty), then let's occupy it.
+			{
+				info->ant[a].pos = info->ant[a].path[n];
+				room_name = getroomname(info->ant[a].path[n], room_tab);
+				ft_printf("L%d-%s ", info->ant[a].id, room_name);
+			}
 			a++;
-			n++;
+			i++;
 		}
-		i++;
+		n++; // that level of the path is now full, let's look further.
+		ft_putchar('\n');
 	}
 }
