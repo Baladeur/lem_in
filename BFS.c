@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 12:33:28 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/01/21 16:49:17 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/01/21 17:46:36 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int		BFS_algo_exit(int **visited, t_queue **queue, int ret)
 	return (ret);
 }
 
-static t_path	*BFS_exit(t_path **shortest, int **prev, int **dist, int **edges)
+static t_path	*BFS_exit(int **prev, int **dist, int **edges)
 {
 	if (prev && *prev)
 	{
@@ -40,8 +40,11 @@ static t_path	*BFS_exit(t_path **shortest, int **prev, int **dist, int **edges)
 		free(*dist);
 		*dist = NULL;
 	}
-	if (shortest && *shortest)
-		destroy_path(shortest);
+	if (edges && *edges)
+	{
+		free(*edges);
+		*edges = NULL;
+	}
 	return (NULL);
 }
 
@@ -112,14 +115,14 @@ t_path			*BFS(int **matrix, t_info *info)
 	if (!(prev = (int *)malloc(sizeof(int) * info->room_nb)))
 		return (NULL);
 	if (!(dist = (int *)malloc(sizeof(int) * info->room_nb)))
-		return (BFS_exit(&shortest, &prev, &dist, &edges));
+		return (BFS_exit(&prev, &dist, &edges));
 	if (BFS_algorithm(matrix, info, prev, dist) < 1)
-		return (BFS_exit(&shortest, &prev, &dist, &edges));
+		return (BFS_exit(&prev, &dist, &edges));
 	if (!(edges = (int *)malloc(sizeof(int) * (dist[info->room_nb - 1] + 1))))
-		return (BFS_exit(&shortest, &prev, &dist, &edges));
+		return (BFS_exit(&prev, &dist, &edges));
 	BFS_translate(edges, prev, dist[info->room_nb - 1], info);
 	if (!(shortest = new_path(edges, info->room_nb, dist[info->room_nb - 1] + 1)))
-		return (BFS_exit(&shortest, &prev, &dist, &edges));
-	BFS_exit(NULL, &prev, &dist, NULL);
+		return (BFS_exit(&prev, &dist, &edges));
+	BFS_exit(&prev, &dist, NULL);
 	return (shortest);
 }

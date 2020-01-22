@@ -6,13 +6,13 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 16:55:43 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/01/21 16:56:11 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/01/21 17:49:22 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static t_path	*x_shortest_clean(t_path **shortest, t_queue ***prev, t_queue ***dist, int **edges)
+static t_path	*x_shortest_clean(t_queue ***prev, t_queue ***dist, int **edges)
 {
 }
 
@@ -47,17 +47,17 @@ t_path			*x_shortest_path(int **matrix, t_info *info, int x)
 	edges = NULL;
 	c = 0;
 	if (!(prev = init_queues(info, -1)))
-		return (x_shortest_clean(&shortest, &prev, &dist, &edges));
+		return (x_shortest_clean(&prev, &dist, &edges));
 	if (!(dist = init_queues(info, 0)))
-		return (x_shortest_clean(&shortest, &prev, &dist, &edges));
+		return (x_shortest_clean(&prev, &dist, &edges));
 	matrix[0][0] = x;
 	if (multi_BFS(matrix, info, prev, dist) < 1)
-		return (x_shortest_clean(&shortest, &prev, &dist, &edges));
+		return (x_shortest_clean(&prev, &dist, &edges));
 	if (!(edges = (int *)malloc(sizeof(int) * (queue_get_at(dist[info->room_nb - 1], x - 1) + 1))))
-		return (x_shortest_clean(&shortest, &prev, &dist, &edges));
+		return (x_shortest_clean(&prev, &dist, &edges));
 	BFS_to_path(edges, prev, dist[info->room_nb - 1], info);
 	if (!(shortest = new_path(edges, info->room_nb, queue_get_at(dist[info->room_nb - 1], x - 1) + 1)))
-		return (x_shortest_clean(&shortest, &prev, &dist, &edges));
-	x_shortest_clean(NULL, &prev, &dist, NULL);
+		return (x_shortest_clean(&prev, &dist, &edges));
+	x_shortest_clean(&prev, &dist, NULL);
 	return (shortest);
 }
