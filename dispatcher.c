@@ -6,13 +6,41 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:22:11 by myener            #+#    #+#             */
-/*   Updated: 2020/01/22 17:03:31 by myener           ###   ########.fr       */
+/*   Updated: 2020/01/25 16:31:25 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	dispatcher(t_info *info, t_path *path_tab, t_room *room_tab)
+static int		room_is_empty(t_info *info, int room_id) // checks if an ant is already in room_id's room.
+{
+	int	i;
+
+	i = 0;
+	while (i < info->ant_nb)
+	{
+		if (info->ant[i].pos == room_id)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+static char		*get_room_name(t_info *info, int room_id, t_room *room_tab) // retrieves the room's name from id.
+{
+	int	i;
+
+	i = 0;
+	while (i < info->room_nb)
+	{
+		if (room_id == room_tab[i].id)
+			return (room_tab[i].name);
+		i++;
+	}
+	return (NULL);
+}
+
+void			lem_in_dispatcher(t_info *info, t_path *path_tab, t_room *room_tab)
 {
 	int		i; // index.
 	int		a; // current ant's ID.
@@ -26,12 +54,12 @@ void	dispatcher(t_info *info, t_path *path_tab, t_room *room_tab)
 	{
 		i = 0;
 		a = 1; // goes back to ant 1 after the iteration.
-		while (roomisempty(info->ant, path_tab[i].edges[n])) // while there's an empty room on this level of iteration, go through them.
+		while (room_is_empty(info, path_tab[i].edges[n])) // while there's an empty room on this level of iteration, go through them.
 		{
 			if (info->ant[a].path[n] == path_tab[i].edges[n]) // if the current path is the same as the ant's path (& room is empty), then let's occupy it.
 			{
 				info->ant[a].pos = info->ant[a].path[n];
-				room_name = getroomname(info->ant[a].path[n], room_tab);
+				room_name = get_room_name(info, info->ant[a].path[n], room_tab);
 				ft_printf("L%d-%s ", info->ant[a].id, room_name);
 			}
 			a++;
