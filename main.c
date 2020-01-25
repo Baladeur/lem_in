@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2020/01/25 17:24:51 by myener           ###   ########.fr       */
+/*   Updated: 2020/01/25 17:48:17 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,10 @@ char		**get_map(char **av, char **map) // get map from standard input using GNL.
 	return (map);
 }
 
-void	path_tab_init(t_path *path_tab) // debug; fake path_tab initializer & filler for testing w/ map_1.
+void	path_tab_init(t_path *path_tab, t_info *info) // debug; fake path_tab initializer & filler for testing w/ map_1.
 {
+	int i;
+
 	path_tab[0].nodes = NULL;
 	path_tab[0].len = 4;
 	if (!(path_tab[0].edges = malloc(sizeof(int) * path_tab[0].len)))
@@ -72,6 +74,12 @@ void	path_tab_init(t_path *path_tab) // debug; fake path_tab initializer & fille
 	path_tab[0].edges[1] = 2;
 	path_tab[0].edges[2] = 3;
 	path_tab[0].edges[3] = 1;
+	i = 0;
+	while (i < info->ant_nb)
+	{
+		info->ant[i].path = path_tab[0].edges;
+		i++;
+	}
 }
 
 int     main(int ac, char **av) // testing main for parsing
@@ -85,13 +93,13 @@ int     main(int ac, char **av) // testing main for parsing
         return (0);
     map = NULL;
     map = get_map(av, map);
-	path_tab_init(&path_tab); // debug; fake path_tab initializer & filler for testing.
 	info_init(&info);
 	if ((info.ant_nb = ft_atoi(map[0])) <= 0) // if the number of ants is equal to 0 or negative, we stop.
 		return (parsing_error(map));
 	if (!(info.ant = malloc(sizeof(t_ant) * info.ant_nb))) // malloc the structure array in which the ants and their position are stored
 		return (0);
 	ant_init(&info); // initialize the ants according to their numbers. all initial positions should point to 0 aka start room's id.
+	path_tab_init(&path_tab, &info); // debug; fake path_tab initializer & filler for testing.
     info.room_nb = room_counter(map);
 	if (!(info.room_tab = malloc(sizeof(t_room) * info.room_nb))) // malloc the array of struct in which the rooms and their data are stored
 		return (0);
