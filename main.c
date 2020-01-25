@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2020/01/22 15:49:56 by myener           ###   ########.fr       */
+/*   Updated: 2020/01/25 17:24:51 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,30 @@ char		**get_map(char **av, char **map) // get map from standard input using GNL.
 	return (map);
 }
 
+void	path_tab_init(t_path *path_tab) // debug; fake path_tab initializer & filler for testing w/ map_1.
+{
+	path_tab[0].nodes = NULL;
+	path_tab[0].len = 4;
+	if (!(path_tab[0].edges = malloc(sizeof(int) * path_tab[0].len)))
+		return ;
+	path_tab[0].edges[0] = 0;
+	path_tab[0].edges[1] = 2;
+	path_tab[0].edges[2] = 3;
+	path_tab[0].edges[3] = 1;
+}
+
 int     main(int ac, char **av) // testing main for parsing
 {
 	int		i;
 	t_info	info;
     char    **map;
+	t_path	path_tab; // debug; fake path_tab object created for testing.
 
     if (ac == 1) // if no args are given, return.
         return (0);
     map = NULL;
     map = get_map(av, map);
+	path_tab_init(&path_tab); // debug; fake path_tab initializer & filler for testing.
 	info_init(&info);
 	if ((info.ant_nb = ft_atoi(map[0])) <= 0) // if the number of ants is equal to 0 or negative, we stop.
 		return (parsing_error(map));
@@ -96,6 +110,15 @@ int     main(int ac, char **av) // testing main for parsing
 		printf("id = %d, name = %s, x = %d, y = %d\n", info.room_tab[i].id, info.room_tab[i].name, info.room_tab[i].x, info.room_tab[i].y);
 		i++;
 	} // debug
+	i = 0; // debug
+	while (i < path_tab.len - 1)
+	{
+		printf("%d, ", path_tab.edges[i]);
+		i++;
+	} // debug
+	printf("%d.\n", path_tab.edges[i]);
+	ft_putchar('\n');
+	lem_in_displayer(&info, &path_tab, map); // debug
 	free(info.ant);
 	free_struct_array(&info);
 	free(info.room_tab);

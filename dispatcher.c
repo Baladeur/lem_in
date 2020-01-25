@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:22:11 by myener            #+#    #+#             */
-/*   Updated: 2020/01/25 16:31:25 by myener           ###   ########.fr       */
+/*   Updated: 2020/01/25 17:32:57 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void			lem_in_dispatcher(t_info *info, t_path *path_tab, t_room *room_tab)
 		a = 1; // goes back to ant 1 after the iteration.
 		while (room_is_empty(info, path_tab[i].edges[n])) // while there's an empty room on this level of iteration, go through them.
 		{
+			printf("le segfault est qqupart par la, les if/while sont trop permissifs\n");
 			if (info->ant[a].path[n] == path_tab[i].edges[n]) // if the current path is the same as the ant's path (& room is empty), then let's occupy it.
 			{
 				info->ant[a].pos = info->ant[a].path[n];
