@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2020/01/28 14:48:34 by myener           ###   ########.fr       */
+/*   Updated: 2020/01/28 16:25:00 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char		**get_map(char **av, char **map) // get map from standard input using GNL.
 	return (map);
 }
 
-void	path_tab_init(t_path *path_tab, t_info *info) // debug; fake path_tab initializer & filler for testing w/ map_1.
+void	path_tab_init(t_path *path_tab, t_info *info) // debug only - for testing with map_1.
 {
 	int i;
 	int	j;
