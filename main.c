@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2020/01/25 17:48:17 by myener           ###   ########.fr       */
+/*   Updated: 2020/01/28 14:48:34 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ char		**get_map(char **av, char **map) // get map from standard input using GNL.
 void	path_tab_init(t_path *path_tab, t_info *info) // debug; fake path_tab initializer & filler for testing w/ map_1.
 {
 	int i;
+	int	j;
 
 	path_tab[0].nodes = NULL;
 	path_tab[0].len = 4;
@@ -75,6 +76,7 @@ void	path_tab_init(t_path *path_tab, t_info *info) // debug; fake path_tab initi
 	path_tab[0].edges[2] = 3;
 	path_tab[0].edges[3] = 1;
 	i = 0;
+	j = 0;
 	while (i < info->ant_nb)
 	{
 		info->ant[i].path = path_tab[0].edges;

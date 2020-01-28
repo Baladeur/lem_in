@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/01/25 16:51:01 by myener           ###   ########.fr       */
+/*   Updated: 2020/01/28 16:05:44 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ typedef struct			s_info	// useful information that may bee needed regularly.
 	int				end_nb; 		// line number of the end room.
 	bool			s_enc;			// true if start is encountered, false if not.
 	bool			e_enc;			// true if end is encountered, false if not.
-    int				**matrix;		// the adjacency matrix
+    int				path_nb;		// number of simultaneous paths found.
+	int				**matrix;		// the adjacency matrix
 	t_room			*room_tab;		// array of structures containing all rooms.
 }						t_info;
 

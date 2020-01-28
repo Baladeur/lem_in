@@ -6,3 +6,4 @@ a.out
 tester
 path_test.c
 *.o
+lem_in.h.gch

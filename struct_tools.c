@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:58:11 by myener            #+#    #+#             */
-/*   Updated: 2020/01/25 17:52:32 by myener           ###   ########.fr       */
+/*   Updated: 2020/01/28 16:05:29 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	info_init(t_info *info)
 	info->end_nb = 0;
 	info->ant_nb = 0;
 	info->ant = NULL;
+	info->path_nb = 0;
 	info->room_tab = NULL;
 	info->matrix = NULL;
 }
