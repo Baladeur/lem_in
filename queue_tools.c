@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 18:18:29 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/01/19 19:12:08 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/01/28 17:58:11 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,19 @@ void	queue_delone(t_queue **queue)
 	*queue = tmp;
 }
 
-void	queue_add(t_queue **queue, int id)
+t_queue	*queue_add(t_queue **queue, int id)
 {
 	t_queue *pos;
 
+	if (!queue)
+		return (NULL);
 	if (!*queue)
-	{
-		*queue = queue_new(id);
-		return ;
-	}
+		return (*queue = queue_new(id));
 	pos = *queue;
 	while (pos->next)
 		pos = pos->next;
-	pos->next = queue_new(id);
+	if (!(pos->next = queue_new(id)))
+		while (*queue)
+			queue_delone(queue);
+	return (*queue);
 }

@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 12:33:28 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/01/21 17:46:36 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/01/28 16:18:18 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,8 @@ static int		BFS_algo_exit(int **visited, t_queue **queue, int ret)
 		*visited = NULL;
 	}
 	if (queue && *queue)
-	{
 		while (*queue)
 			queue_delone(queue);
-		*queue = NULL;
-	}
 	return (ret);
 }
 

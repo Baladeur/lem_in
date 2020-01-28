@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/01/28 16:05:44 by myener           ###   ########.fr       */
+/*   Updated: 2020/01/28 18:42:03 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,10 @@ t_path		*BFS(int **matrix, t_info *info);
 
 t_queue		*queue_new(int id);
 void		queue_delone(t_queue **queue);
-void		queue_add(t_queue **queue, int id);
+t_queue		*queue_add(t_queue **queue, int id);
 int			queue_get_at(t_queue *queue, int id);
 int			queue_size(t_queue *queue);
+
+int			**pre_BFS_cleaner(int **matrix, t_info *info);
 
 #endif
