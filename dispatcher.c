@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:22:11 by myener            #+#    #+#             */
-/*   Updated: 2020/01/28 17:52:53 by myener           ###   ########.fr       */
+/*   Updated: 2020/01/29 14:47:05 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,15 @@ void			lem_in_dispatcher(t_info *info, t_path *path_tab, t_room *room_tab)
 	a = 0; // ants IDs start at 1, but we took care of it earlier so that it doesn't affect iteration.
 	n = 0;
 	room_name = NULL;
-	while (n < 10 /*<- debug */ && info->ant[info->ant_nb - 1].pos != room_tab[info->room_nb - 1].id) // while last ant isn't in end room,
+	i = 0;
+	while (n < path_tab[i].len && info->ant[info->ant_nb - 1].pos != room_tab[info->room_nb - 1].id) // while last ant isn't in end room,
 	{
 		i = 0;
 		a = 0; // goes back to ant 1 after the iteration.
-		printf("n = %d\n", n);
+		// printf("n = %d\n", n);
 		while (i < info->path_nb && a < info->ant_nb && room_is_empty(info, path_tab[i].edges[n])) // while there's an empty room on this level,
 		{
-			printf("ant = %d\n", a + 1);
+			// printf("ant = %d\n", a + 1);
 			if (info->ant[a].path[n] == path_tab[i].edges[n]) // if the current path is the same as the ant's path (& room is empty), then let's occupy it.
 			{
 				info->ant[a].pos = info->ant[a].path[n];
@@ -98,10 +99,12 @@ void			lem_in_dispatcher(t_info *info, t_path *path_tab, t_room *room_tab)
 			// }
 			// n = tmp;
 			// if (is_in_end_room(info->ant[a], info->room_nb, room_tab)) // while the ant we're on is on the end room already, ignore (let them stay there).
+			// {
 			// 	a++;
+			// }
 		}
 		n++; // that level of the path is now full, let's look further.
 		ft_putchar('\n'); // separates the levels displayed.
 	}
-	exit (0); // debug
+	// exit (0); // debug
 }
