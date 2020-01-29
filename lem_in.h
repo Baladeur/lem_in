@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/01/28 18:42:03 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/01/29 15:50:48 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int			**init_matrix(int count);
 int			**destroy_matrix(int ***matrix);
 int			**dupe_matrix(int **matrix, int count);
 int			**adj_matrix(char **data, t_room *farm, t_info *info, int start);
+int			**sum_matrix(int ***src1, int ***src2, int size, int destroy);
 void		print_matrix(int **matrix, int count);
 
 int			find_room(t_room *farm, char *name, t_info *info);

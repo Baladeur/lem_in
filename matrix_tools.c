@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:08:50 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/01/22 16:05:42 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/01/29 15:49:53 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,34 @@ int		**dupe_matrix(int **matrix, int count)
 		while (++x < count)
 			new[y][x] = matrix[y][x];
 	return (new);
+}
+
+
+/*
+**	Return a matrix that is the summ of two matrix of the same size.
+**	if destroy is set to 1, it will also free both source matrix.
+*/
+
+int		**sum_matrix(int ***src1, int ***src2, int size, int destroy)
+{
+	int	**res;
+	int x;
+	int y;
+
+	res = NULL;
+	if (!(res = (int **)malloc(sizeof(int *) * size)))
+		return (NULL);
+	x = -1;
+	while (++x < size && !(res[x] = NULL))
+		if (!(res[x] = (int *)malloc(sizeof(int) * size)))
+			return (destroy_matrix(&res));
+	y = -1;
+	while (++y < size && (x = -1))
+		while (++x < size)
+			res[y][x] = (*src1)[y][x] + (*src2)[y][x];
+	if (destroy && destroy_matrix(src1) == NULL)
+		destroy_matrix(src2);
+	return (res);
 }
 
 /*
