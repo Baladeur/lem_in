@@ -6,88 +6,61 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 15:28:24 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/01/28 18:44:40 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/01/29 17:11:22 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static int	**branch_exit(t_queue **queue, int **visited, int ***branch, int **r)
+static t_branch	*branching(int **matrix, t_branch *branch, int i)
 {
-	if (queue && *queue)
-		while (*queue)
-			queue_delone(queue);
-	if (visited && *visited)
-	{
-		free(*visited);
-		*visited = NULL;
-	}
-	if (branch && *branch)
-		destroy_matrix(branch);
-	return (r);
-}
-
-static int	**branches(int **matrix, int *prev, int i, t_info *info)
-{
-	t_queue	*queue;
-	int		**branch;
-	int		*visited;
 	int		current;
 	int		iter;
 
-	visited = NULL;
-	branch = NULL;
-	queue = NULL;
-	if (!(visited = (int *)malloc(sizeof(int) * info->room_nb)))
-		return (0);
-	if (!(branch = init_matrix(info->room_nb)))
-		return (branch_exit(NULL, &visited, NULL, 0));
 	iter = -1;
-	while (++iter < info->room_nb)
+	while (++iter < branch->size)
 	{
-		visited[iter] = iter == 0 || iter == i ? 1 : 0;
-		prev[iter] = iter == i ? 1 : -1;
+		branch->visited[iter] = iter == 0 || iter == i ? 1 : 0;
+		branch->prev[iter] = iter == i ? 1 : -1;
 	}
-	branch[0][i] = 1;
-	branch[i][0] = -1;
-	queue = queue_new(i);
-	while (queue)
+	while (branch->queue)
 	{
-		current = queue->id;
-		queue_delone(&queue);
+		current = branch->queue->id;
+		queue_delone(&(branch->queue));
 		iter = -1;
-		while (++iter < info->room_nb)
+		while (++iter < branch->size)
 		{
-			if (matrix[current][iter] && !visited[iter] && iter != info->room_nb - 1)
+			if (matrix[current][iter] && !branch->visited[iter] && iter != branch->size - 1)
 			{
-				visited[iter] = 1;
-				prev[iter] = current;
-				queue_add(&queue, iter);
+				branch->visited[iter] = 1;
+				branch->prev[iter] = current;
+				if (!(queue_add(&(branch->queue), iter)))
+					return (destroy_branching(&branch));
 			}
-			if (matrix[current][iter] && iter != prev[current])
+			if (matrix[current][iter] && iter != branch->prev[current])
 			{
-				branch[current][iter]++;
-				branch[iter][current]--;
+				branch->matrix[current][iter]++;
+				branch->matrix[iter][current]--;
 			}
 		}
 	}
-	return (branch_exit(NULL, &visited, NULL, branch));
+	return (branch);
 }
 
-static int	deadends(int **branch, int i, t_info *info)
+static int		deadends(int **branch, int i, int size)
 {
 	int c;
 	int links;
 
 	if (!i)
 		return (0);
-	if (i == info->room_nb - 1)
+	if (i == size - 1)
 		return (1);
 	c = -1;
 	links = 0;
-	while (++c < info->room_nb)
+	while (++c < size)
 	{
-		if (branch[c][i] > 0 && !deadends(branch, c, info))
+		if (branch[c][i] > 0 && !deadends(branch, c, size))
 		{
 			branch[c][i] = 0;
 			branch[i][c] = 0;
@@ -98,27 +71,28 @@ static int	deadends(int **branch, int i, t_info *info)
 	return (links);
 }
 
-int			**pre_BFS_cleaner(int **matrix, t_info *info)
+int				**pre_BFS_cleaner(int **matrix, t_info *info)
 {
-	int	**directed;
-	int **branch;
-	int *prev;
-	int i;
+	t_branch	*branch;
+	int			**directed;
+	int 		i;
 
 	directed = NULL;
+	branch = NULL;
 	if (!(directed = init_matrix(info->room_nb)))
 		return (NULL);
-	if (!(prev = (int *)malloc(sizeof(int) * info->room_nb)))
+	if (!(branch = init_branching(info->room_nb)))
 		return (NULL);
 	i = -1;
 	while (++i < info->room_nb)
 		if (matrix[0][i])
 		{
-			if (!(branch = branches(matrix, prev, i, info)))
+			reset_branching(&branch, i);
+			if (!(branching(matrix, branch, i)))
 				return (destroy_matrix(&directed));
-			deadends(branch, i, info);
-			//SOMME DE LA BRANCHE AVEC LA MATRICE ACTUELLE;
-			destroy_matrix(&branch);
+			deadends(branch->matrix, i, info->room_nb);
+			sum_matrix(directed, branch->matrix, info->room_nb);
 		}
+	destroy_branching(&branch);
 	return (directed);
 }
