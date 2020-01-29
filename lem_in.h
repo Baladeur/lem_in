@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/01/29 15:50:48 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/01/29 16:24:15 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,16 @@ typedef struct			s_queue
 	int				id;
 }						t_queue;
 
+typedef struct			s_branch
+{
+	t_queue	*queue;
+	int		**matrix;
+	int		*visited;
+	int		*prev;
+	int		size;
+}						t_branch;
+
+
 void		ant_init(t_info *info);
 void		lem_in_dispatcher(t_info *info, t_path *path_tab, t_room *room_tab);
 void		lem_in_displayer(t_info *info, t_path *path_tab, char **map);
@@ -86,7 +96,7 @@ int			**init_matrix(int count);
 int			**destroy_matrix(int ***matrix);
 int			**dupe_matrix(int **matrix, int count);
 int			**adj_matrix(char **data, t_room *farm, t_info *info, int start);
-int			**sum_matrix(int ***src1, int ***src2, int size, int destroy);
+int			**sum_matrix(int **dest, int **src, int size);
 void		print_matrix(int **matrix, int count);
 
 int			find_room(t_room *farm, char *name, t_info *info);
@@ -103,6 +113,9 @@ t_queue		*queue_add(t_queue **queue, int id);
 int			queue_get_at(t_queue *queue, int id);
 int			queue_size(t_queue *queue);
 
+t_branch	*init_branching(int size);
+t_branch	*reset_branching();
+t_branch	*destroy_branching(t_branch **branch);
 int			**pre_BFS_cleaner(int **matrix, t_info *info);
 
 #endif
