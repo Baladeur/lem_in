@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:22:11 by myener            #+#    #+#             */
-/*   Updated: 2020/01/29 14:47:05 by myener           ###   ########.fr       */
+/*   Updated: 2020/01/29 19:48:12 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void			lem_in_dispatcher(t_info *info, t_path *path_tab, t_room *room_tab)
 {
 	int		a; // current ant's ID.
 	int		i; // index.
-	// int		tmp; // tmp int to stock n.
+	int		j; // second index.
 	int		n; // index in path_tab.
 	char	*room_name; // pretty self-explanatory.
 
@@ -69,42 +69,36 @@ void			lem_in_dispatcher(t_info *info, t_path *path_tab, t_room *room_tab)
 	n = 0;
 	room_name = NULL;
 	i = 0;
-	while (n < path_tab[i].len && info->ant[info->ant_nb - 1].pos != room_tab[info->room_nb - 1].id) // while last ant isn't in end room,
+	j = 0;
+	while (n < /*path_tab[i].len*/5) // while we didn't reach the path's end (10 for testing bc len isnt initialized),
 	{
 		i = 0;
 		a = 0; // goes back to ant 1 after the iteration.
-		// printf("n = %d\n", n);
 		while (i < info->path_nb && a < info->ant_nb && room_is_empty(info, path_tab[i].edges[n])) // while there's an empty room on this level,
 		{
-			// printf("ant = %d\n", a + 1);
 			if (info->ant[a].path[n] == path_tab[i].edges[n]) // if the current path is the same as the ant's path (& room is empty), then let's occupy it.
 			{
 				info->ant[a].pos = info->ant[a].path[n];
 				room_name = get_room_name(info, n, room_tab);
-				ft_printf("L%d-%s ", info->ant[a].id, room_name);
-				i++; // this path is filled, let's move on.
+				room_name ? ft_printf("L%d-%s ", info->ant[a].id, room_name) : 0; // condition isnt perfect ; perhaps replace with something else
 				a++;
 			}
-			// tmp = n; // initialize m to where we were in the path_tab just now.
-			// while (n != path_tab[i].edges[0]) // while m didn't reach the START room,
-			// {
-			// 	if (room_is_empty(info, path_tab[i].edges[n])) // if the room is empty, get it.
-			// 	{
-			// 		info->ant[a].pos = info->ant[a].path[n];
-			// 		room_name = get_room_name(info, n, room_tab);
-			// 		ft_printf("L%d-%s ", info->ant[a].id, room_name);
-			// 		a++;
-			// 	}
-			// 	n--; // decrement m.
-			// }
-			// n = tmp;
-			// if (is_in_end_room(info->ant[a], info->room_nb, room_tab)) // while the ant we're on is on the end room already, ignore (let them stay there).
-			// {
-			// 	a++;
-			// }
+			j = n - 1; // set j to the room right before.
+			while (j > 0 && room_is_empty(info, path_tab[i].edges[j])) // while the room j is on is empty and isn't START
+			{
+			printf("ant = %d, on va betement chercher le segfault\n", info->ant[a].id);
+				if (info->ant[a].path[j] == path_tab[i].edges[j]) // if the next ant's path matches the current one, occupy it.
+				{
+					room_name = get_room_name(info, j, room_tab);
+					room_name ? ft_printf("L%d-%s ", info->ant[a].id, room_name) : 0; // condition isnt perfect ; perhaps replace with something else
+					a++;
+				}
+				j--;
+			}
+			i++; // this path is filled, let's move on.
 		}
-		n++; // that level of the path is now full, let's look further.
 		ft_putchar('\n'); // separates the levels displayed.
+		n++; // that level of the path is now full, let's look further.
 	}
 	// exit (0); // debug
 }
