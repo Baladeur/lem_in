@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 16:20:38 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/01/29 17:11:37 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/01/31 17:28:11 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,18 @@ t_branch	*reset_branching(t_branch **branch, int i)
 
 t_branch	*destroy_branching(t_branch **branch)
 {
+	int x;
+	
 	if (!branch || !*branch)
 		return (NULL);
 	if (branch[0]->prev)
 		free(branch[0]->prev);
 	if (branch[0]->visited)
 		free(branch[0]->visited);
-	if (branch[0]->matrix)
-		destroy_matrix(&(branch[0]->matrix));
+	if (branch[0]->matrix && (x = -1))
+		while (++x < branch[0]->size)
+			if ((branch[0]->matrix)[x])
+				free((branch[0]->matrix)[x]);
 	if (branch[0]->queue)
 		while (branch[0]->queue)
 			queue_delone(&(branch[0]->queue));

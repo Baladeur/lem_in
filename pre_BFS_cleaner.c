@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 15:28:24 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/01/29 17:11:22 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/01/31 17:16:35 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,6 @@ static t_branch	*branching(int **matrix, t_branch *branch, int i)
 	int		current;
 	int		iter;
 
-	iter = -1;
-	while (++iter < branch->size)
-	{
-		branch->visited[iter] = iter == 0 || iter == i ? 1 : 0;
-		branch->prev[iter] = iter == i ? 1 : -1;
-	}
 	while (branch->queue)
 	{
 		current = branch->queue->id;
@@ -30,7 +24,7 @@ static t_branch	*branching(int **matrix, t_branch *branch, int i)
 		iter = -1;
 		while (++iter < branch->size)
 		{
-			if (matrix[current][iter] && !branch->visited[iter] && iter != branch->size - 1)
+			if (matrix[current][iter] && !branch->visited[iter] && iter != branch->size - 1 &&iter != branch->prev[current])
 			{
 				branch->visited[iter] = 1;
 				branch->prev[iter] = current;
@@ -60,12 +54,12 @@ static int		deadends(int **branch, int i, int size)
 	links = 0;
 	while (++c < size)
 	{
-		if (branch[c][i] > 0 && !deadends(branch, c, size))
+		if (branch[i][c] > 0 && !deadends(branch, c, size))
 		{
 			branch[c][i] = 0;
 			branch[i][c] = 0;
 		}
-		else if (branch[c][i] > 0)
+		else if (branch[i][c] > 0)
 			links++;
 	}
 	return (links);

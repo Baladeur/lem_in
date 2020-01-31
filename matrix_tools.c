@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:08:50 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/01/29 17:10:00 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/01/31 15:30:31 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,10 +119,10 @@ void	print_matrix(int **matrix, int count)
 		x = 0;
 		while (x < count)
 		{
-			ft_printf("%d ", matrix[y][x]);
+			printf("%2d ", matrix[y][x]);
 			x++;
 		}
-		ft_printf("\n");
+		printf("\n");
 		y++;
 	}
 }
