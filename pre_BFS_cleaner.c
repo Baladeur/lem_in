@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 15:28:24 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/01/31 17:16:35 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/01/31 19:05:08 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,23 @@ static t_branch	*branching(int **matrix, t_branch *branch, int i)
 {
 	int		current;
 	int		iter;
+	int		turn;
 
-	while (branch->queue)
+	turn = 1;
+	while (branch->queue && turn++)
 	{
 		current = branch->queue->id;
 		queue_delone(&(branch->queue));
 		iter = -1;
 		while (++iter < branch->size)
 		{
-			if (matrix[current][iter] && !branch->visited[iter] && iter != branch->size - 1 &&iter != branch->prev[current])
+			if (matrix[current][iter] && !branch->visited[iter] && iter != branch->size - 1)
 			{
-				branch->visited[iter] = 1;
-				branch->prev[iter] = current;
+				branch->visited[iter] = turn;
 				if (!(queue_add(&(branch->queue), iter)))
 					return (destroy_branching(&branch));
 			}
-			if (matrix[current][iter] && iter != branch->prev[current])
+			if (matrix[current][iter] && (!branch->matrix[current][iter] || branch->visited[iter] == turn))
 			{
 				branch->matrix[current][iter]++;
 				branch->matrix[iter][current]--;
@@ -81,10 +82,16 @@ int				**pre_BFS_cleaner(int **matrix, t_info *info)
 	while (++i < info->room_nb)
 		if (matrix[0][i])
 		{
+			ft_printf("Start : %d\n", i);
 			reset_branching(&branch, i);
 			if (!(branching(matrix, branch, i)))
 				return (destroy_matrix(&directed));
+			ft_printf("Branching :\n");
+			print_matrix(branch->matrix, branch->size);
 			deadends(branch->matrix, i, info->room_nb);
+			ft_printf("Dead Ends :\n");
+			print_matrix(branch->matrix, branch->size);
+			ft_printf("\n\n\n");
 			sum_matrix(directed, branch->matrix, info->room_nb);
 		}
 	destroy_branching(&branch);
