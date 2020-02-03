@@ -32,7 +32,7 @@ static t_branch	*branching(int **matrix, t_branch *branch, int i)
 				if (!(queue_add(&(branch->queue), iter)))
 					return (destroy_branching(&branch));
 			}
-			if (matrix[current][iter] && (!branch->matrix[current][iter] || branch->visited[iter] == turn))
+			if (matrix[current][iter] && (!branch->matrix[current][iter] || branch->visited[iter] == turn || branch->visited[iter] == branch->visited[current]))
 			{
 				branch->matrix[current][iter]++;
 				branch->matrix[iter][current]--;

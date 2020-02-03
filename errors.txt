@@ -6,7 +6,7 @@ ________________
 [x] if the room's coordinates aren't positive integers
 [x] if the room's id, name, are incomplete (ex: one of them is 0)
 [x] if two rooms have the same coordinates
-[ ] if there are more than two rooms per path line
-[ ]	if the rooms mentioned in the connection lines don't match the rooms before
+[x] if there are more than two rooms per path line
+[x]	if the rooms mentioned in the connection lines don't match the rooms before
 [ ] if start is connected to end, every ant can go from start to end in a single turn.
 [ ] if the same path exist twice (eg. 2-1 and 1-2), it  is simply ignored the second time.
