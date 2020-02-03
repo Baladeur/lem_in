@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2020/01/28 16:25:00 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/03 18:03:35 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ void	path_tab_init(t_path *path_tab, t_info *info) // debug only - for testing w
 	if (!(path_tab[0].edges = malloc(sizeof(int) * path_tab[0].len)))
 		return ;
 	path_tab[0].edges[0] = 0;
-	path_tab[0].edges[1] = 2;
-	path_tab[0].edges[2] = 3;
-	path_tab[0].edges[3] = 1;
+	path_tab[0].edges[1] = 1;
+	path_tab[0].edges[2] = 2;
+	path_tab[0].edges[3] = 3;
 	i = 0;
 	j = 0;
 	while (i < info->ant_nb)
@@ -108,26 +108,27 @@ int     main(int ac, char **av) // testing main for parsing
     lem_in_parser(map, &info); // parse the map data and stock it accordingly.
 	if (troubleshooter(&info))
 		return (error_output());
+	// i = 0; // debug
+	// while (i < info.ant_nb) // debug
+	// {
+	// 	printf("ant = %d, position = %d\n", i + 1, info.ant[i].pos);
+	// 	i++;
+	// }
+	// i = 0; // debug
+	// while (i < info.room_nb)
+	// {
+	// 	printf("id = %d, name = %s, x = %d, y = %d\n", info.room_tab[i].id, info.room_tab[i].name, info.room_tab[i].x, info.room_tab[i].y);
+	// 	i++;
+	// } // debug
 	i = 0; // debug
-	while (i < info.ant_nb) // debug
+	printf("\nPATH(S):\n* "); // debug
+	while (i < path_tab.len - 1) // debug
 	{
-		printf("ant = %d, position = %d\n", i + 1, info.ant[i].pos);
-		i++;
-	}
-	i = 0; // debug
-	while (i < info.room_nb)
-	{
-		printf("id = %d, name = %s, x = %d, y = %d\n", info.room_tab[i].id, info.room_tab[i].name, info.room_tab[i].x, info.room_tab[i].y);
+		printf("%s, ", get_room_name(&info, path_tab.edges[i]));
 		i++;
 	} // debug
-	i = 0; // debug
-	while (i < path_tab.len - 1)
-	{
-		printf("%d, ", path_tab.edges[i]);
-		i++;
-	} // debug
-	printf("%d.\n", path_tab.edges[i]);
-	ft_putchar('\n');
+	printf("%s.\n", get_room_name(&info, path_tab.edges[i]));
+	// ft_putchar('\n');
 	lem_in_displayer(&info, &path_tab, map); // debug
 	free(info.ant);
 	free_struct_array(&info);

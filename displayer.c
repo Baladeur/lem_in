@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 16:40:45 by myener            #+#    #+#             */
-/*   Updated: 2020/01/25 17:26:39 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/03 17:59:11 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	lem_in_displayer(t_info *info, t_path *path_tab, char **map)
 		i++;
 	}
 	ft_putchar('\n'); // one additional space (needed in the examples)
-	lem_in_dispatcher(info, path_tab, info->room_tab);
+	lem_in_dispatcher(info, path_tab);
 	printf("FIN OUTPUT\n"); // debug
 	printf("_____________\n\n"); // debug
 }
