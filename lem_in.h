@@ -101,10 +101,6 @@ void		print_matrix(int **matrix, int count);
 
 int			find_room(t_room *farm, char *name, t_info *info);
 
-t_path		*new_path(int *edges, int count, int len);
-t_path		*destroy_path(t_path **path);
-void		print_path(t_path *path, int count);
-
 t_path		*BFS(int **matrix, t_info *info);
 
 t_queue		*queue_new(int id);
