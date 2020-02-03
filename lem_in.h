@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/01/29 17:11:09 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/03 19:23:36 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,18 +79,18 @@ typedef struct			s_branch
 
 
 void		ant_init(t_info *info);
-void		lem_in_dispatcher(t_info *info, t_path *path_tab, t_room *room_tab);
-void		lem_in_displayer(t_info *info, t_path *path_tab, char **map);
 int			error_output(void);
 void		free_struct_array(t_info *info);
 char		**get_map(char **av, char **data);
+char		*get_room_name(t_info *info, int room_id);
 void		info_init(t_info *info);
+void		lem_in_dispatcher(t_info *info, t_path *path_tab);
+void		lem_in_displayer(t_info *info, t_path *path_tab, char **map);
 void     	lem_in_parser(char **map, t_info *info);
 int			parsing_error(char **map);
 int			room_counter(char **map);
 void		room_init(t_room *room);
 int			troubleshooter(t_info *info);
-
 
 int			**init_matrix(int count);
 int			**destroy_matrix(int ***matrix);
