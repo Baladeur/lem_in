@@ -6,11 +6,25 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 15:28:24 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/01/31 19:05:08 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/04 16:37:10 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+static int is_turn_over(t_branch *branch, int turn)
+{
+	t_queue *current;
+
+	current = branch->queue;
+	while (current)
+	{
+		if (branch->visited[current->id] == turn)
+			return (0);
+		current = current->next;
+	}
+	return (1);
+}
 
 static t_branch	*branching(int **matrix, t_branch *branch, int i)
 {
@@ -19,25 +33,31 @@ static t_branch	*branching(int **matrix, t_branch *branch, int i)
 	int		turn;
 
 	turn = 1;
-	while (branch->queue && turn++)
+	while (branch->queue)
 	{
 		current = branch->queue->id;
 		queue_delone(&(branch->queue));
 		iter = -1;
 		while (++iter < branch->size)
 		{
-			if (matrix[current][iter] && !branch->visited[iter] && iter != branch->size - 1)
+			if (matrix[current][iter] && branch->visited[iter] < 0 && iter != branch->size - 1)
 			{
-				branch->visited[iter] = turn;
+				branch->visited[iter] = turn + 1;
 				if (!(queue_add(&(branch->queue), iter)))
 					return (destroy_branching(&branch));
 			}
-			if (matrix[current][iter] && (!branch->matrix[current][iter] || branch->visited[iter] == turn || branch->visited[iter] == branch->visited[current]))
+			else if (matrix[current][iter] && branch->visited[iter] == turn + 1 && iter != branch->size - 1)
+				branch->weight[iter]++;
+			if (matrix[current][iter] && (!branch->matrix[current][iter]
+			|| branch->visited[iter] == branch->visited[current]))
 			{
-				branch->matrix[current][iter]++;
-				branch->matrix[iter][current]--;
+				//printf("%d -> %d (weight : %d)\n", current, iter, branch->weight[current]);
+				branch->matrix[current][iter] += branch->weight[current];
+				branch->matrix[iter][current] -= branch->weight[current];
 			}
 		}
+		if (is_turn_over(branch, turn))
+			turn++;
 	}
 	return (branch);
 }
@@ -82,16 +102,16 @@ int				**pre_BFS_cleaner(int **matrix, t_info *info)
 	while (++i < info->room_nb)
 		if (matrix[0][i])
 		{
-			ft_printf("Start : %d\n", i);
+			printf("Start : %d\n", i);
 			reset_branching(&branch, i);
 			if (!(branching(matrix, branch, i)))
 				return (destroy_matrix(&directed));
-			ft_printf("Branching :\n");
+			printf("Branching :\n");
 			print_matrix(branch->matrix, branch->size);
 			deadends(branch->matrix, i, info->room_nb);
-			ft_printf("Dead Ends :\n");
+			printf("Dead Ends :\n");
 			print_matrix(branch->matrix, branch->size);
-			ft_printf("\n\n\n");
+			printf("\n\n\n");
 			sum_matrix(directed, branch->matrix, info->room_nb);
 		}
 	destroy_branching(&branch);
