@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/02/04 17:20:21 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/04 20:22:24 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@
 # include <unistd.h>
 # include "libft/libft.h"
 
-typedef struct 			s_ant	// every ant, its ID and the path it musts follow
+typedef struct 			s_ant		// every ant, its ID and the path it musts follow.
 {
-	int				id;				// ant's id
-	int				pos;			// ant's current position
-	int				*path;			// ant's given path
+	int				id;				// ant's id.
+	int				pos;			// ant's current position.
+	int				*path;			// ant's given path.
 }						t_ant;
 
-typedef struct			s_room  // for start room, end room, and classic in-between rooms.
+typedef struct			s_room		// for start room, end room, and classic in-between rooms.
 {
 	int				id;				// integer identifying the room.
 	int				x;				// position of the room (easting).
@@ -41,7 +41,7 @@ typedef struct			s_room  // for start room, end room, and classic in-between roo
                                     // when equal to base nb, current iteration is the first.
 }			        	t_room;
 
-typedef struct			s_info	// useful information that may bee needed regularly.
+typedef struct			s_info		// useful information that may bee needed regularly.
 {
 	int				room_nb; 		// the number of rooms.
 	int				ant_nb;			// the total number of ants.
@@ -55,27 +55,26 @@ typedef struct			s_info	// useful information that may bee needed regularly.
 	t_room			*room_tab;		// array of structures containing all rooms.
 }						t_info;
 
-typedef struct			s_path	// Register informations about a path
+typedef struct			s_path		// informations about a path.
 {
-	int				*nodes;			// Tab of size room_nb. nodes[i] = 1 if the path goes through the room i, 0 otherwise.
-	int				*edges;			// Order of the rooms (id) the path goes through, ex: 5, 2, 3, 0.
-	int 			len;			// Length of the path aka number of rooms the path goes through
+	int				*nodes;			// tab of size room_nb. nodes[i] = 1 if the path goes through the room i, 0 otherwise.
+	int				*edges;			// order of the rooms (id) the path goes through, ex: 5, 2, 3, 0.
+	int 			len;			// length of the path aka number of rooms the path goes through.
 }						t_path;
 
-typedef struct			s_queue
+typedef struct			s_queue		// simple chained list to store room ids in a queue.
 {
-	struct s_queue	*next;
-	int				id;
+	struct s_queue	*next;			// next element in the queue.
+	int				id;				// room id of the current element.
 }						t_queue;
 
-typedef struct			s_branch
+typedef struct			s_branch	// information stored for the pre_cleaner branching.
 {
-	t_queue	*queue;
-	int		**matrix;
-	int		*visited;
-	int		*weight;
-	int		*prev;
-	int		size;
+	t_queue	*queue;					// room queue for the BFS-inspired branching.
+	int		**matrix;				// resulting directed branch matrix.
+	int		*visited;				// the visited rooms, where visited[id] is the turn at which the room was visited, or -1.
+	int		*weight;				// weight of each room, ex: weight[id] = 3 if 3 paths arrived at id at once during the branching.
+	int		size;					// size of the ant farm aka the number of rooms.
 }						t_branch;
 
 
@@ -105,12 +104,12 @@ int			find_room(t_room *farm, char *name, t_info *info);
 t_queue		*queue_new(int id);
 void		queue_delone(t_queue **queue);
 t_queue		*queue_add(t_queue **queue, int id);
-int			queue_get_at(t_queue *queue, int id);
+int			queue_get_at(t_queue *queue, int i);
 int			queue_size(t_queue *queue);
 
 t_branch	*init_branching(int size);
 t_branch	*reset_branching(t_branch **branch, int i);
 t_branch	*destroy_branching(t_branch **branch);
-int			**pre_BFS_cleaner(int **matrix, t_info *info);
+int			**pre_cleaner(int **matrix, t_info *info);
 
 #endif

@@ -6,11 +6,17 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 16:20:38 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/04 16:05:22 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/04 20:06:27 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+/*
+** Initialize the branch structure used by the pre_cleaner. Empty by default,
+** values must be set for each branching.
+** size = Ant farm's size (info->room_nb)
+*/
 
 t_branch	*init_branching(int size)
 {
@@ -39,6 +45,11 @@ t_branch	*init_branching(int size)
 	return (branch);
 }
 
+/*
+** Sets the values of an initialized branch stucture, with i as it's starting room.
+** i must be directly linked to the start room for the algorithm to work properly.
+*/
+
 t_branch	*reset_branching(t_branch **branch, int i)
 {
 	int	x;
@@ -62,6 +73,10 @@ t_branch	*reset_branching(t_branch **branch, int i)
 	branch[0]->matrix[i][0] = -1;
 	return (*branch);
 }
+
+/*
+** Free the memory used by a branch stucture.
+*/
 
 t_branch	*destroy_branching(t_branch **branch)
 {

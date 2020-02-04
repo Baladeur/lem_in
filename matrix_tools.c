@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:08:50 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/01/31 15:30:31 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/04 18:46:15 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,9 @@ int		**dupe_matrix(int **matrix, int count)
 	return (new);
 }
 
-
 /*
-**	adds values from src matrix to dest matrix, both matrix should have the same size
+**	Adds values from src matrix to dest matrix.
+**	Both matrix should have the same size.
 */
 
 void	sum_matrix(int **dest, int **src, int size)

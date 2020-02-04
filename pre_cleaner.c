@@ -1,16 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pre_BFS_cleaner.c                                  :+:      :+:    :+:   */
+/*   pre_cleaner.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 15:28:24 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/04 17:19:55 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/04 20:12:36 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+/*
+** Returns 1 if every room explored during the turn aren't in the queue anymore.
+*/
 
 static int		is_turn_over(t_branch *branch, int turn)
 {
@@ -26,40 +30,65 @@ static int		is_turn_over(t_branch *branch, int turn)
 	return (1);
 }
 
-static t_branch	*branching(int **matrix, t_branch *branch, int i)
+/*
+** The loop used by the branching algorithm. Check every connection to the
+** currently queued room and updates the branching matrix accordingly.
+*/
+
+
+static int		branching_loop(int **matrix, t_branch *branch, int turn)
 {
 	int		current;
 	int		iter;
+
+	current = branch->queue->id;
+	iter = -1;
+	while (++iter < branch->size)
+	{
+		if (matrix[current][iter] && branch->visited[iter] < 0
+			&& iter != branch->size - 1)
+		{
+			branch->visited[iter] = turn + 1;
+			if (!(queue_add(&(branch->queue), iter)))
+				return (0);
+		}
+		else if (matrix[current][iter] && branch->visited[iter] == turn + 1
+			&& iter != branch->size - 1)
+			branch->weight[iter]++;
+		if (matrix[current][iter] && (!branch->matrix[current][iter]
+		|| branch->visited[iter] == branch->visited[current]))
+		{
+			branch->matrix[current][iter] += branch->weight[current];
+			branch->matrix[iter][current] -= branch->weight[current];
+		}
+	}
+	return (1);
+}
+
+/*
+** Explores the adjacency matrix to create a directed branching matrix.
+*/
+
+static t_branch	*branching(int **matrix, t_branch *branch)
+{
 	int		turn;
 
 	turn = 1;
 	while (branch->queue)
 	{
-		current = branch->queue->id;
+		if (!branching_loop(matrix, branch, turn))
+			return (destroy_branching(&branch));
 		queue_delone(&(branch->queue));
-		iter = -1;
-		while (++iter < branch->size)
-		{
-			if (matrix[current][iter] && branch->visited[iter] < 0 && iter != branch->size - 1)
-			{
-				branch->visited[iter] = turn + 1;
-				if (!(queue_add(&(branch->queue), iter)))
-					return (destroy_branching(&branch));
-			}
-			else if (matrix[current][iter] && branch->visited[iter] == turn + 1 && iter != branch->size - 1)
-				branch->weight[iter]++;
-			if (matrix[current][iter] && (!branch->matrix[current][iter]
-			|| branch->visited[iter] == branch->visited[current]))
-			{
-				branch->matrix[current][iter] += branch->weight[current];
-				branch->matrix[iter][current] -= branch->weight[current];
-			}
-		}
 		if (is_turn_over(branch, turn))
 			turn++;
 	}
 	return (branch);
 }
+
+/*
+** Remove dead ends from a directed branching matrix.
+*/
+
 
 static int		deadends(int **branch, int i, int size)
 {
@@ -85,6 +114,11 @@ static int		deadends(int **branch, int i, int size)
 	return (links);
 }
 
+/*
+** Turns an adjacency matrix graph into a directed graph.
+*/
+
+
 int				**pre_cleaner(int **matrix, t_info *info)
 {
 	t_branch	*branch;
@@ -101,16 +135,10 @@ int				**pre_cleaner(int **matrix, t_info *info)
 	while (++i < info->room_nb)
 		if (matrix[0][i])
 		{
-			printf("Start : %d\n", i);
 			reset_branching(&branch, i);
-			if (!(branching(matrix, branch, i)))
+			if (!(branching(matrix, branch)))
 				return (destroy_matrix(&directed));
-			printf("Branching :\n");
-			print_matrix(branch->matrix, branch->size);
 			deadends(branch->matrix, i, info->room_nb);
-			printf("Dead Ends :\n");
-			print_matrix(branch->matrix, branch->size);
-			printf("\n\n\n");
 			sum_matrix(directed, branch->matrix, info->room_nb);
 		}
 	destroy_branching(&branch);
