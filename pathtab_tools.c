@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 18:36:05 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/03 18:36:05 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/04 17:18:22 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ t_path  *pathtab_init(int count)
     if (!(pathtab = (t_path *)malloc(sizeof(t_path) * (count + 1))))
         return (NULL);
 }
-
-
 
 int     *pathtab_capacity(t_path *pathtab, int count, t_info *info)
 {

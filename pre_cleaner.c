@@ -6,13 +6,13 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 15:28:24 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/04 16:37:10 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/04 17:19:55 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static int is_turn_over(t_branch *branch, int turn)
+static int		is_turn_over(t_branch *branch, int turn)
 {
 	t_queue *current;
 
@@ -51,7 +51,6 @@ static t_branch	*branching(int **matrix, t_branch *branch, int i)
 			if (matrix[current][iter] && (!branch->matrix[current][iter]
 			|| branch->visited[iter] == branch->visited[current]))
 			{
-				//printf("%d -> %d (weight : %d)\n", current, iter, branch->weight[current]);
 				branch->matrix[current][iter] += branch->weight[current];
 				branch->matrix[iter][current] -= branch->weight[current];
 			}
@@ -86,11 +85,11 @@ static int		deadends(int **branch, int i, int size)
 	return (links);
 }
 
-int				**pre_BFS_cleaner(int **matrix, t_info *info)
+int				**pre_cleaner(int **matrix, t_info *info)
 {
 	t_branch	*branch;
 	int			**directed;
-	int 		i;
+	int			i;
 
 	directed = NULL;
 	branch = NULL;

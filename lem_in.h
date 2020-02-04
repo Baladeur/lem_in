@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/02/04 16:03:26 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/04 17:20:21 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,6 @@ void		sum_matrix(int **dest, int **src, int size);
 void		print_matrix(int **matrix, int count);
 
 int			find_room(t_room *farm, char *name, t_info *info);
-
-t_path		*BFS(int **matrix, t_info *info);
 
 t_queue		*queue_new(int id);
 void		queue_delone(t_queue **queue);
