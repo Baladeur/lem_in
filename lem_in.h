@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/02/05 18:45:40 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/05 18:52:48 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct 			s_ant		// every ant, its ID and the path it musts follow.
 {
 	int				id;				// ant's id.
 	int				pos;			// ant's current position.
+	int				path_len;		// ant's path's len.
 	int				*path;			// ant's given path.
 }						t_ant;
 
