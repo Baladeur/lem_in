@@ -6,15 +6,15 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 16:20:38 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/04 20:06:27 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/05 18:45:12 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
 /*
-** Initialize the branch structure used by the pre_cleaner. Empty by default,
-** values must be set for each branching.
+** initialize the branch structure used by the directed matrix.
+** Empty by default, values must be set for each branching.
 ** size = Ant farm's size (info->room_nb)
 */
 
@@ -27,13 +27,12 @@ t_branch	*init_branching(int size)
 		return (NULL);
 	branch->visited = NULL;
 	branch->matrix = NULL;
+	branch->weight = NULL;
 	branch->queue = NULL;
 	branch->size = size;
-	if (!(branch->visited = (int *)malloc(sizeof(int) * size)))
-		return (destroy_branching(&branch));
-	if (!(branch->weight = (int *)malloc(sizeof(int) * size)))
-		return (destroy_branching(&branch));
-	if (!(branch->matrix = (int **)malloc(sizeof(int *) * size)))
+	if (!(branch->visited = (int *)malloc(sizeof(int) * size))
+		|| !(branch->weight = (int *)malloc(sizeof(int) * size))
+		|| !(branch->matrix = (int **)malloc(sizeof(int *) * size)))
 		return (destroy_branching(&branch));
 	y = -1;
 	while (++y < size)
@@ -46,8 +45,8 @@ t_branch	*init_branching(int size)
 }
 
 /*
-** Sets the values of an initialized branch stucture, with i as it's starting room.
-** i must be directly linked to the start room for the algorithm to work properly.
+** Sets the values of an initialized branch stucture starting at i.
+** i must be linked to the start room for the algorithm to work properly.
 */
 
 t_branch	*reset_branching(t_branch **branch, int i)
