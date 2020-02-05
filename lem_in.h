@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/02/05 18:45:40 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/05 19:03:42 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void		room_init(t_room *room);
 int			troubleshooter(t_info *info);
 
 int			**init_matrix(int count);
-int			**destroy_matrix(int ***matrix);
+int			**destroy_matrix(int ***matrix, int count);
 int			**dupe_matrix(int **matrix, int count);
 int			**adj_matrix(char **data, t_room *farm, t_info *info, int start);
 void		sum_matrix(int **dest, int **src, int size);
@@ -110,6 +110,7 @@ int			queue_size(t_queue *queue);
 t_branch	*init_branching(int size);
 t_branch	*reset_branching(t_branch **branch, int i);
 t_branch	*destroy_branching(t_branch **branch);
+int			**fill_gaps(int **matrix, int ***directed, t_info *info);
 int			**directed_matrix(int **matrix, t_info *info);
 
 #endif

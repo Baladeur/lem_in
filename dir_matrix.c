@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   directing.c                                        :+:      :+:    :+:   */
+/*   dir_matrix.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 15:28:24 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/05 18:43:57 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/05 19:11:06 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,10 +136,10 @@ int				**directed_matrix(int **matrix, t_info *info)
 		{
 			reset_branching(&branch, i);
 			if (!(branching(matrix, branch)))
-				return (destroy_matrix(&directed));
+				return (destroy_matrix(&directed, info->room_nb));
 			deadends(branch->matrix, i, info->room_nb);
 			sum_matrix(directed, branch->matrix, info->room_nb);
 		}
 	destroy_branching(&branch);
-	return (directed);
+	return (fill_gaps(matrix, &directed, info));
 }

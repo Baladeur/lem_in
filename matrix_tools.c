@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:08:50 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/04 18:46:15 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/05 19:05:46 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,13 @@
 **	int*
 */
 
-int		**destroy_matrix(int ***matrix)
+int		**destroy_matrix(int ***matrix, int count)
 {
 	int i;
 
-	i = 0;
-	while (**matrix + i)
-	{
+	i = -1;
+	while (++i < count)
 		free(**matrix + i);
-		i++;
-	}
 	free(*matrix);
 	*matrix = NULL;
 	return (NULL);
@@ -43,16 +40,15 @@ int		**init_matrix(int count)
 	int i;
 	int j;
 
-	i = 0;
+	i = -1;
 	matrix = NULL;
 	if (!(matrix = (int **)malloc(sizeof(int *) * count)))
 		return (NULL);
-	while (i < count)
+	while (++i < count)
 	{
 		matrix[i] = NULL;
 		if (!(matrix[i] = (int *)malloc(sizeof(int) * count)))
-			return (destroy_matrix(&matrix));
-		i++;
+			return (destroy_matrix(&matrix, count));
 	}
 	j = -1;
 	while (++j < count)
@@ -80,7 +76,7 @@ int		**dupe_matrix(int **matrix, int count)
 	x = -1;
 	while (++x < count && !(new[x] = NULL))
 		if (!(new[x] = (int *)malloc(sizeof(int) * count)))
-			return (destroy_matrix(&new));
+			return (destroy_matrix(&new, count));
 	y = -1;
 	while (++y < count && (x = -1))
 		while (++x < count)
@@ -113,16 +109,12 @@ void	print_matrix(int **matrix, int count)
 	int x;
 	int y;
 
-	y = 0;
-	while (y < count)
+	y = -1;
+	while (++y < count)
 	{
-		x = 0;
-		while (x < count)
-		{
+		x = -1;
+		while (++x < count)
 			printf("%2d ", matrix[y][x]);
-			x++;
-		}
 		printf("\n");
-		y++;
 	}
 }
