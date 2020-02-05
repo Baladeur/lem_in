@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/02/04 20:22:24 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/05 18:45:40 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ typedef struct			s_queue		// simple chained list to store room ids in a queue.
 	int				id;				// room id of the current element.
 }						t_queue;
 
-typedef struct			s_branch	// information stored for the pre_cleaner branching.
+typedef struct			s_branch	// information stored for the directed matrix branching.
 {
 	t_queue	*queue;					// room queue for the BFS-inspired branching.
 	int		**matrix;				// resulting directed branch matrix.
@@ -110,6 +110,6 @@ int			queue_size(t_queue *queue);
 t_branch	*init_branching(int size);
 t_branch	*reset_branching(t_branch **branch, int i);
 t_branch	*destroy_branching(t_branch **branch);
-int			**pre_cleaner(int **matrix, t_info *info);
+int			**directed_matrix(int **matrix, t_info *info);
 
 #endif

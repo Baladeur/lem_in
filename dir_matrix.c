@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pre_cleaner.c                                      :+:      :+:    :+:   */
+/*   directing.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 15:28:24 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/04 20:12:36 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/05 18:43:57 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,7 @@ static int		deadends(int **branch, int i, int size)
 ** Turns an adjacency matrix graph into a directed graph.
 */
 
-
-int				**pre_cleaner(int **matrix, t_info *info)
+int				**directed_matrix(int **matrix, t_info *info)
 {
 	t_branch	*branch;
 	int			**directed;
