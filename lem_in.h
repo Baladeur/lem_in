@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/02/05 19:03:42 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/05 19:43:36 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct 			s_ant		// every ant, its ID and the path it musts follow.
 {
 	int				id;				// ant's id.
 	int				pos;			// ant's current position.
+	int				path_len;		// ant's path's len.
 	int				*path;			// ant's given path.
 }						t_ant;
 
@@ -35,11 +36,11 @@ typedef struct			s_room		// for start room, end room, and classic in-between roo
 	int				id;				// integer identifying the room.
 	int				x;				// position of the room (easting).
 	int				y;				// position of the room (northing).
-    char            *name;          // name of the room.
-    char            type;           // 's' if start room, 'e' if end room, 'c' if classic room.
-    int             ant_nb_curr;    // nb of ants currently present. can only be <= 1 if type is 'c'.
-                                    // when equal to base nb, current iteration is the first.
-}			        	t_room;
+	char			*name;			// name of the room.
+	char			type;			// 's' if start room, 'e' if end room, 'c' if classic room.
+	int				ant_nb_curr;	// nb of ants currently present. can only be <= 1 if type is 'c'.
+									// when equal to base nb, current iteration is the first.
+}						t_room;
 
 typedef struct			s_info		// useful information that may bee needed regularly.
 {
@@ -50,7 +51,7 @@ typedef struct			s_info		// useful information that may bee needed regularly.
 	int				end_nb; 		// line number of the end room.
 	bool			s_enc;			// true if start is encountered, false if not.
 	bool			e_enc;			// true if end is encountered, false if not.
-    int				path_nb;		// number of simultaneous paths found.
+	int				path_nb;		// number of simultaneous paths found.
 	int				**matrix;		// the adjacency matrix
 	t_room			*room_tab;		// array of structures containing all rooms.
 }						t_info;

@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2020/02/03 18:03:35 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/05 18:46:04 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	path_tab_init(t_path *path_tab, t_info *info) // debug only - for testing w
 	while (i < info->ant_nb)
 	{
 		info->ant[i].path = path_tab[0].edges;
+		info->ant[i].path_len = path_tab[0].len;
 		i++;
 	}
 }
