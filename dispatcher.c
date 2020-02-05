@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:22:11 by myener            #+#    #+#             */
-/*   Updated: 2020/02/05 18:51:22 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/05 21:55:16 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,48 @@ char			*get_room_name(t_info *info, int room_id) // retrieves the room's name fr
 	return (NULL); // otherwise the ID doesn't match any room and there's an error ; return NULL.
 }
 
-static int		is_in_end_room(t_ant ant, t_info *info)
-{
-	int i;
+// static int		is_in_end_room(t_ant ant, t_info *info)
+// {
+// 	int i;
 
-	i = 0;
-	while (i < info->room_nb) // while we go through the rooms,
-	{
-		if (info->room_tab[i].type == 'e') // if the room type is 'e',
-			break ; // then it's the end room ; we must stay on it, so break.
-		i++;
-	}
-	if (ant.pos == info->room_tab[i].id) // if the ant is on end, return 1.
-		return (1);
-	return (0);
-}
+// 	i = 0;
+// 	while (i < info->room_nb) // while we go through the rooms,
+// 	{
+// 		if (info->room_tab[i].type == 'e') // if the room type is 'e',
+// 			break ; // then it's the end room ; we must stay on it, so break.
+// 		i++;
+// 	}
+// 	if (ant.pos == info->room_tab[i].id) // if the ant is on end, return 1.
+// 		return (1);
+// 	return (0);
+// }
+
+// void			display_int_tab(int *tab, int len) // debug
+// {
+// 	int	i;
+
+// 	i = 0;
+
+// 	printf("debut:\n");
+// 	while (i < len)
+// 	{
+// 		printf("%d\n", tab[i]);
+// 		i++;
+// 	}
+// 	printf("fin\n");
+// }
+
+// void			display_rooms(t_room *room_tab, int len) // debug
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (i < len)
+// 	{
+// 		printf("id = %d, name = %s\n", room_tab[i].id, room_tab[i].name);
+// 		i++;
+// 	}
+// }
 
 void			lem_in_dispatcher(t_info *info, t_path *path_tab)
 {
@@ -70,19 +97,17 @@ void			lem_in_dispatcher(t_info *info, t_path *path_tab)
 	i = 0;
 	j = 0;
 	room_name = NULL;
-	while ((!is_in_end_room(info->ant[info->ant_nb - 1], info))) // while the last ant isn't in the end room,
+	while (info->ant[info->ant_nb - 1].pos < info->room_nb - 1) // while the last ant isn't in the end room,
 	{
 		i = 0; // reinitializes index every level.
 		a = 0; // goes back to ant 1 after the iteration.
 		while (i < info->path_nb && a < info->ant_nb && room_is_empty(info, path_tab[i].edges[n])) // while there's an empty room on this level,
 		{
-			// if () // debug : if ant is in end room,
-				/*then leave ant alone (write code for that)*/;
-			if (info->ant[a].path[n] == path_tab[i].edges[n]) // if the current path is the same as the ant's path (& room is empty), then let's occupy it.
+			if (info->ant[a].pos < info->room_nb && info->ant[a].path[n] == path_tab[i].edges[n]) // if the current path is the same as the ant's path (& room is empty), then let's occupy it.
 			{
 				info->ant[a].pos = info->ant[a].path[n];
 				room_name = get_room_name(info, info->ant[a].path[n]);
-				room_name ? ft_printf("L%d-%s ", info->ant[a].id, room_name) : 0; // condition isnt perfect ; perhaps replace with something else
+				room_name ? ft_printf("L%d-%s ", info->ant[a].id, room_name) : 0;
 				a++;
 			}
 			j = n - 1; // set j to the room right before.
@@ -92,7 +117,7 @@ void			lem_in_dispatcher(t_info *info, t_path *path_tab)
 				{
 					info->ant[a].pos = info->ant[a].path[j];
 					room_name = get_room_name(info, info->ant[a].path[j]);
-					room_name ? ft_printf("L%d-%s ", info->ant[a].id, room_name) : 0; // condition isnt perfect ; perhaps replace with something else
+					room_name ? ft_printf("L%d-%s ", info->ant[a].id, room_name) : 0;
 					a++;
 				}
 				j--;
