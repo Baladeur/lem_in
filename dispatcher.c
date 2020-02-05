@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:22:11 by myener            #+#    #+#             */
-/*   Updated: 2020/02/03 19:20:00 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/05 18:51:22 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ void			lem_in_dispatcher(t_info *info, t_path *path_tab)
 		a = 0; // goes back to ant 1 after the iteration.
 		while (i < info->path_nb && a < info->ant_nb && room_is_empty(info, path_tab[i].edges[n])) // while there's an empty room on this level,
 		{
-			if (is_in_end_room(info->ant[a], info)) // debug : if ant is in end room,
+			// if () // debug : if ant is in end room,
 				/*then leave ant alone (write code for that)*/;
-			if (n < path_tab[0].len && info->ant[a].path[n] == path_tab[i].edges[n]) // if the current path is the same as the ant's path (& room is empty), then let's occupy it.
+			if (info->ant[a].path[n] == path_tab[i].edges[n]) // if the current path is the same as the ant's path (& room is empty), then let's occupy it.
 			{
 				info->ant[a].pos = info->ant[a].path[n];
 				room_name = get_room_name(info, info->ant[a].path[n]);
@@ -99,7 +99,7 @@ void			lem_in_dispatcher(t_info *info, t_path *path_tab)
 			}
 			i++; // this path is filled, let's move on.
 		}
-		ft_putchar('\n'); // separates the levels displayed.
+		a != 0 ? ft_putchar('\n') : 0; // separates the levels displayed.
 		n++; // that level of the path is now full, let's look further.
 	}
 }
