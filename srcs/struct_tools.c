@@ -6,17 +6,12 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:58:11 by myener            #+#    #+#             */
-/*   Updated: 2020/02/05 21:55:09 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/06 10:20:27 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "includes/lem_in.h"
 
-int		error_output(void)
-{
-	ft_putendl("ERROR");
-	return (0);
-}
 
 void	ant_init(t_info *info)
 {

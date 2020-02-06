@@ -6,7 +6,7 @@
 #    By: myener <myener@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/20 19:31:14 by myener            #+#    #+#              #
-#    Updated: 2019/11/20 19:33:09 by myener           ###   ########.fr        #
+#    Updated: 2020/02/06 10:10:49 by myener           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,12 +15,11 @@ NAME = lem_in
 SRCDIR	:=	./
 OBJDIR	:=	./objs
 
-SRCS_NAME =
+SRCS_NAME = # to be added in due time when the sources are completed and stable
 
 FLAGS =	 -Wall -Wextra -Werror -I libft
 
 OBJS	:=	$(addprefix $(OBJDIR)/,$(SRCS_NAME:.c=.o))
-
 SRCS	:=	$(addprefix $(SRCDIR)/,$(SRCS_NAME))
 
 LIBFT = libft/libft.a

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   dir_gaps.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 18:52:13 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/05 19:39:39 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/06 10:10:21 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "includes/lem_in.h"
 
 static int	exit_bfs(t_queue **queue, int **visited, int **prev)
 {

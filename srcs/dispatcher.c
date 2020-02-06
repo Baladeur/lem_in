@@ -6,11 +6,11 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:22:11 by myener            #+#    #+#             */
-/*   Updated: 2020/02/05 21:55:16 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/06 10:20:54 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "includes/lem_in.h"
 
 static int		room_is_empty(t_info *info, int room_id) // checks if an ant is already in room_id's room.
 {
@@ -54,33 +54,6 @@ char			*get_room_name(t_info *info, int room_id) // retrieves the room's name fr
 // 	if (ant.pos == info->room_tab[i].id) // if the ant is on end, return 1.
 // 		return (1);
 // 	return (0);
-// }
-
-// void			display_int_tab(int *tab, int len) // debug
-// {
-// 	int	i;
-
-// 	i = 0;
-
-// 	printf("debut:\n");
-// 	while (i < len)
-// 	{
-// 		printf("%d\n", tab[i]);
-// 		i++;
-// 	}
-// 	printf("fin\n");
-// }
-
-// void			display_rooms(t_room *room_tab, int len) // debug
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < len)
-// 	{
-// 		printf("id = %d, name = %s\n", room_tab[i].id, room_tab[i].name);
-// 		i++;
-// 	}
 // }
 
 void			lem_in_dispatcher(t_info *info, t_path *path_tab)

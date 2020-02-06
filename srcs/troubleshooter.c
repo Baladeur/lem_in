@@ -6,11 +6,11 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:20:15 by myener            #+#    #+#             */
-/*   Updated: 2019/12/16 01:06:46 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/06 10:10:40 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "includes/lem_in.h"
 
 int		coord_double(t_room *tab, int nb)
 {

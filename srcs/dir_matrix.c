@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   dir_matrix.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 15:28:24 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/05 19:11:06 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/06 10:10:23 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "includes/lem_in.h"
 
 /*
 ** Returns 1 if every room explored during the turn aren't in the queue anymore.

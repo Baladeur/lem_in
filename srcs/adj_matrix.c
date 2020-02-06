@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   adj_matrix.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:10:44 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/05 19:10:55 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/06 10:10:17 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "includes/lem_in.h"
 
 /*
 **	If the given line matches the link syntax, it will be stored in room and

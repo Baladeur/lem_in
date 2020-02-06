@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   branch_tools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 16:20:38 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/05 18:45:12 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/06 10:10:19 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "includes/lem_in.h"
 
 /*
 ** initialize the branch structure used by the directed matrix.

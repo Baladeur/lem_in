@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/02/05 21:54:39 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/06 10:19:55 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include "libft/libft.h"
+# include "../libft/libft.h"
 
 typedef struct 			s_ant		// every ant, its ID and the path it musts follow.
 {
@@ -35,11 +35,11 @@ typedef struct			s_room		// for start room, end room, and classic in-between roo
 	int				id;				// integer identifying the room.
 	int				x;				// position of the room (easting).
 	int				y;				// position of the room (northing).
-	char			*name;			// name of the room.
-	char			type;			// 's' if start room, 'e' if end room, 'c' if classic room.
-	int				ant_nb_curr;	// nb of ants currently present. can only be <= 1 if type is 'c'.
-									// when equal to base nb, current iteration is the first.
-}						t_room;
+    char            *name;          // name of the room.
+    char            type;           // 's' if start room, 'e' if end room, 'c' if classic room.
+    int             ant_nb_curr;    // nb of ants currently present. can only be <= 1 if type is 'c'.
+                                    // when equal to base nb, current iteration is the first.
+}			        	t_room;
 
 typedef struct			s_info		// useful information that may bee needed regularly.
 {
@@ -50,7 +50,7 @@ typedef struct			s_info		// useful information that may bee needed regularly.
 	int				end_nb; 		// line number of the end room.
 	bool			s_enc;			// true if start is encountered, false if not.
 	bool			e_enc;			// true if end is encountered, false if not.
-	int				path_nb;		// number of simultaneous paths found.
+    int				path_nb;		// number of simultaneous paths found.
 	int				**matrix;		// the adjacency matrix
 	t_room			*room_tab;		// array of structures containing all rooms.
 }						t_info;
@@ -68,7 +68,7 @@ typedef struct			s_queue		// simple chained list to store room ids in a queue.
 	int				id;				// room id of the current element.
 }						t_queue;
 
-typedef struct			s_branch	// information stored for the directed matrix branching.
+typedef struct			s_branch	// information stored for the pre_cleaner branching.
 {
 	t_queue	*queue;					// room queue for the BFS-inspired branching.
 	int		**matrix;				// resulting directed branch matrix.
@@ -84,16 +84,16 @@ void		free_struct_array(t_info *info);
 char		**get_map(char **av, char **data);
 char		*get_room_name(t_info *info, int room_id);
 void		info_init(t_info *info);
+int			is_room(char *line);
 void		lem_in_dispatcher(t_info *info, t_path *path_tab);
 void		lem_in_displayer(t_info *info, t_path *path_tab, char **map);
 void     	lem_in_parser(char **map, t_info *info);
 int			parsing_error(char **map);
-int			room_counter(char **map);
 void		room_init(t_room *room);
 int			troubleshooter(t_info *info);
 
 int			**init_matrix(int count);
-int			**destroy_matrix(int ***matrix, int count);
+int			**destroy_matrix(int ***matrix);
 int			**dupe_matrix(int **matrix, int count);
 int			**adj_matrix(char **data, t_room *farm, t_info *info, int start);
 void		sum_matrix(int **dest, int **src, int size);
@@ -110,7 +110,6 @@ int			queue_size(t_queue *queue);
 t_branch	*init_branching(int size);
 t_branch	*reset_branching(t_branch **branch, int i);
 t_branch	*destroy_branching(t_branch **branch);
-int			**fill_gaps(int **matrix, int ***directed, t_info *info);
-int			**directed_matrix(int **matrix, t_info *info);
+int			**pre_cleaner(int **matrix, t_info *info);
 
 #endif

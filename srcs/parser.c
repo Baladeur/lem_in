@@ -6,49 +6,13 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:20:24 by myener            #+#    #+#             */
-/*   Updated: 2019/12/16 17:01:22 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/06 10:17:41 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "includes/lem_in.h"
 
-int		parsing_error(char **map)
-{
-	map? tab_free(map) : 0;
-	return (error_output());
-}
-
-int		is_room(char *line)
-{
-	int 	i;
-
-	i = 0; // first let's start by checking whether it's a room or path.
-	if (line[0] == '#')
-		return (0);
-	while (line[i] && line[i] != ' ' && line[i] != '-') // let's parse the first element of the string.
-		i++;
-	if (line[i] == ' ') // if the next element is a space, then it's a room
-		return (1);
-	return (0); // else it's an error.
-}
-
-int		room_counter(char **map)
-{
-	int i;
-	int	room_nb;
-
-	i = 0;
-	room_nb = 0;
-	while (map[i])
-	{
-		if (is_room(map[i]) == 1)
-			room_nb++;
-		i++;
-	}
-	return (room_nb);
-}
-
-void	room_parser(char *line, t_info *info, int j) // parses every classic room data.
+static void		room_parser(char *line, t_info *info, int j) // parses every classic room data.
 {
 	int		i;
 	int		start;
@@ -72,7 +36,7 @@ void	room_parser(char *line, t_info *info, int j) // parses every classic room d
 	info->room_tab[j].y = ft_atoi(ft_strsub(line, start, i));
 }
 
-void	room_add_start_end(char **map, t_info *info)
+static void		room_add_start_end(char **map, t_info *info)
 {
 	if (!info->end_nb || !info->start_nb)
 		parsing_error(map);
@@ -82,7 +46,7 @@ void	room_add_start_end(char **map, t_info *info)
 	info->room_tab[info->room_nb - 1].type = 'e';
 }
 
-void	gates_manager(char **map, t_info *info, int ret, int i) // manages the gates' (start and end rooms) info.
+static void		gates_manager(char **map, t_info *info, int ret, int i) // manages the gates' (start and end rooms) info.
 {
 	int		j;
 
@@ -96,7 +60,7 @@ void	gates_manager(char **map, t_info *info, int ret, int i) // manages the gate
 		info->end_nb = i; // marks the line number of the end coordinates.
 }
 
-int		hash_line_manager(char **map, int i) // does what is needed for lines starting with #.
+static int		hash_line_manager(char **map, int i) // does what is needed for lines starting with #.
 {
 	char	*command;
 
@@ -121,7 +85,7 @@ int		hash_line_manager(char **map, int i) // does what is needed for lines start
 	return (0);
 }
 
-void	lem_in_parser(char **map, t_info *info) // parses the given map to get various info.
+void			lem_in_parser(char **map, t_info *info) // parses the given map to get various info.
 {
     int     i;
     int     j;

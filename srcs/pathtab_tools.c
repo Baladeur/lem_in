@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pathtab_tools.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 18:36:05 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/05 00:18:49 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/06 10:10:32 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "includes/lem_in.h"
 
 /*
 ** Frees an allocated t_path tab of size 's'.

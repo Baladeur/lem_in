@@ -6,12 +6,41 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2020/02/05 21:46:34 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/06 10:19:35 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "includes/lem_in.h"
 
+int				is_room(char *line)
+{
+	int 	i;
+
+	i = 0; // first let's start by checking whether it's a room or path.
+	if (line[0] == '#')
+		return (0);
+	while (line[i] && line[i] != ' ' && line[i] != '-') // let's parse the first element of the string.
+		i++;
+	if (line[i] == ' ') // if the next element is a space, then it's a room
+		return (1);
+	return (0); // else it's an error.
+}
+
+static int		room_counter(char **map)
+{
+	int i;
+	int	room_nb;
+
+	i = 0;
+	room_nb = 0;
+	while (map[i])
+	{
+		if (is_room(map[i]) == 1)
+			room_nb++;
+		i++;
+	}
+	return (room_nb);
+}
 
 char		**append_return(char **in)
 {
