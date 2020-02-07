@@ -137,7 +137,7 @@ int				**pre_cleaner(int **matrix, t_info *info)
 		{
 			reset_branching(&branch, i);
 			if (!(branching(matrix, branch)))
-				return (destroy_matrix(&directed));
+				return (destroy_matrix(&directed, info->room_nb));
 			deadends(branch->matrix, i, info->room_nb);
 			sum_matrix(directed, branch->matrix, info->room_nb);
 		}
