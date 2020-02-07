@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:22:11 by myener            #+#    #+#             */
-/*   Updated: 2020/02/06 10:20:54 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/07 16:49:01 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,20 @@ char			*get_room_name(t_info *info, int room_id) // retrieves the room's name fr
 // 	return (0);
 // }
 
+void			print_room_id(int *tab, int len) // debug
+{
+	int	i;
+
+	printf("edges:\n");
+	i = 0;
+	while (i < len)
+	{
+		printf("%d ", tab[i]);
+		i++;
+	}
+	printf("\n");
+}
+
 void			lem_in_dispatcher(t_info *info, t_path *path_tab)
 {
 	int		a; // current ant's ID.
@@ -89,6 +103,7 @@ void			lem_in_dispatcher(t_info *info, t_path *path_tab)
 				if (info->ant[a].path[j] == path_tab[i].edges[j]) // if the next ant's path matches the current one, occupy it.
 				{
 					info->ant[a].pos = info->ant[a].path[j];
+					// print_room_id(info->ant[a].path, path_tab[i].len);
 					room_name = get_room_name(info, info->ant[a].path[j]);
 					room_name ? ft_printf("L%d-%s ", info->ant[a].id, room_name) : 0;
 					a++;
