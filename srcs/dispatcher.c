@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:22:11 by myener            #+#    #+#             */
-/*   Updated: 2020/02/07 16:49:01 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/07 19:00:33 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,26 @@ void			print_room_id(int *tab, int len) // debug
 	printf("\n");
 }
 
+int				existing_ID(int ID, int *tab, int len) // debug
+{
+	int i;
+
+	i = 0;
+	while (i < len)
+	{
+		if (ID == tab[i])
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 void			lem_in_dispatcher(t_info *info, t_path *path_tab)
 {
 	int		a; // current ant's ID.
 	int		i; // index.
 	int		j; // second index.
-	int		n; // index in path_tab.
+	int		n; // index in path_tab's edges.
 	char	*room_name; // pretty self-explanatory.
 
 	info->path_nb = 1; // for testing with map_1
@@ -88,31 +102,35 @@ void			lem_in_dispatcher(t_info *info, t_path *path_tab)
 	{
 		i = 0; // reinitializes index every level.
 		a = 0; // goes back to ant 1 after the iteration.
-		while (i < info->path_nb && a < info->ant_nb && room_is_empty(info, path_tab[i].edges[n])) // while there's an empty room on this level,
+		while (i < info->path_nb && room_is_empty(info, path_tab[i].edges[n])) // while there's an empty room on this level,
 		{
-			if (info->ant[a].pos < info->room_nb && info->ant[a].path[n] == path_tab[i].edges[n]) // if the current path is the same as the ant's path (& room is empty), then let's occupy it.
+			// printf("info->ant[a].path[n] = %d & n = %d\n", info->ant[a].path[n], n);
+			if (info->ant[a].path[n] == path_tab[i].edges[n]) // if the current path is the same as the ant's path (& room is empty), then let's occupy it.
 			{
 				info->ant[a].pos = info->ant[a].path[n];
 				room_name = get_room_name(info, info->ant[a].path[n]);
-				room_name ? ft_printf("L%d-%s ", info->ant[a].id, room_name) : 0;
+				room_name ? ft_printf("L%d-%s | ID = %d, j = %d, n = %d, a = %d\n", info->ant[a].id, room_name, path_tab[i].edges[n], j, n , a) : 0; // debug
+				// room_name ? ft_printf("L%d-%s ", info->ant[a].id, room_name) : 0;
 				a++;
 			}
 			j = n - 1; // set j to the room right before.
 			while (a < info->ant_nb && j > 0 && room_is_empty(info, path_tab[i].edges[j])) // while the room j is on is empty and isn't START
 			{
-				if (info->ant[a].path[j] == path_tab[i].edges[j]) // if the next ant's path matches the current one, occupy it.
+				// printf("peep\n");
+				if (info->ant[a].path[j] == path_tab[i].edges[j])
 				{
 					info->ant[a].pos = info->ant[a].path[j];
-					// print_room_id(info->ant[a].path, path_tab[i].len);
 					room_name = get_room_name(info, info->ant[a].path[j]);
-					room_name ? ft_printf("L%d-%s ", info->ant[a].id, room_name) : 0;
+					room_name ? ft_printf("L%d-%s |ID = %d, j = %d, n = %d, a = %d\n", info->ant[a].id, room_name, path_tab[i].edges[j], j, n , a) : 0; // debug
+					// room_name ? ft_printf("L%d-%s ", info->ant[a].id, room_name) : 0;
 					a++;
 				}
 				j--;
 			}
 			i++; // this path is filled, let's move on.
 		}
-		a != 0 ? ft_putchar('\n') : 0; // separates the levels displayed.
+		// printf("meep\n");
+		a != 0 ? ft_putchar('\n') : 0; // separates the turns displayed.
 		n++; // that level of the path is now full, let's look further.
 	}
 }

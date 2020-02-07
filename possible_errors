@@ -6,7 +6,7 @@
 #    By: myener <myener@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/26 16:30:35 by myener            #+#    #+#              #
-#    Updated: 2020/02/06 10:10:44 by myener           ###   ########.fr        #
+#    Updated: 2020/02/07 17:55:54 by myener           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,5 +21,6 @@ ________________
 [x] if there are more than two rooms per path line
 [x]	if the rooms mentioned in the connection lines don't match the rooms before
 [ ] if start is connected to end, every ant can go from start to end in a single turn.
-[ ] if the same path exist twice (eg. 2-1 and 1-2), it  is simply ignored the second time. 
+[ ] if the same path exist twice (eg. 2-1 and 1-2), it  is simply ignored the second time.
+[ ] sent map doesn't exist.
 	(The adjacency matrix should take care of that)
