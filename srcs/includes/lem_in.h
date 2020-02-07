@@ -93,7 +93,7 @@ void		room_init(t_room *room);
 int			troubleshooter(t_info *info);
 
 int			**init_matrix(int count);
-int			**destroy_matrix(int ***matrix);
+int			**destroy_matrix(int ***matrix, int count);
 int			**dupe_matrix(int **matrix, int count);
 int			**adj_matrix(char **data, t_room *farm, t_info *info, int start);
 void		sum_matrix(int **dest, int **src, int size);
