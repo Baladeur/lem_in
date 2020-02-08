@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:22:11 by myener            #+#    #+#             */
-/*   Updated: 2020/02/07 19:00:33 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/08 17:31:25 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,21 @@ char			*get_room_name(t_info *info, int room_id) // retrieves the room's name fr
 	return (NULL); // otherwise the ID doesn't match any room and there's an error ; return NULL.
 }
 
-// static int		is_in_end_room(t_ant ant, t_info *info)
-// {
-// 	int i;
+static int		is_end_room(int room_id, t_info *info)
+{
+	int i;
 
-// 	i = 0;
-// 	while (i < info->room_nb) // while we go through the rooms,
-// 	{
-// 		if (info->room_tab[i].type == 'e') // if the room type is 'e',
-// 			break ; // then it's the end room ; we must stay on it, so break.
-// 		i++;
-// 	}
-// 	if (ant.pos == info->room_tab[i].id) // if the ant is on end, return 1.
-// 		return (1);
-// 	return (0);
-// }
+	i = 0;
+	while (i < info->room_nb) // while we go through the rooms,
+	{
+		if (info->room_tab[i].type == 'e') // if the room type is 'e',
+			break ; // then it's the end room ; we must stay on it, so break.
+		i++;
+	}
+	if (room_id == info->room_tab[i].id) // if the room ID matches end's, return 1.
+		return (1);
+	return (0);
+}
 
 void			print_room_id(int *tab, int len) // debug
 {
@@ -98,38 +98,34 @@ void			lem_in_dispatcher(t_info *info, t_path *path_tab)
 	i = 0;
 	j = 0;
 	room_name = NULL;
-	while (info->ant[info->ant_nb - 1].pos < info->room_nb - 1) // while the last ant isn't in the end room,
+	while (!is_end_room(info->ant[info->ant_nb - 1].pos, info)) // while the last ant isn't in the end room,
 	{
 		i = 0; // reinitializes index every level.
 		a = 0; // goes back to ant 1 after the iteration.
-		while (i < info->path_nb && room_is_empty(info, path_tab[i].edges[n])) // while there's an empty room on this level,
+		while (i < info->path_nb && (room_is_empty(info, path_tab[i].edges[n]) || is_end_room(path_tab[i].edges[n], info))) // while there's an empty room on this level,
 		{
-			// printf("info->ant[a].path[n] = %d & n = %d\n", info->ant[a].path[n], n);
+			j = 0;
 			if (info->ant[a].path[n] == path_tab[i].edges[n]) // if the current path is the same as the ant's path (& room is empty), then let's occupy it.
 			{
 				info->ant[a].pos = info->ant[a].path[n];
 				room_name = get_room_name(info, info->ant[a].path[n]);
-				room_name ? ft_printf("L%d-%s | ID = %d, j = %d, n = %d, a = %d\n", info->ant[a].id, room_name, path_tab[i].edges[n], j, n , a) : 0; // debug
-				// room_name ? ft_printf("L%d-%s ", info->ant[a].id, room_name) : 0;
+				room_name && path_tab[i].edges[n] > 0 ? ft_printf("L%d-%s ", info->ant[a].id, room_name) : 0; // this is bad and you (me) should feel bad
 				a++;
 			}
 			j = n - 1; // set j to the room right before.
-			while (a < info->ant_nb && j > 0 && room_is_empty(info, path_tab[i].edges[j])) // while the room j is on is empty and isn't START
+			while (a < info->ant_nb && path_tab[i].edges[j] > 0 && j > 0 && room_is_empty(info, path_tab[i].edges[j])) // while the room j is on is empty and isn't START
 			{
-				// printf("peep\n");
 				if (info->ant[a].path[j] == path_tab[i].edges[j])
 				{
 					info->ant[a].pos = info->ant[a].path[j];
 					room_name = get_room_name(info, info->ant[a].path[j]);
-					room_name ? ft_printf("L%d-%s |ID = %d, j = %d, n = %d, a = %d\n", info->ant[a].id, room_name, path_tab[i].edges[j], j, n , a) : 0; // debug
-					// room_name ? ft_printf("L%d-%s ", info->ant[a].id, room_name) : 0;
+					room_name && path_tab[i].edges[j] > 0 ? ft_printf("L%d-%s ", info->ant[a].id, room_name) : 0; // this is bad and you (me) should feel bad
 					a++;
 				}
 				j--;
 			}
 			i++; // this path is filled, let's move on.
 		}
-		// printf("meep\n");
 		a != 0 ? ft_putchar('\n') : 0; // separates the turns displayed.
 		n++; // that level of the path is now full, let's look further.
 	}

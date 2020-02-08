@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2020/02/06 10:19:35 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/08 17:30:15 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	path_tab_init(t_path *path_tab, t_info *info) // debug only - for testing w
 	int	j;
 
 	path_tab[0].nodes = NULL;
-	path_tab[0].len = 4;
+	path_tab[0].len = 4; // 4 for map_1 & map_1_2 ; 5 for map_2.
 	if (!(path_tab[0].edges = malloc(sizeof(int) * path_tab[0].len)))
 		return ;
 	path_tab[0].edges[0] = 0;
@@ -111,6 +111,7 @@ void	path_tab_init(t_path *path_tab, t_info *info) // debug only - for testing w
 		info->ant[i].path = path_tab[0].edges;
 		i++;
 	}
+
 }
 
 int     main(int ac, char **av) // testing main for parsing
@@ -150,13 +151,13 @@ int     main(int ac, char **av) // testing main for parsing
 	// 	i++;
 	// } // debug
 	i = 0; // debug
-	printf("\nPATH(S):\n* "); // debug
-	while (i < path_tab.len - 1) // debug
-	{
-		printf("%s, ", get_room_name(&info, path_tab.edges[i]));
-		i++;
-	} // debug
-	printf("%s.\n", get_room_name(&info, path_tab.edges[i]));
+	// printf("\nPATH(S):\n* "); // debug
+	// while (i < path_tab.len - 1) // debug
+	// {
+	// 	printf("%s, ", get_room_name(&info, path_tab.edges[i]));
+	// 	i++;
+	// } // debug
+	// printf("%s.\n", get_room_name(&info, path_tab.edges[i]));
 	// ft_putchar('\n');
 	lem_in_displayer(&info, &path_tab, map); // debug
 	free(info.ant);
