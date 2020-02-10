@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/02/07 16:20:25 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/10 21:20:54 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ int			queue_size(t_queue *queue);
 t_branch	*init_branching(int size);
 t_branch	*reset_branching(t_branch **branch, int i);
 t_branch	*destroy_branching(t_branch **branch);
-int			**pre_cleaner(int **matrix, t_info *info);
+int			**directed_matrix(int **matrix, t_info *info);
+int			**fill_gaps(int **matrix, int ***directed, t_info *info);
 
 #endif

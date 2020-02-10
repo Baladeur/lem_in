@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 18:52:13 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/10 20:05:51 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/10 21:22:01 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	bfs_loop(int **matrix, int *visited, int *dist, t_info *info)
 				&& (dist[i] = dist[c] + 1)
 				&& (prev[i] = c))
 				if (!(queue_add(&queue, i)))
-					return (exit_loop);
+					return (exit_loop(&queue, &prev, 0));
 	}
 	return (exit_loop(&queue, &prev, 1));
 }
@@ -64,7 +64,7 @@ static int	bfs(int **matrix, t_info *info, int *dist)
 
 	visited = NULL;
 	if (!(visited = (int *)malloc(sizeof(int) * info->room_nb)))
-		return (NULL);
+		return (0);
 	i = -1;
 	while (++i < info->room_nb)
 	{
@@ -107,12 +107,15 @@ int			**fill_gaps(int **matrix, int ***directed, t_info *info)
 		x = -1;
 		while (++x < info->room_nb)
 			if (matrix[y][x] && !directed[0][y][x])
+			{
 				if (dist[y] < dist[x] && (directed[0][y][x] = -1))
 					directed[0][x][y] = 1;
 				else if (dist[x] < dist[y] && (directed[0][x][y] = -1))
 					directed[0][y][x] = 1;
 				else if (dist[x] == dist[y] && (directed[0][x][y] = 1))
 					directed[0][y][x] = 1;
+			}
 	}
+	free(dist);
 	return (directed[0]);
 }
