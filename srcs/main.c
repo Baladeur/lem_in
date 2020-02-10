@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2020/02/08 17:30:15 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/10 22:40:18 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ void	path_tab_init(t_path *path_tab, t_info *info) // debug only - for testing w
 	int i;
 	int	j;
 
-	path_tab[0].nodes = NULL;
 	path_tab[0].len = 4; // 4 for map_1 & map_1_2 ; 5 for map_2.
 	if (!(path_tab[0].edges = malloc(sizeof(int) * path_tab[0].len)))
 		return ;

@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/02/10 21:20:54 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/10 23:06:02 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ typedef struct			s_room		// for start room, end room, and classic in-between roo
 	int				id;				// integer identifying the room.
 	int				x;				// position of the room (easting).
 	int				y;				// position of the room (northing).
-    char            *name;          // name of the room.
-    char            type;           // 's' if start room, 'e' if end room, 'c' if classic room.
-    int             ant_nb_curr;    // nb of ants currently present. can only be <= 1 if type is 'c'.
-                                    // when equal to base nb, current iteration is the first.
-}			        	t_room;
+	char			*name;			// name of the room.
+	char			type;			// 's' if start room, 'e' if end room, 'c' if classic room.
+	int				ant_nb_curr;	// nb of ants currently present. can only be <= 1 if type is 'c'.
+									// when equal to base nb, current iteration is the first.
+}						t_room;
 
 typedef struct			s_info		// useful information that may bee needed regularly.
 {
@@ -50,14 +50,13 @@ typedef struct			s_info		// useful information that may bee needed regularly.
 	int				end_nb; 		// line number of the end room.
 	bool			s_enc;			// true if start is encountered, false if not.
 	bool			e_enc;			// true if end is encountered, false if not.
-    int				path_nb;		// number of simultaneous paths found.
+	int				path_nb;		// number of simultaneous paths found.
 	int				**matrix;		// the adjacency matrix
 	t_room			*room_tab;		// array of structures containing all rooms.
 }						t_info;
 
 typedef struct			s_path		// informations about a path.
 {
-	int				*nodes;			// tab of size room_nb. nodes[i] = 1 if the path goes through the room i, 0 otherwise.
 	int				*edges;			// order of the rooms (id) the path goes through, ex: 5, 2, 3, 0.
 	int 			len;			// length of the path aka number of rooms the path goes through.
 }						t_path;
@@ -87,7 +86,7 @@ void		info_init(t_info *info);
 int			is_room(char *line);
 void		lem_in_dispatcher(t_info *info, t_path *path_tab);
 void		lem_in_displayer(t_info *info, t_path *path_tab, char **map);
-void     	lem_in_parser(char **map, t_info *info);
+void		lem_in_parser(char **map, t_info *info);
 int			parsing_error(char **map);
 void		room_init(t_room *room);
 int			troubleshooter(t_info *info);
@@ -112,5 +111,10 @@ t_branch	*reset_branching(t_branch **branch, int i);
 t_branch	*destroy_branching(t_branch **branch);
 int			**directed_matrix(int **matrix, t_info *info);
 int			**fill_gaps(int **matrix, int ***directed, t_info *info);
+
+t_path		*pathtab_destroy(t_path **pathtab);
+t_path		*pathtab_init(int s, t_info *info);
+int			pathtab_size(t_path *pathtab);
+int			pathtab_add(t_path *pathtab, int *edges, t_info *info);
 
 #endif
