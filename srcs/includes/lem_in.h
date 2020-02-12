@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/02/10 23:06:02 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/12 20:57:39 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ typedef struct			s_room		// for start room, end room, and classic in-between roo
 
 typedef struct			s_info		// useful information that may bee needed regularly.
 {
-	int				room_nb; 		// the number of rooms.
+	int				room_nb;		// the number of rooms.
 	int				ant_nb;			// the total number of ants.
 	t_ant			*ant;			// a tab containing all the ants numbered (ant 1 is in pos 0, and so on) + their position (room id).
-	int				start_nb; 		// line number of start room coordinates, from input data array.
-	int				end_nb; 		// line number of the end room.
+	int				start_nb;		// line number of start room coordinates, from input data array.
+	int				end_nb;			// line number of the end room.
 	bool			s_enc;			// true if start is encountered, false if not.
 	bool			e_enc;			// true if end is encountered, false if not.
 	int				path_nb;		// number of simultaneous paths found.
@@ -76,6 +76,11 @@ typedef struct			s_branch	// information stored for the pre_cleaner branching.
 	int		size;					// size of the ant farm aka the number of rooms.
 }						t_branch;
 
+typedef struct			s_elist		// simple chained list to store path edges.
+{
+	struct s_queue	*next;			// next element in the list.
+	int				*edges;			// path node of the current element.
+}						t_elist;
 
 void		ant_init(t_info *info);
 int			error_output(void);
@@ -115,6 +120,15 @@ int			**fill_gaps(int **matrix, int ***directed, t_info *info);
 t_path		*pathtab_destroy(t_path **pathtab);
 t_path		*pathtab_init(int s, t_info *info);
 int			pathtab_size(t_path *pathtab);
-int			pathtab_add(t_path *pathtab, int *edges, t_info *info);
+int			pathtab_add(t_path *pathtab, int *edges, t_info *info, int b);
+int			pathtab_efficiency(t_path *pathtab, int n);
+
+t_elist		*elist_new(int *edges);
+void		eslit_delone(t_elist **list, int b);
+t_elist		*elist_add(t_elist **list, int *edges);
+int			*elist_get_at(t_elist *list, int i);
+int			elist_size(t_elist *list);
+
+t_path		*pathfinder(int **directed, t_info *info);
 
 #endif

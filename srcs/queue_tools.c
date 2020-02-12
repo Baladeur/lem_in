@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   queue_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 18:18:29 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/06 10:10:35 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/12 20:08:54 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 ** Returns the current size of the queue.
 */
-
 
 int		queue_size(t_queue *queue)
 {
