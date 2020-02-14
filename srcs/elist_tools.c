@@ -97,7 +97,7 @@ void	elist_delone(t_elist **list, int b)
 
 t_elist	*elist_add(t_elist **list, int *edges)
 {
-	t_queue *pos;
+	t_elist *pos;
 
 	if (!list)
 		return (NULL);
@@ -107,7 +107,6 @@ t_elist	*elist_add(t_elist **list, int *edges)
 	while (pos->next)
 		pos = pos->next;
 	if (!(pos->next = elist_new(edges)))
-		while (*edges)
-			queue_delone(edges);
-	return (*edges);
+		return (NULL);
+	return (*list);
 }

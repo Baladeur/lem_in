@@ -31,27 +31,6 @@ static int		pathtab_max(int **directed, t_info *info)
 	return (c1 > c2 ? c2 : c1);
 }
 
-static int		allpath_bt(t_queue *parent, int **dir, int pos, t_elist **list)
-{
-	t_queue	*current;
-	int		res;
-	int		i;
-	int		b;
-
-	i = -1;
-	b = 0;
-	while (++i < dir[0][0])
-		if (dir[pos][i] && pos != i && (b = 1))
-			break;
-	if (!b)
-		return (0);
-	if (!(current = (t_queue *)malloc(sizeof(t_queue))))
-		return (-1);
-}
-
-static t_elist	*allpath(int **directed, t_info *info)
-{}
-
 t_path			*pathfinder(int **directed, t_info *info)
 {
 }

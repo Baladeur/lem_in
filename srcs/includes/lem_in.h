@@ -124,7 +124,7 @@ int			pathtab_add(t_path *pathtab, int *edges, t_info *info, int b);
 int			pathtab_efficiency(t_path *pathtab, int n);
 
 t_elist		*elist_new(int *edges);
-void		eslit_delone(t_elist **list, int b);
+void		elist_delone(t_elist **list, int b);
 t_elist		*elist_add(t_elist **list, int *edges);
 int			*elist_get_at(t_elist *list, int i);
 int			elist_size(t_elist *list);
