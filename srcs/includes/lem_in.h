@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/02/12 20:57:39 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/16 23:46:56 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,10 +117,10 @@ t_branch	*destroy_branching(t_branch **branch);
 int			**directed_matrix(int **matrix, t_info *info);
 int			**fill_gaps(int **matrix, int ***directed, t_info *info);
 
-t_path		*pathtab_destroy(t_path **pathtab);
+t_path		*pathtab_destroy(t_path **pathtab, int b);
 t_path		*pathtab_init(int s, t_info *info);
-int			pathtab_size(t_path *pathtab);
 int			pathtab_add(t_path *pathtab, int *edges, t_info *info, int b);
+int			pathtab_remove(t_path *pathtab, t_info *info);
 int			pathtab_efficiency(t_path *pathtab, int n);
 
 t_elist		*elist_new(int *edges);
@@ -129,6 +129,7 @@ t_elist		*elist_add(t_elist **list, int *edges);
 int			*elist_get_at(t_elist *list, int i);
 int			elist_size(t_elist *list);
 
+t_path		*allpath(int **directed, t_info *info);
 t_path		*pathfinder(int **directed, t_info *info);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 17:07:36 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/13 17:07:36 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/16 22:03:43 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	add_to_list(int pos, t_queue *parent, t_elist **list, int size)
 {
 	t_queue	*current;
-	int 	*edges;
+	int		*edges;
 	int		len;
 
 	*edges = NULL;
@@ -25,7 +25,7 @@ static int	add_to_list(int pos, t_queue *parent, t_elist **list, int size)
 	current = parent;
 	edges[len + 1] = size - 1;
 	edges[len] = pos;
-	while (--len >=0)
+	while (--len >= 0)
 	{
 		edges[len] = current->id;
 		current = current->next;
@@ -51,7 +51,7 @@ static int	allpath_bt(t_queue *parent, int **dir, int pos, t_elist **list)
 	b = 0;
 	while (++i < dir[0][0])
 		if (dir[pos][i] > 0 && pos != i && (b = 1))
-			break;
+			break ;
 	if ((i = -1) && !b)
 		return (1);
 	if (!(current = queue_new(pos)))
@@ -70,14 +70,21 @@ static int	allpath_bt(t_queue *parent, int **dir, int pos, t_elist **list)
 t_path		*allpath(int **directed, t_info *info)
 {
 	t_elist	*list;
+	t_path	*allpath;
 
 	list = NULL;
+	allpath = NULL;
 	directed[0][0] = info->room_nb;
-	if (!(allpath_bt(NULL, directed, 0, list)))
+	if (!(allpath_bt(NULL, directed, 0, list))
+		|| !(allpath = pathtab_init(elist_size(list), info)))
 	{
 		while (list)
 			elist_delone(&list, 1);
+		directed[0][0] = 0;
 		return (NULL);
 	}
-	return (list);
+	directed[0][0] = 0;
+	while (list && pathtab_add(allpath, list->edges, info, 1))
+		elist_delone(&list, 0);
+	return (allpath);
 }
