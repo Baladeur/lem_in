@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 17:07:36 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/17 22:14:49 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/17 22:40:37 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static int	add_to_list(int pos, t_queue *parent, t_elist **list, int size)
 		edges[len] = current->id;
 		current = current->next;
 	}
+	edges[len] = 0;
 	if (!elist_add(list, edges))
 	{
 		free(edges);
