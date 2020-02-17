@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 20:07:41 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/12 20:23:08 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/17 22:16:00 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,33 +32,8 @@ int		elist_size(t_elist *list)
 }
 
 /*
-** Returns the edges in the i element of the list.
-** If the list is smaller than i, returns -1.
-*/
-
-
-int		*elist_get_at(t_elist *list, int i)
-{
-	t_elist *current;
-	int		n;
-
-	n = 0;
-	current = list;
-	while (current && n < i)
-	{
-		n++;
-		current = current->next;
-	}
-	if (current)
-		return (current->edges);
-	else
-		return (-1);
-}
-
-/*
 ** Initialize a chained list t_elist with it's first element edges.
 */
-
 
 t_elist	*elist_new(int *edges)
 {
@@ -76,7 +51,6 @@ t_elist	*elist_new(int *edges)
 ** if b != 0, also frees the edges stored in the element.
 */
 
-
 void	elist_delone(t_elist **list, int b)
 {
 	t_elist *tmp;
@@ -93,7 +67,6 @@ void	elist_delone(t_elist **list, int b)
 /*
 ** Add an element with the given edges at the bottom of the list.
 */
-
 
 t_elist	*elist_add(t_elist **list, int *edges)
 {

@@ -6,11 +6,30 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 17:07:36 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/16 22:03:43 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/17 22:14:49 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/lem_in.h"
+
+static int	pathtab_max(int **directed, t_info *info)
+{
+	int c1;
+	int c2;
+	int i;
+
+	c1 = 0;
+	c2 = 0;
+	i = -1;
+	while (++i < info->room_nb)
+	{
+		if (directed[0][i])
+			c1++;
+		if (directed[info->room_nb - 1][i])
+			c2++;
+	}
+	return (c1 > c2 ? c2 : c1);
+}
 
 static int	add_to_list(int pos, t_queue *parent, t_elist **list, int size)
 {
@@ -18,14 +37,14 @@ static int	add_to_list(int pos, t_queue *parent, t_elist **list, int size)
 	int		*edges;
 	int		len;
 
-	*edges = NULL;
+	edges = NULL;
 	len = queue_size(parent);
 	if (!(edges = (int *)malloc(sizeof(int) * (len + 2))))
 		return (0);
 	current = parent;
 	edges[len + 1] = size - 1;
 	edges[len] = pos;
-	while (--len >= 0)
+	while (--len > 0)
 	{
 		edges[len] = current->id;
 		current = current->next;
@@ -45,9 +64,8 @@ static int	allpath_bt(t_queue *parent, int **dir, int pos, t_elist **list)
 	int		i;
 	int		b;
 
-	if (dir[pos][dir[0][0]])
+	if ((i = -1) && dir[pos][dir[0][0] - 1])
 		return (add_to_list(pos, parent, list, dir[0][0]));
-	i = -1;
 	b = 0;
 	while (++i < dir[0][0])
 		if (dir[pos][i] > 0 && pos != i && (b = 1))
@@ -56,8 +74,9 @@ static int	allpath_bt(t_queue *parent, int **dir, int pos, t_elist **list)
 		return (1);
 	if (!(current = queue_new(pos)))
 		return (0);
+	current->next = parent;
 	while (++i < dir[0][0])
-		if (dir[pos][i] > 0 && pos != i)
+		if (dir[pos][i] > 0 && pos != i && (!parent || parent->id != i))
 			if (!(allpath_bt(current, dir, i, list)))
 			{
 				queue_delone(&current);
@@ -67,7 +86,7 @@ static int	allpath_bt(t_queue *parent, int **dir, int pos, t_elist **list)
 	return (1);
 }
 
-t_path		*allpath(int **directed, t_info *info)
+t_path		*allpath(int **directed, t_info *info, int *max)
 {
 	t_elist	*list;
 	t_path	*allpath;
@@ -75,7 +94,8 @@ t_path		*allpath(int **directed, t_info *info)
 	list = NULL;
 	allpath = NULL;
 	directed[0][0] = info->room_nb;
-	if (!(allpath_bt(NULL, directed, 0, list))
+	*max = pathtab_max(directed, info);
+	if (!(allpath_bt(NULL, directed, 0, &list))
 		|| !(allpath = pathtab_init(elist_size(list), info)))
 	{
 		while (list)

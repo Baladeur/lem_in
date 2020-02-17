@@ -6,29 +6,31 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 23:05:08 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/17 00:09:33 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/17 22:08:55 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/lem_in.h"
 
-static int		pathtab_max(int **directed, t_info *info)
+static int		is_better(t_path *src, t_path *dst, int ant_nb)
 {
-	int c1;
-	int c2;
 	int i;
+	int l1;
+	int l2;
 
-	c1 = 0;
-	c2 = 0;
+	if (pathtab_efficiency(src, ant_nb) > pathtab_efficiency(dst, ant_nb))
+		return (0);
+	if (pathtab_efficiency(src, ant_nb) < pathtab_efficiency(dst, ant_nb))
+		return (1);
+	l1 = 0;
+	l2 = 0;
 	i = -1;
-	while (++i < info->room_nb)
-	{
-		if (directed[0][i])
-			c1++;
-		if (directed[info->room_nb - 1][i])
-			c2++;
-	}
-	return (c1 > c2 ? c2 : c1);
+	while (src[++i].len > 0)
+		l1 += src[i].len;
+	i = -1;
+	while (dst[++i].len > 0)
+		l2 += dst[i].len;
+	return (l1 < l2);
 }
 
 static void		pathtab_clone(t_path *src, t_path *dest, t_info *info)
@@ -37,28 +39,27 @@ static void		pathtab_clone(t_path *src, t_path *dest, t_info *info)
 	int j;
 
 	i = -1;
-	while (src[++i].len >= 0 && (dest[i].len = src[i].len))
+	while (src[++i].len >= 0 && (dest[i].len = src[i].len) >= 0)
 		dest[i].edges = src[i].edges;
 	j = -1;
 	while (++j < info->room_nb - 1)
 		dest[i].edges[j] = src[i].edges[j];
 }
 
-static void		path(t_path *pathlist, t_path *curr, t_path *best, t_info *info)
+static void		path_bt(t_path *paths, t_path *curr, t_path *best, t_info *info)
 {
 	int	i;
 
-	if (pathtab_efficiency(curr, info->ant_nb)
-		< pathtab_efficiency(best, info->ant_nb))
+	if (curr[0].len && (!best[0].len || is_better(curr, best, info->ant_nb)))
 		pathtab_clone(curr, best, info);
-	if (pathlist[0].len < 0)
+	if (paths[0].len < 0)
 		return ;
 	i = -1;
-	while (pathlist[++i].len > 0)
+	while (paths[++i].len > 0)
 	{
-		if (pathtab_add(curr, pathlist[i].edges, info, 0))
+		if (pathtab_add(curr, paths[i].edges, info, 0))
 		{
-			path(pathlist + sizeof(t_path) * (i + 1), curr, best, info);
+			path_bt(&(paths[i + 1]), curr, best, info);
 			pathtab_remove(curr, info);
 		}
 	}
@@ -78,21 +79,25 @@ static t_path	*pathfinder_exit(t_path **paths, t_path **curr, t_path **best)
 
 t_path			*pathfinder(int **directed, t_info *info)
 {
-	t_path	*pathlist;
+	t_path	*paths;
 	t_path	*curr;
 	t_path	*best;
 	int		max;
+	int		i;
 
-	pathlist = NULL;
+	paths = NULL;
 	curr = NULL;
 	best = NULL;
-	max = pathtab_max(directed, info);
-	if (!(pathlist = allpath(directed, info))
+	if (!(paths = allpath(directed, info, &max))
 		|| !(curr = pathtab_init(max, info))
 		|| !(best = pathtab_init(max, info)))
-		return (pathfinder_exit(&pathlist, &curr, &best));
-	path(pathlist, curr, best, info);
-	// ISOLATE THE BEST PATH FROM PATHLIST
-	pathfinder_exit(&pathlist, &curr, NULL);
+		return (pathfinder_exit(&paths, &curr, &best));
+	path_bt(paths, curr, best, info);
+	i = -1;
+	while (best[++i].len > 0 && (max = -1))
+		while (paths[++max].len > 0)
+			if (best[i].edges == paths[i].edges && !(paths[i].edges = NULL))
+				break ;
+	pathfinder_exit(&paths, &curr, NULL);
 	return (best);
 }

@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/02/16 23:46:56 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/17 22:08:48 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ typedef struct			s_branch	// information stored for the pre_cleaner branching.
 
 typedef struct			s_elist		// simple chained list to store path edges.
 {
-	struct s_queue	*next;			// next element in the list.
+	struct s_elist	*next;			// next element in the list.
 	int				*edges;			// path node of the current element.
 }						t_elist;
 
@@ -126,10 +126,9 @@ int			pathtab_efficiency(t_path *pathtab, int n);
 t_elist		*elist_new(int *edges);
 void		elist_delone(t_elist **list, int b);
 t_elist		*elist_add(t_elist **list, int *edges);
-int			*elist_get_at(t_elist *list, int i);
 int			elist_size(t_elist *list);
 
-t_path		*allpath(int **directed, t_info *info);
+t_path		*allpath(int **directed, t_info *info, int *max);
 t_path		*pathfinder(int **directed, t_info *info);
 
 #endif
