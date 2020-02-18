@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:10:44 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/18 23:58:16 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/18 23:59:37 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int			adj_matrix(char **data, t_info *info)
 			data[i][ft_strlen(data[i])] = '-';
 			data[i][ft_strlen(data[i])] = '\n';
 		}
-		else if (!data[i][0] == '#'
+		else if (!(data[i][0] == '#')
 			&& !(destroy_matrix(&(info->matrix), info->room_nb)))
 			return (0);
 		i++;
