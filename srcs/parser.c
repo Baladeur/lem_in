@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:20:24 by myener            #+#    #+#             */
-/*   Updated: 2020/02/06 10:17:41 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/18 19:09:49 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,8 @@ void			lem_in_parser(char **map, t_info *info) // parses the given map to get va
 				room_parser(map[i], info, j);
 				j++;
 			}
+			if ((i - 1) > 1 && is_room(map[i - 1]) && !is_room(map[i])) // if the precedent line is a room and the current one isn't, then it's the first line of paths. save it.
+				info->edges_line = i;
 		}
 		i++;
     }
