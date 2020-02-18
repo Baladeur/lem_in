@@ -6,12 +6,12 @@
 #    By: myener <myener@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/26 16:30:35 by myener            #+#    #+#              #
-#    Updated: 2020/02/06 10:10:47 by myener           ###   ########.fr        #
+#    Updated: 2020/02/18 20:17:36 by myener           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 TO DO: LISTE DES TACHES A ACCOMPLIR (avec date + nom) POUR LEM_IN.
-(Pour les dates manquantes, se référer à mon cahier - je log chaque jour de travail dedans. -myener)
+(Pour les dates manquantes, cf. mon cahier - je log chaque jour dedans. -myener)
 
 #******************************************************************************#
 
@@ -19,18 +19,16 @@ TO DO: LISTE DES TACHES A ACCOMPLIR (avec date + nom) POUR LEM_IN.
 
 Mae: debut du parsing, stocker les datas dans dans les structures.
 
-Theo:
-
--
+__________
 
 03.12.2019
 
 Theo :
-- re-arranger le parsing des liens pour matcher le nouveau format de data (liste chainees)
+- réarranger le parsing des liens pr le nouveau format de data (liste chainees)
 - tester le fonctionnement de path_tools
 - Finir (commencer) path_selector
 
--
+__________
 
 11.12.2019
 
@@ -38,8 +36,18 @@ Mae:
 - fini le parsing qui fonctionne avec toutes les maps de base
 - debut de la gestion d'erreur
 
+__________
+
 16.12.2019
 
 Mae:
 - fini + testé la gestion d'erreur
 - début de l'algo
+
+__________
+
+18.02.2020
+
+Mae:
+- fix le cas d'erreur où la map n'existe pas
+- modifié le parser pour chopper le début des paths dans info->edges_line

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pathtab_tools.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 18:36:05 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/17 00:08:32 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/18 20:42:43 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ t_path	*pathtab_destroy(t_path **pathtab, int b)
 	i = -1;
 	while (b && pathtab[0][++i].len > 0)
 		if (pathtab[0][i].edges)
-			free(pathtab[0][i].edges);
-	free(pathtab[0]);
+			// free(pathtab[0][i].edges);
+	// free(pathtab[0]);
 	pathtab[0] = NULL;
 	return (NULL);
 }

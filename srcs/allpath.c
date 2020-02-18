@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   allpath.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 17:07:36 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/18 18:50:59 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/18 20:42:58 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	add_to_list(int pos, t_queue *parent, t_elist **list, int size)
 	edges[len] = 0;
 	if (!elist_add(list, edges))
 	{
-		free(edges);
+		// free(edges);
 		return (0);
 	}
 	return (1);
@@ -61,7 +61,6 @@ static int	add_to_list(int pos, t_queue *parent, t_elist **list, int size)
 static int	allpath_bt(t_queue *parent, int **dir, int pos, t_elist **list)
 {
 	t_queue	*current;
-	int		res;
 	int		i;
 	int		b;
 

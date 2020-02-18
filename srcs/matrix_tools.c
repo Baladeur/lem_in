@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:08:50 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/06 10:10:25 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/18 20:42:54 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int		**destroy_matrix(int ***matrix, int count)
 
 	i = -1;
 	while (++i < count)
-		free(**matrix + i);
-	free(*matrix);
+		// free(**matrix + i);
+	// free(*matrix);
 	*matrix = NULL;
 	return (NULL);
 }

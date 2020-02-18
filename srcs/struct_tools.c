@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:58:11 by myener            #+#    #+#             */
-/*   Updated: 2020/02/18 18:09:57 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/18 20:42:50 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	free_struct_array(t_info *info)
 	i = 0;
 	while (i < info->room_nb)
 	{
-		free(info->room_tab[i].name);
+		// free(info->room_tab[i].name);
 		i++;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pathfinder.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 23:05:08 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/18 18:44:56 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/18 20:42:59 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void		path_bt(t_path *paths, t_path *curr, t_path *best, t_info *info)
 	return ;
 }
 
-static t_path	*pathfinder_exit(t_path **paths, t_path **curr, t_path **best)
+static int	pathfinder_exit(t_path **paths, t_path **curr, t_path **best)
 {
 	if (paths && *paths)
 		pathtab_destroy(paths, 1);
@@ -74,30 +74,29 @@ static t_path	*pathfinder_exit(t_path **paths, t_path **curr, t_path **best)
 		pathtab_destroy(curr, 0);
 	if (best && *best)
 		pathtab_destroy(best, 0);
-	return (NULL);
+	return (0);
 }
 
-t_path			*pathfinder(t_info *info)
+int			pathfinder(t_info *info, t_path *path_tab)
 {
 	t_path	*paths;
 	t_path	*curr;
-	t_path	*best;
 	int		max;
 	int		i;
 
 	paths = NULL;
 	curr = NULL;
-	best = NULL;
+	path_tab = NULL;
 	if (!(paths = allpath(info, &max))
 		|| !(curr = pathtab_init(max, info))
-		|| !(best = pathtab_init(max, info)))
-		return (pathfinder_exit(&paths, &curr, &best));
-	path_bt(paths, curr, best, info);
+		|| !(path_tab = pathtab_init(max, info)))
+		return (pathfinder_exit(&paths, &curr, &path_tab));
+	path_bt(paths, curr, path_tab, info);
 	i = -1;
-	while (best[++i].len > 0 && (max = -1))
+	while (path_tab[++i].len > 0 && (max = -1))
 		while (paths[++max].len > 0)
-			if (best[i].edges == paths[i].edges && !(paths[i].edges = NULL))
+			if (path_tab[i].edges == paths[i].edges && !(paths[i].edges = NULL))
 				break ;
 	pathfinder_exit(&paths, &curr, NULL);
-	return (best);
+	return (1);
 }

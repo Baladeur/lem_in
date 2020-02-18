@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dir_matrix.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 15:28:24 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/18 19:07:42 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/18 20:46:34 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ int				directed_matrix(t_info *info)
 		return (0);
 	i = -1;
 	while (++i < info->room_nb)
+	{
 		if (info->matrix[0][i])
 		{
 			reset_branching(&branch, i);
@@ -137,6 +138,7 @@ int				directed_matrix(t_info *info)
 			deadends(branch->matrix, i, info->room_nb);
 			sum_matrix(info->dir_matrix, branch->matrix, info->room_nb);
 		}
+	}
 	destroy_branching(&branch);
 	return(fill_gaps(info));
 }

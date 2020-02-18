@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   elist_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 20:07:41 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/17 22:16:00 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/18 20:42:55 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ void	elist_delone(t_elist **list, int b)
 		return ;
 	tmp = (*list)->next;
 	if ((*list)->edges && b)
-		free((*list)->edges);
-	free(*list);
+		// free((*list)->edges);
+	// free(*list);
 	*list = tmp;
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dir_gaps.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 18:52:13 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/18 19:02:14 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/18 20:42:56 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	exit_loop(t_queue **queue, int **prev, int ret)
 			queue_delone(queue);
 	if (prev && *prev)
 	{
-		free(*prev);
+		// free(*prev);
 		*prev = NULL;
 	}
 	return (ret);
@@ -56,10 +56,7 @@ static int	bfs_loop(int *visited, int *dist, t_info *info)
 
 static int	bfs(t_info *info, int *dist)
 {
-	t_queue	*queue;
 	int		*visited;
-	int		*prev;
-	int		c;
 	int		i;
 
 	visited = NULL;
@@ -73,10 +70,10 @@ static int	bfs(t_info *info, int *dist)
 	}
 	if (!(bfs_loop(visited, dist, info)))
 	{
-		free(visited);
+		// free(visited);
 		return (0);
 	}
-	free(visited);
+	// free(visited);
 	return (1);
 }
 
@@ -86,7 +83,7 @@ static int	exit_gaps(int **dist, t_info *info)
 		destroy_matrix(&(info->dir_matrix), info->room_nb);
 	if (dist && *dist)
 	{
-		free(dist);
+		// free(dist);
 		*dist = NULL;
 	}
 	return (0);
@@ -116,6 +113,6 @@ int			fill_gaps(t_info *info)
 					info->dir_matrix[y][x] = 1;
 			}
 	}
-	free(dist);
+	// free(dist);
 	return (1);
 }

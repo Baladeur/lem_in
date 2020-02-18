@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/02/18 18:55:52 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/18 20:43:01 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int			troubleshooter(t_info *info);
 int			**init_matrix(int count);
 int			**destroy_matrix(int ***matrix, int count);
 int			**dupe_matrix(int **matrix, int count);
-int			adj_matrix(char **data, t_info *info, int start);
+int			adj_matrix(char **data, t_info *info);
 void		sum_matrix(int **dest, int **src, int size);
 void		print_matrix(int **matrix, int count);
 
@@ -129,6 +129,6 @@ t_elist		*elist_add(t_elist **list, int *edges);
 int			elist_size(t_elist *list);
 
 t_path		*allpath(t_info *info, int *max);
-t_path		*pathfinder(t_info *info);
+int			pathfinder(t_info *info, t_path *path_tab);
 
 #endif

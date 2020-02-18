@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2020/02/18 18:58:42 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/18 20:42:52 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char		**append_return(char **in)
 	}
 	if (i == 0)
 	{
-		in ? tab_free(in) : 0;
+		// in ? tab_free(in) : 0;
 		exit(0);
 	}
 	return (in);
@@ -80,7 +80,7 @@ char		**get_map(char **av, char **map) // get map from standard input using GNL.
 		tmp = line;
 		stock = ft_free_join(stock, line);
 		stock = ft_free_join(stock, "\n");
-		free(tmp);
+		// free(tmp);
 		i++;
 	}
 	i = 0;
@@ -95,27 +95,27 @@ char		**get_map(char **av, char **map) // get map from standard input using GNL.
 	return (map);
 }
 
-void	path_tab_init(t_path *path_tab, t_info *info) // debug only - for testing with map_1.
-{
-	int i;
-	int	j;
+// void	path_tab_init(t_path *path_tab, t_info *info) // debug only - for testing with map_1.
+// {
+// 	int i;
+// 	int	j;
 
-	path_tab[0].len = 4; // 4 for map_1 & map_1_2 ; 5 for map_2.
-	if (!(path_tab[0].edges = malloc(sizeof(int) * path_tab[0].len)))
-		return ;
-	path_tab[0].edges[0] = 0;
-	path_tab[0].edges[1] = 1;
-	path_tab[0].edges[2] = 2;
-	path_tab[0].edges[3] = 3;
-	i = 0;
-	j = 0;
-	while (i < info->ant_nb)
-	{
-		info->ant[i].path = path_tab[0].edges;
-		i++;
-	}
+// 	path_tab[0].len = 4; // 4 for map_1 & map_1_2 ; 5 for map_2.
+// 	if (!(path_tab[0].edges = malloc(sizeof(int) * path_tab[0].len)))
+// 		return ;
+// 	path_tab[0].edges[0] = 0;
+// 	path_tab[0].edges[1] = 1;
+// 	path_tab[0].edges[2] = 2;
+// 	path_tab[0].edges[3] = 3;
+// 	i = 0;
+// 	j = 0;
+// 	while (i < info->ant_nb)
+// 	{
+// 		info->ant[i].path = path_tab[0].edges;
+// 		i++;
+// 	}
 
-}
+// }
 
 int     	main(int ac, char **av) // testing main for parsing
 {
@@ -135,14 +135,16 @@ int     	main(int ac, char **av) // testing main for parsing
 	if (!(info.ant = malloc(sizeof(t_ant) * info.ant_nb))) // malloc the structure array in which the ants and their position are stored
 		return (0);
 	ant_init(&info); // initialize the ants according to their numbers. all initial positions should point to 0 aka start room's id.
-	path_tab_init(&path_tab, &info); // debug; fake path_tab initializer & filler for testing.
+	// path_tab_init(&path_tab, &info); // debug; fake path_tab initializer & filler for testing.
     info.room_nb = room_counter(map);
 	if (!(info.room_tab = malloc(sizeof(t_room) * info.room_nb))) // malloc the array of struct in which the rooms and their data are stored
 		return (0);
     lem_in_parser(map, &info); // parse the map data and stock it accordingly.
 	if (troubleshooter(&info))
 		return (error_output());
-	// info.matrix = adj_matrix(map, info, )
+	adj_matrix(map, &info);
+	directed_matrix(&info);
+	pathfinder(&info, &path_tab);
 	// i = 0; // debug
 	// while (i < info.ant_nb) // debug
 	// {
@@ -165,8 +167,8 @@ int     	main(int ac, char **av) // testing main for parsing
 	// printf("%s.\n", get_room_name(&info, path_tab.edges[i]));
 	// ft_putchar('\n');
 	lem_in_displayer(&info, &path_tab, map); // debug
-	free(info.ant);
+	// free(info.ant);
 	free_struct_array(&info);
-	free(info.room_tab);
+	// free(info.room_tab);
     return (0);
 }

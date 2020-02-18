@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   queue_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 18:18:29 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/12 20:08:54 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/18 20:42:45 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	queue_delone(t_queue **queue)
 	if (!queue || !(*queue))
 		return ;
 	tmp = (*queue)->next;
-	free(*queue);
+	// free(*queue);
 	*queue = tmp;
 }
 

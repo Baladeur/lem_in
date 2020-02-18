@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   adj_matrix.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:10:44 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/18 18:59:01 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/18 20:49:40 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	get_link(char *line, char **rooms, t_info *info)
 **	Returns 1 if the operation is successfull, 0 otherwise.
 */
 
-int			adj_matrix(char **data, t_info *info, int start)
+int			adj_matrix(char **data, t_info *info)
 {
 	char	*rooms;
 	int		id1;
@@ -75,7 +75,7 @@ int			adj_matrix(char **data, t_info *info, int start)
 
 	if (!(info->matrix = init_matrix(info->room_nb)))
 		return (0);
-	i = start;
+	i = info->edges_line;
 	while (data[i])
 	{
 		if (get_link(data[i], &rooms, info))
@@ -89,5 +89,6 @@ int			adj_matrix(char **data, t_info *info, int start)
 			return (0);
 		i++;
 	}
+	print_matrix(info->matrix, info->room_nb);
 	return (1);
 }
