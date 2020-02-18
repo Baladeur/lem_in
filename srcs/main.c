@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2020/02/10 22:40:18 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/18 18:13:37 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,11 @@ char		**get_map(char **av, char **map) // get map from standard input using GNL.
 	char	*stock;
 
 	i = 0;
-    fd = open((av[1]), O_RDONLY);
+    if ((fd = open((av[1]), O_RDONLY)) < 0)
+	{
+		error_output();
+		return (NULL);
+	}
 	stock = ft_strnew(1);
 	while (get_next_line(fd, &line))
 	{
@@ -96,6 +100,7 @@ void	path_tab_init(t_path *path_tab, t_info *info) // debug only - for testing w
 	int i;
 	int	j;
 
+	path_tab[0].nodes = NULL;
 	path_tab[0].len = 4; // 4 for map_1 & map_1_2 ; 5 for map_2.
 	if (!(path_tab[0].edges = malloc(sizeof(int) * path_tab[0].len)))
 		return ;
@@ -113,7 +118,7 @@ void	path_tab_init(t_path *path_tab, t_info *info) // debug only - for testing w
 
 }
 
-int     main(int ac, char **av) // testing main for parsing
+int     	main(int ac, char **av) // testing main for parsing
 {
 	int		i;
 	t_info	info;
@@ -123,7 +128,8 @@ int     main(int ac, char **av) // testing main for parsing
     if (ac == 1) // if no args are given, return.
         return (0);
     map = NULL;
-    map = get_map(av, map);
+    if (!(map = get_map(av, map)))
+		return (0);
 	info_init(&info);
 	if ((info.ant_nb = ft_atoi(map[0])) <= 0) // if the number of ants is equal to 0 or negative, we stop.
 		return (parsing_error(map));
@@ -137,6 +143,7 @@ int     main(int ac, char **av) // testing main for parsing
     lem_in_parser(map, &info); // parse the map data and stock it accordingly.
 	if (troubleshooter(&info))
 		return (error_output());
+	info.matrix = adj_matrix(map, info, )
 	// i = 0; // debug
 	// while (i < info.ant_nb) // debug
 	// {

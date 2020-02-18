@@ -6,7 +6,7 @@
 #    By: myener <myener@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/26 16:30:35 by myener            #+#    #+#              #
-#    Updated: 2020/02/08 13:26:44 by myener           ###   ########.fr        #
+#    Updated: 2020/02/18 18:05:32 by myener           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,4 +23,4 @@ ________________
 [ ] if start is connected to end, every ant can go from start to end in a single turn.
 [ ] if the same path exist twice (eg. 2-1 and 1-2), it  is simply ignored the second time.
 	(The adjacency matrix should take care of that)
-[ ] map argument doesn't exist.
+[x] map argument doesn't exist.

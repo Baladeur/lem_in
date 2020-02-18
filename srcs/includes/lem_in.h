@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/02/17 22:08:48 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/18 18:10:12 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,12 @@ typedef struct			s_info		// useful information that may bee needed regularly.
 	t_ant			*ant;			// a tab containing all the ants numbered (ant 1 is in pos 0, and so on) + their position (room id).
 	int				start_nb;		// line number of start room coordinates, from input data array.
 	int				end_nb;			// line number of the end room.
+	int				edges_line;		// line number of the beginning of the edges list.
 	bool			s_enc;			// true if start is encountered, false if not.
 	bool			e_enc;			// true if end is encountered, false if not.
 	int				path_nb;		// number of simultaneous paths found.
 	int				**matrix;		// the adjacency matrix
+	int				**dir_matrix;	// the directed adjacency matrix
 	t_room			*room_tab;		// array of structures containing all rooms.
 }						t_info;
 

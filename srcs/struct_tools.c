@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:58:11 by myener            #+#    #+#             */
-/*   Updated: 2020/02/06 10:20:27 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/18 18:09:57 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,10 @@ void	info_init(t_info *info)
 	info->ant_nb = 0;
 	info->ant = NULL;
 	info->path_nb = 0;
+	info->edges_line = 0;
 	info->room_tab = NULL;
 	info->matrix = NULL;
+	info->dir_matrix = NULL;
 }
 
 void	free_struct_array(t_info *info)
