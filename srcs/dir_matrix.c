@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dir_matrix.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 15:28:24 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/18 20:46:34 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/18 23:21:15 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static int		is_turn_over(t_branch *branch, int turn)
 ** The loop used by the branching algorithm. Check every connection to the
 ** currently queued room and updates the branching matrix accordingly.
 */
-
 
 static int		branching_loop(int **matrix, t_branch *branch, int turn)
 {
@@ -89,7 +88,6 @@ static t_branch	*branching(int **matrix, t_branch *branch)
 ** Remove dead ends from a directed branching matrix.
 */
 
-
 static int		deadends(int **branch, int i, int size)
 {
 	int c;
@@ -133,12 +131,13 @@ int				directed_matrix(t_info *info)
 		if (info->matrix[0][i])
 		{
 			reset_branching(&branch, i);
-			if (!(branching(info->matrix, branch)) && !(destroy_matrix(&(info->dir_matrix), info->room_nb)))
+			if (!(branching(info->matrix, branch))
+				&& !(destroy_matrix(&(info->dir_matrix), info->room_nb)))
 				return (0);
 			deadends(branch->matrix, i, info->room_nb);
 			sum_matrix(info->dir_matrix, branch->matrix, info->room_nb);
 		}
 	}
 	destroy_branching(&branch);
-	return(fill_gaps(info));
+	return (fill_gaps(info));
 }

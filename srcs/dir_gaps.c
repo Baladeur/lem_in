@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   dir_gaps.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 18:52:13 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/18 20:42:56 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/18 23:48:49 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/lem_in.h"
+
+/*
+** Destroys BFS' allocated variables in case of a failure running the algorithm.
+*/
 
 static int	exit_loop(t_queue **queue, int **prev, int ret)
 {
@@ -19,11 +23,15 @@ static int	exit_loop(t_queue **queue, int **prev, int ret)
 			queue_delone(queue);
 	if (prev && *prev)
 	{
-		// free(*prev);
+		free(*prev);
 		*prev = NULL;
 	}
 	return (ret);
 }
+
+/*
+** The loop used during the BFS.
+*/
 
 static int	bfs_loop(int *visited, int *dist, t_info *info)
 {
@@ -54,6 +62,11 @@ static int	bfs_loop(int *visited, int *dist, t_info *info)
 	return (exit_loop(&queue, &prev, 1));
 }
 
+/*
+** BFS through the adjacency matrix to determine distance between each room and
+** the end.
+*/
+
 static int	bfs(t_info *info, int *dist)
 {
 	int		*visited;
@@ -70,12 +83,16 @@ static int	bfs(t_info *info, int *dist)
 	}
 	if (!(bfs_loop(visited, dist, info)))
 	{
-		// free(visited);
+		free(visited);
 		return (0);
 	}
-	// free(visited);
+	free(visited);
 	return (1);
 }
+
+/*
+** Destroys the directed matrix in case of a failure while filling gaps.
+*/
 
 static int	exit_gaps(int **dist, t_info *info)
 {
@@ -83,11 +100,15 @@ static int	exit_gaps(int **dist, t_info *info)
 		destroy_matrix(&(info->dir_matrix), info->room_nb);
 	if (dist && *dist)
 	{
-		// free(dist);
+		free(dist);
 		*dist = NULL;
 	}
 	return (0);
 }
+
+/*
+** Performs a double check on the directed graph and fills the remaining gaps.
+*/
 
 int			fill_gaps(t_info *info)
 {
@@ -113,6 +134,6 @@ int			fill_gaps(t_info *info)
 					info->dir_matrix[y][x] = 1;
 			}
 	}
-	// free(dist);
+	free(dist);
 	return (1);
 }

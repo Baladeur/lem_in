@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2020/02/18 20:42:52 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/18 23:17:49 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,9 +120,10 @@ char		**get_map(char **av, char **map) // get map from standard input using GNL.
 int     	main(int ac, char **av) // testing main for parsing
 {
 	// int		i;
+	// int		j;
 	t_info	info;
     char    **map;
-	t_path	path_tab; // debug; fake path_tab object created for testing.
+	t_path	*path_tab; // debug; fake path_tab object created for testing.
 
     if (ac == 1) // if no args are given, return.
         return (0);
@@ -142,9 +143,25 @@ int     	main(int ac, char **av) // testing main for parsing
     lem_in_parser(map, &info); // parse the map data and stock it accordingly.
 	if (troubleshooter(&info))
 		return (error_output());
-	adj_matrix(map, &info);
-	directed_matrix(&info);
-	pathfinder(&info, &path_tab);
+	//printf("Creating adj matrix\n");
+	if (!(adj_matrix(map, &info)))	// creates the adjacency matrix
+		return (error_output());
+	//print_matrix(info.matrix, info.room_nb);
+	//printf("Creating dir matrix\n");
+	if (!(directed_matrix(&info)))	// creates the directed matrix
+		return (error_output());
+	//print_matrix(info.dir_matrix, info.room_nb);
+	if (!(pathfinder(&info, &path_tab)))	// stores the best t_path tab in path_tab
+		return (error_output());
+	// printf("Efficiency : %d\n", pathtab_efficiency(path_tab, info.ant_nb));
+	// i = -1;
+	// while (path_tab[++i].len > 0 && (j = -1))
+	// {
+	// 	printf("%d |\t", i);
+	// 	while (path_tab[i].edges[++j] != info.room_nb - 1)
+	// 		printf("%s ", info.room_tab[path_tab[i].edges[j]].name);
+	// 	printf("%s\n", info.room_tab[path_tab[i].edges[j]].name);
+	// }
 	// i = 0; // debug
 	// while (i < info.ant_nb) // debug
 	// {
@@ -166,7 +183,7 @@ int     	main(int ac, char **av) // testing main for parsing
 	// } // debug
 	// printf("%s.\n", get_room_name(&info, path_tab.edges[i]));
 	// ft_putchar('\n');
-	lem_in_displayer(&info, &path_tab, map); // debug
+	lem_in_displayer(&info, path_tab, map); // debug
 	// free(info.ant);
 	free_struct_array(&info);
 	// free(info.room_tab);

@@ -3,16 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   pathfinder.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 23:05:08 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/18 20:42:59 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/18 23:52:44 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/lem_in.h"
 
-static int		is_better(t_path *src, t_path *dst, int ant_nb)
+/*
+** Compare src with dest. Returns 1 if src is better, 0 otherwise.
+*/
+
+static int	is_better(t_path *src, t_path *dst, int ant_nb)
 {
 	int i;
 	int l1;
@@ -33,7 +37,11 @@ static int		is_better(t_path *src, t_path *dst, int ant_nb)
 	return (l1 < l2);
 }
 
-static void		pathtab_clone(t_path *src, t_path *dest, t_info *info)
+/*
+** Duplicates src pathtab values into dest pathtab values.
+*/
+
+static void	pathtab_clone(t_path *src, t_path *dest, t_info *info)
 {
 	int i;
 	int j;
@@ -46,7 +54,11 @@ static void		pathtab_clone(t_path *src, t_path *dest, t_info *info)
 		dest[i].edges[j] = src[i].edges[j];
 }
 
-static void		path_bt(t_path *paths, t_path *curr, t_path *best, t_info *info)
+/*
+** Backtracking algorithm testing every path combination to find the best one.
+*/
+
+static void	path_bt(t_path *paths, t_path *curr, t_path *best, t_info *info)
 {
 	int	i;
 
@@ -66,6 +78,10 @@ static void		path_bt(t_path *paths, t_path *curr, t_path *best, t_info *info)
 	return ;
 }
 
+/*
+** Destroys the pathfinder's allocated variables in case of failure.
+*/
+
 static int	pathfinder_exit(t_path **paths, t_path **curr, t_path **best)
 {
 	if (paths && *paths)
@@ -77,7 +93,11 @@ static int	pathfinder_exit(t_path **paths, t_path **curr, t_path **best)
 	return (0);
 }
 
-int			pathfinder(t_info *info, t_path *path_tab)
+/*
+** Returns the best combination of paths given a specified map.
+*/
+
+int			pathfinder(t_info *info, t_path **best)
 {
 	t_path	*paths;
 	t_path	*curr;
@@ -86,16 +106,16 @@ int			pathfinder(t_info *info, t_path *path_tab)
 
 	paths = NULL;
 	curr = NULL;
-	path_tab = NULL;
+	*best = NULL;
 	if (!(paths = allpath(info, &max))
 		|| !(curr = pathtab_init(max, info))
-		|| !(path_tab = pathtab_init(max, info)))
-		return (pathfinder_exit(&paths, &curr, &path_tab));
-	path_bt(paths, curr, path_tab, info);
+		|| !(*best = pathtab_init(max, info)))
+		return (pathfinder_exit(&paths, &curr, best));
+	path_bt(paths, curr, *best, info);
 	i = -1;
-	while (path_tab[++i].len > 0 && (max = -1))
+	while (best[0][++i].len > 0 && (max = -1))
 		while (paths[++max].len > 0)
-			if (path_tab[i].edges == paths[i].edges && !(paths[i].edges = NULL))
+			if (best[0][i].edges == paths[i].edges && !(paths[i].edges = NULL))
 				break ;
 	pathfinder_exit(&paths, &curr, NULL);
 	return (1);

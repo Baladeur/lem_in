@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   adj_matrix.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:10:44 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/18 20:49:40 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/18 23:38:26 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,32 +32,33 @@ static int	find_room(char *name, t_info *info)
 	return (-1);
 }
 
-static int	get_link(char *line, char **rooms, t_info *info)
-{
-	int orig;
-	int dest;
-	int curr;
-	int len;
-	int id;
+/*
+** If the line has a correct link formatting, returns 1 and replaces
+** the '-' with a 0 to split the link in two. Returns 0 otherwise.
+*/
 
-	curr = -1;
-	dest = -1;
-	while (++curr < info->room_nb)
-	{
-		len = ft_strlen(info->room_tab[curr].name);
-		id = find_room(line + len + 1, info);
-		if (ft_strstr(line, info->room_tab[curr].name) == line
-			&& line[len] == '-' && id > -1 && id != curr && (dest == -1
-			|| ft_strlen(info->room_tab[curr].name)
-			> ft_strlen(info->room_tab[orig].name)) && (dest = id) >= 0)
-			orig = curr;
-	}
-	if (dest < 0 || !(*rooms = (char *)malloc(sizeof(char) * ft_strlen(line))))
+static int	get_link(char *line, t_info *info)
+{
+	int i;
+
+	i = -1;
+	while (line[++i])
+		if (line[i] == '-')
+		{
+			line[ft_strlen(line) - 1] = 0;
+			line[i] = 0;
+			break ;
+		}
+	if (line[i - 1] == '\n')
 		return (0);
-	ft_strcpy(*rooms, info->room_tab[orig].name);
-	(*rooms)[ft_strlen(info->room_tab[orig].name)] = 0;
-	ft_strcpy(*rooms + ft_strlen(info->room_tab[orig].name) + 1,
-		info->room_tab[dest].name);
+	if (!(ft_strcmp(line, line + ft_strlen(line) + 1))
+		|| find_room(line, info) < 0
+		|| find_room(line + ft_strlen(line) + 1, info) < 0)
+	{
+		line[i] = '-';
+		line[ft_strlen(line)] = '\n';
+		return (0);
+	}
 	return (1);
 }
 
@@ -68,7 +69,6 @@ static int	get_link(char *line, char **rooms, t_info *info)
 
 int			adj_matrix(char **data, t_info *info)
 {
-	char	*rooms;
 	int		id1;
 	int		id2;
 	int		i;
@@ -78,17 +78,18 @@ int			adj_matrix(char **data, t_info *info)
 	i = info->edges_line;
 	while (data[i])
 	{
-		if (get_link(data[i], &rooms, info))
+		if (get_link(data[i], info))
 		{
-			id1 = find_room(rooms, info);
-			id2 = find_room(rooms + ft_strlen(rooms) + 1, info);
+			id1 = find_room(data[i], info);
+			id2 = find_room(data[i] + ft_strlen(data[i]) + 1, info);
 			info->matrix[id1][id2] = 1;
 			info->matrix[id2][id1] = 1;
+			data[i][ft_strlen(data[i])] = '-';
+			data[i][ft_strlen(data[i])] = '\n';
 		}
 		else if (!(destroy_matrix(&(info->matrix), info->room_nb)))
 			return (0);
 		i++;
 	}
-	print_matrix(info->matrix, info->room_nb);
 	return (1);
 }

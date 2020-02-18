@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   branch_tools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 16:20:38 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/18 20:42:49 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/18 23:04:05 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,13 @@ t_branch	*destroy_branching(t_branch **branch)
 	if (!branch || !*branch)
 		return (NULL);
 	if (branch[0]->visited)
-		// free(branch[0]->visited);
+		free(branch[0]->visited);
 	if (branch[0]->weight)
-		// free(branch[0]->weight);
+		free(branch[0]->weight);
 	if (branch[0]->matrix && (x = -1))
 		while (++x < branch[0]->size)
 			if ((branch[0]->matrix)[x])
-				// free((branch[0]->matrix)[x]);
+				free((branch[0]->matrix)[x]);
 	if (branch[0]->queue)
 		while (branch[0]->queue)
 			queue_delone(&(branch[0]->queue));

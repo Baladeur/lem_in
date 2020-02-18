@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   queue_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 18:18:29 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/18 20:42:45 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/18 23:21:46 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int		queue_size(t_queue *queue)
 ** If the list is smaller than i, returns -1.
 */
 
-
 int		queue_get_at(t_queue *queue, int i)
 {
 	t_queue *current;
@@ -59,7 +58,6 @@ int		queue_get_at(t_queue *queue, int i)
 ** Initialize a chained list t_queue with it's first element id.
 */
 
-
 t_queue	*queue_new(int id)
 {
 	t_queue *queue;
@@ -75,7 +73,6 @@ t_queue	*queue_new(int id)
 ** Removes and frees the first element of the queue.
 */
 
-
 void	queue_delone(t_queue **queue)
 {
 	t_queue *tmp;
@@ -83,14 +80,13 @@ void	queue_delone(t_queue **queue)
 	if (!queue || !(*queue))
 		return ;
 	tmp = (*queue)->next;
-	// free(*queue);
+	free(*queue);
 	*queue = tmp;
 }
 
 /*
 ** Add an element with the given id at the bottom of the queue.
 */
-
 
 t_queue	*queue_add(t_queue **queue, int id)
 {

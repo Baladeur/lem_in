@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/02/18 20:43:01 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/18 22:47:18 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,6 @@ t_elist		*elist_add(t_elist **list, int *edges);
 int			elist_size(t_elist *list);
 
 t_path		*allpath(t_info *info, int *max);
-int			pathfinder(t_info *info, t_path *path_tab);
+int			pathfinder(t_info *info, t_path **best);
 
 #endif

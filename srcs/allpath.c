@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   allpath.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 17:07:36 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/18 20:42:58 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/18 23:42:55 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/lem_in.h"
+
+/*
+** Returns the theorical maximum simultaneous paths for a map given a directed
+** graph.
+*/
 
 static int	pathtab_max(int **directed, t_info *info)
 {
@@ -30,6 +35,11 @@ static int	pathtab_max(int **directed, t_info *info)
 	}
 	return (c1 > c2 ? c2 : c1);
 }
+
+/*
+** Transforms a queue from the allpath DFS into an edge set to be added
+** to the path list.
+*/
 
 static int	add_to_list(int pos, t_queue *parent, t_elist **list, int size)
 {
@@ -52,11 +62,15 @@ static int	add_to_list(int pos, t_queue *parent, t_elist **list, int size)
 	edges[len] = 0;
 	if (!elist_add(list, edges))
 	{
-		// free(edges);
+		free(edges);
 		return (0);
 	}
 	return (1);
 }
+
+/*
+** DFS through the directed graph, adding every path it finds to the path list.
+*/
 
 static int	allpath_bt(t_queue *parent, int **dir, int pos, t_elist **list)
 {
@@ -85,6 +99,10 @@ static int	allpath_bt(t_queue *parent, int **dir, int pos, t_elist **list)
 	queue_delone(&current);
 	return (1);
 }
+
+/*
+** Stores every possible path in a t_path tab.
+*/
 
 t_path		*allpath(t_info *info, int *max)
 {
