@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 23:05:08 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/17 22:08:55 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/18 18:44:56 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static t_path	*pathfinder_exit(t_path **paths, t_path **curr, t_path **best)
 	return (NULL);
 }
 
-t_path			*pathfinder(int **directed, t_info *info)
+t_path			*pathfinder(t_info *info)
 {
 	t_path	*paths;
 	t_path	*curr;
@@ -88,7 +88,7 @@ t_path			*pathfinder(int **directed, t_info *info)
 	paths = NULL;
 	curr = NULL;
 	best = NULL;
-	if (!(paths = allpath(directed, info, &max))
+	if (!(paths = allpath(info, &max))
 		|| !(curr = pathtab_init(max, info))
 		|| !(best = pathtab_init(max, info)))
 		return (pathfinder_exit(&paths, &curr, &best));

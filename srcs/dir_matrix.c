@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dir_matrix.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 15:28:24 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/06 10:10:23 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/18 19:07:42 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,28 +118,25 @@ static int		deadends(int **branch, int i, int size)
 ** Turns an adjacency matrix graph into a directed graph.
 */
 
-int				**directed_matrix(int **matrix, t_info *info)
+int				directed_matrix(t_info *info)
 {
 	t_branch	*branch;
-	int			**directed;
 	int			i;
 
-	directed = NULL;
 	branch = NULL;
-	if (!(directed = init_matrix(info->room_nb)))
-		return (NULL);
-	if (!(branch = init_branching(info->room_nb)))
-		return (NULL);
+	if (!(info->dir_matrix = init_matrix(info->room_nb))
+		|| !(branch = init_branching(info->room_nb)))
+		return (0);
 	i = -1;
 	while (++i < info->room_nb)
-		if (matrix[0][i])
+		if (info->matrix[0][i])
 		{
 			reset_branching(&branch, i);
-			if (!(branching(matrix, branch)))
-				return (destroy_matrix(&directed, info->room_nb));
+			if (!(branching(info->matrix, branch)) && !(destroy_matrix(&(info->dir_matrix), info->room_nb)))
+				return (0);
 			deadends(branch->matrix, i, info->room_nb);
-			sum_matrix(directed, branch->matrix, info->room_nb);
+			sum_matrix(info->dir_matrix, branch->matrix, info->room_nb);
 		}
 	destroy_branching(&branch);
-	return (fill_gaps(matrix, &directed, info));
+	return(fill_gaps(info));
 }

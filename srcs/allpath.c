@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 17:07:36 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/17 22:40:37 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/18 18:50:59 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,24 +87,24 @@ static int	allpath_bt(t_queue *parent, int **dir, int pos, t_elist **list)
 	return (1);
 }
 
-t_path		*allpath(int **directed, t_info *info, int *max)
+t_path		*allpath(t_info *info, int *max)
 {
 	t_elist	*list;
 	t_path	*allpath;
 
 	list = NULL;
 	allpath = NULL;
-	directed[0][0] = info->room_nb;
-	*max = pathtab_max(directed, info);
-	if (!(allpath_bt(NULL, directed, 0, &list))
+	info->dir_matrix[0][0] = info->room_nb;
+	*max = pathtab_max(info->dir_matrix, info);
+	if (!(allpath_bt(NULL, info->dir_matrix, 0, &list))
 		|| !(allpath = pathtab_init(elist_size(list), info)))
 	{
 		while (list)
 			elist_delone(&list, 1);
-		directed[0][0] = 0;
+		info->dir_matrix[0][0] = 0;
 		return (NULL);
 	}
-	directed[0][0] = 0;
+	info->dir_matrix[0][0] = 0;
 	while (list && pathtab_add(allpath, list->edges, info, 1))
 		elist_delone(&list, 0);
 	return (allpath);

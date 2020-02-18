@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/02/18 18:10:12 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/18 18:55:52 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,9 @@ int			troubleshooter(t_info *info);
 int			**init_matrix(int count);
 int			**destroy_matrix(int ***matrix, int count);
 int			**dupe_matrix(int **matrix, int count);
-int			**adj_matrix(char **data, t_room *farm, t_info *info, int start);
+int			adj_matrix(char **data, t_info *info, int start);
 void		sum_matrix(int **dest, int **src, int size);
 void		print_matrix(int **matrix, int count);
-
-int			find_room(t_room *farm, char *name, t_info *info);
 
 t_queue		*queue_new(int id);
 void		queue_delone(t_queue **queue);
@@ -116,8 +114,8 @@ int			queue_size(t_queue *queue);
 t_branch	*init_branching(int size);
 t_branch	*reset_branching(t_branch **branch, int i);
 t_branch	*destroy_branching(t_branch **branch);
-int			**directed_matrix(int **matrix, t_info *info);
-int			**fill_gaps(int **matrix, int ***directed, t_info *info);
+int			directed_matrix(t_info *info);
+int			fill_gaps(t_info *info);
 
 t_path		*pathtab_destroy(t_path **pathtab, int b);
 t_path		*pathtab_init(int s, t_info *info);
@@ -130,7 +128,7 @@ void		elist_delone(t_elist **list, int b);
 t_elist		*elist_add(t_elist **list, int *edges);
 int			elist_size(t_elist *list);
 
-t_path		*allpath(int **directed, t_info *info, int *max);
-t_path		*pathfinder(int **directed, t_info *info);
+t_path		*allpath(t_info *info, int *max);
+t_path		*pathfinder(t_info *info);
 
 #endif
