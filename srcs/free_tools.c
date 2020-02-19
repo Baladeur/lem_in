@@ -1,47 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct_tools.c                                     :+:      :+:    :+:   */
+/*   free_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/26 18:58:11 by myener            #+#    #+#             */
-/*   Updated: 2020/02/18 20:42:50 by myener           ###   ########.fr       */
+/*   Created: 2020/02/19 16:59:26 by myener            #+#    #+#             */
+/*   Updated: 2020/02/19 17:18:02 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/lem_in.h"
 
-
-void	ant_init(t_info *info)
+void	ant_free(t_info *info)
 {
 	int i;
 
 	i = 0;
 	while (i < info->ant_nb)
 	{
-		info->ant[i].id = i + 1;
-		info->ant[i].pos = 0;
-		info->ant[i].path = NULL;
+		// free(info->ant[i].path);
 		i++;
 	}
+	// info->ant ? free(info->ant) : 0;
 }
 
-void	info_init(t_info *info)
+/*
+**	Free the memory of an int** where every allocated int* is found before the
+**	first NULL int*. Will leak if there is a NULL int* in-between the allocated
+**	int*
+*/
+
+int		**matrix_free(int ***matrix, int count)
 {
-	info->room_nb = 0;
-	info->start_nb = 0;
-	info->end_nb = 0;
-	info->ant_nb = 0;
-	info->ant = NULL;
-	info->path_nb = 0;
-	info->edges_line = 0;
-	info->room_tab = NULL;
-	info->matrix = NULL;
-	info->dir_matrix = NULL;
+	int i;
+
+	i = -1;
+	while (++i < count)
+		free(**matrix + i);
+	free(*matrix);
+	*matrix = NULL;
+	return (NULL);
 }
 
-void	free_struct_array(t_info *info)
+void	room_free(t_info *info)
 {
 	int i;
 
@@ -51,14 +53,5 @@ void	free_struct_array(t_info *info)
 		// free(info->room_tab[i].name);
 		i++;
 	}
-}
-
-void	room_init(t_room *room)
-{
-	room->id = 0;
-	room->name = NULL;
-	room->x = 0;
-	room->y = 0;
-	room->type = 'c'; // default room type is classic
-	room->ant_nb_curr = 0;
+	// info->room_tab ? free(info->room_tab) : 0;
 }

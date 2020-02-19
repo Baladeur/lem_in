@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2020/02/18 23:17:49 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/19 17:17:23 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,7 @@ char		**get_map(char **av, char **map) // get map from standard input using GNL.
 
 	i = 0;
     if ((fd = open((av[1]), O_RDONLY)) < 0)
-	{
-		error_output();
 		return (NULL);
-	}
 	stock = ft_strnew(1);
 	while (get_next_line(fd, &line))
 	{
@@ -119,7 +116,7 @@ char		**get_map(char **av, char **map) // get map from standard input using GNL.
 
 int     	main(int ac, char **av) // testing main for parsing
 {
-	// int		i;
+	int		i;
 	// int		j;
 	t_info	info;
     char    **map;
@@ -128,11 +125,11 @@ int     	main(int ac, char **av) // testing main for parsing
     if (ac == 1) // if no args are given, return.
         return (0);
     map = NULL;
-    if (!(map = get_map(av, map)))
-		return (0);
+    if (!(map = get_map(av, map))) // if no map is given, display "ERROR" and return.
+		return (error_output());
 	info_init(&info);
-	if ((info.ant_nb = ft_atoi(map[0])) <= 0) // if the number of ants is equal to 0 or negative, we stop.
-		return (parsing_error(map));
+	if ((info.ant_nb = ft_atoi(map[0])) <= 0) // if the number of ants is equal to 0 or negative, we stop, display "ERROR" and return.
+		return (lem_in_map_free_error(map));
 	if (!(info.ant = malloc(sizeof(t_ant) * info.ant_nb))) // malloc the structure array in which the ants and their position are stored
 		return (0);
 	ant_init(&info); // initialize the ants according to their numbers. all initial positions should point to 0 aka start room's id.
@@ -142,17 +139,17 @@ int     	main(int ac, char **av) // testing main for parsing
 		return (0);
     lem_in_parser(map, &info); // parse the map data and stock it accordingly.
 	if (troubleshooter(&info))
-		return (error_output());
+		return (lem_in_map_free_error(map));
 	//printf("Creating adj matrix\n");
 	if (!(adj_matrix(map, &info)))	// creates the adjacency matrix
-		return (error_output());
+		return (lem_in_map_free_error(map));
 	//print_matrix(info.matrix, info.room_nb);
 	//printf("Creating dir matrix\n");
 	if (!(directed_matrix(&info)))	// creates the directed matrix
-		return (error_output());
+		return (lem_in_map_free_error(map));
 	//print_matrix(info.dir_matrix, info.room_nb);
 	if (!(pathfinder(&info, &path_tab)))	// stores the best t_path tab in path_tab
-		return (error_output());
+		return (lem_in_map_free_error(map));
 	// printf("Efficiency : %d\n", pathtab_efficiency(path_tab, info.ant_nb));
 	// i = -1;
 	// while (path_tab[++i].len > 0 && (j = -1))
@@ -183,6 +180,12 @@ int     	main(int ac, char **av) // testing main for parsing
 	// } // debug
 	// printf("%s.\n", get_room_name(&info, path_tab.edges[i]));
 	// ft_putchar('\n');
+	i = 0;
+	while (i < info.ant_nb) // debug for as long as we dont have assigned paths to ants
+	{
+		info.ant[i].path = path_tab[0].edges;
+		i++;
+	}
 	lem_in_displayer(&info, path_tab, map); // debug
 	// free(info.ant);
 	free_struct_array(&info);

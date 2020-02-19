@@ -3,32 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   matrix_tools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:08:50 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/18 23:04:45 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/19 17:17:07 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/lem_in.h"
 
-/*
-**	Free the memory of an int** where every allocated int* is found before the
-**	first NULL int*. Will leak if there is a NULL int* in-between the allocated
-**	int*
-*/
-
-int		**destroy_matrix(int ***matrix, int count)
-{
-	int i;
-
-	i = -1;
-	while (++i < count)
-		free(**matrix + i);
-	free(*matrix);
-	*matrix = NULL;
-	return (NULL);
-}
 
 /*
 **	Allocates an int** matrix of size count*count, setting each value at 0.
@@ -48,7 +31,7 @@ int		**init_matrix(int count)
 	{
 		matrix[i] = NULL;
 		if (!(matrix[i] = (int *)malloc(sizeof(int) * count)))
-			return (destroy_matrix(&matrix, count));
+			return (matrix_free(&matrix, count));
 	}
 	j = -1;
 	while (++j < count)
@@ -76,7 +59,7 @@ int		**dupe_matrix(int **matrix, int count)
 	x = -1;
 	while (++x < count && !(new[x] = NULL))
 		if (!(new[x] = (int *)malloc(sizeof(int) * count)))
-			return (destroy_matrix(&new, count));
+			return (matrix_free(&new, count));
 	y = -1;
 	while (++y < count && (x = -1))
 		while (++x < count)

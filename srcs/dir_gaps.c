@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dir_gaps.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 18:52:13 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/18 23:48:49 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/19 17:17:13 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static int	bfs(t_info *info, int *dist)
 static int	exit_gaps(int **dist, t_info *info)
 {
 	if (info->dir_matrix)
-		destroy_matrix(&(info->dir_matrix), info->room_nb);
+		matrix_free(&(info->dir_matrix), info->room_nb);
 	if (dist && *dist)
 	{
 		free(dist);

@@ -6,19 +6,19 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 10:17:05 by myener            #+#    #+#             */
-/*   Updated: 2020/02/18 20:43:44 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/19 17:17:26 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/lem_in.h"
 
-int				parsing_error(char **map) // segmented for debugging purposes, to be integrated to a larger function later.
+int				lem_in_map_free_error(char **map) // segmented for debugging purposes, to be integrated to a larger function later.
 {
 	map? tab_free(map) : 0;
 	return (error_output());
 }
 
-int		error_output(void)
+int		lem_in_error_output(void)
 {
 	ft_putendl("ERROR");
 	return (0);

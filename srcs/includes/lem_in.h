@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/02/18 22:47:18 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/19 17:17:58 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,13 @@ void		info_init(t_info *info);
 int			is_room(char *line);
 void		lem_in_dispatcher(t_info *info, t_path *path_tab);
 void		lem_in_displayer(t_info *info, t_path *path_tab, char **map);
+int			lem_in_map_free_error(char **map);
 void		lem_in_parser(char **map, t_info *info);
-int			parsing_error(char **map);
 void		room_init(t_room *room);
 int			troubleshooter(t_info *info);
 
 int			**init_matrix(int count);
-int			**destroy_matrix(int ***matrix, int count);
+int			**matrix_free(int ***matrix, int count);
 int			**dupe_matrix(int **matrix, int count);
 int			adj_matrix(char **data, t_info *info);
 void		sum_matrix(int **dest, int **src, int size);

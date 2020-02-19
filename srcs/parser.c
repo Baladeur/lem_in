@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:20:24 by myener            #+#    #+#             */
-/*   Updated: 2020/02/18 19:09:49 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/19 17:17:22 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void		room_parser(char *line, t_info *info, int j) // parses every classi
 static void		room_add_start_end(char **map, t_info *info)
 {
 	if (!info->end_nb || !info->start_nb)
-		parsing_error(map);
+		lem_in_map_free_error(map);
 	room_parser(map[info->start_nb], info, 0);
 	info->room_tab[0].type = 's';
 	room_parser(map[info->end_nb], info, info->room_nb - 1);
@@ -53,7 +53,7 @@ static void		gates_manager(char **map, t_info *info, int ret, int i) // manages 
 	i += 1; // go to the next line to fetch either start or end data.
 	j = 0;
 	if ((ret == 2 && info->s_enc) || (ret == 3 && info->e_enc)) // if this is the second start or end, error.
-		parsing_error(map);
+		lem_in_map_free_error(map);
 	if ((info->s_enc = (ret == 2))) // if the command is "start", then the line contains the start room's map.
 		info->start_nb = i; // marks the line number of the start coordinates.
 	else if ((info->e_enc = (ret == 3)))
@@ -97,7 +97,7 @@ void			lem_in_parser(char **map, t_info *info) // parses the given map to get va
     {
 		// printf("map[i] = %s\n", map[i]);
 		if (map[i][0] == 'L') // lines can't start with L. If they do, output error.
-			parsing_error(map);
+			lem_in_map_free_error(map);
 		if (map[i][0] == '#') // if it starts with #, it might be a comment or a command:
 		{
 			ret = hash_line_manager(map, i); // this function will increment i to ignore the current line if necessary.
@@ -106,7 +106,7 @@ void			lem_in_parser(char **map, t_info *info) // parses the given map to get va
 		}
 		else if ((map[i][0] >= 33 && map[i][0] <= 126)) // if it starts with a letter, number or special character, it might be a room or a path:
 		{
-			// ((is_room(map[i])) == 0) ? parsing_error(map) : 0;
+			// ((is_room(map[i])) == 0) ? lem_in_map_free_error(map) : 0;
 			j = (j == 0) ? 1 : j; // initialized at 1 to ignore the first slot of the struct array, dedicated to start room
 			if (is_room(map[i])) // while we go through the room lines, fill the struct array and increment i.
 			{
