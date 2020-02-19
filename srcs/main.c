@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2020/02/19 17:17:23 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/19 17:45:07 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ int     	main(int ac, char **av) // testing main for parsing
         return (0);
     map = NULL;
     if (!(map = get_map(av, map))) // if no map is given, display "ERROR" and return.
-		return (error_output());
+		return (lem_in_error_output());
 	info_init(&info);
 	if ((info.ant_nb = ft_atoi(map[0])) <= 0) // if the number of ants is equal to 0 or negative, we stop, display "ERROR" and return.
 		return (lem_in_map_free_error(map));
@@ -187,8 +187,8 @@ int     	main(int ac, char **av) // testing main for parsing
 		i++;
 	}
 	lem_in_displayer(&info, path_tab, map); // debug
-	// free(info.ant);
-	free_struct_array(&info);
-	// free(info.room_tab);
+	// map ? tab_free(map) : 0;
+	// ant_free(&info);
+	// room_free(&info);
     return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 10:17:05 by myener            #+#    #+#             */
-/*   Updated: 2020/02/19 17:17:26 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/19 17:40:09 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int				lem_in_map_free_error(char **map) // segmented for debugging purposes, to be integrated to a larger function later.
 {
 	map? tab_free(map) : 0;
-	return (error_output());
+	return (lem_in_error_output());
 }
 
 int		lem_in_error_output(void)
