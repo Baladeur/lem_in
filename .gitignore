@@ -7,3 +7,7 @@ tester
 path_test.c
 *.o
 lem_in.h.gch
+faster
+.vscode/settings.json
+map
+*.dSYM

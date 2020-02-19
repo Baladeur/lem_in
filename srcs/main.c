@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2020/02/19 17:45:07 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/19 21:45:16 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,33 +62,29 @@ char		**append_return(char **in)
 
 char		**get_map(char **av, char **map) // get map from standard input using GNL.
 {
+	int		nb;
 	int		i;
-    int     fd;
-	char	*tmp;
+	int		fd;
 	char	*line;
-	char	*stock;
+	t_elist	*stock;
 
-	i = 0;
-    if ((fd = open((av[1]), O_RDONLY)) < 0)
+	if ((fd = open((av[1]), O_RDONLY)) < 0)
 		return (NULL);
-	stock = ft_strnew(1);
+	stock = NULL;
+	map = NULL;
+	line = NULL;
 	while (get_next_line(fd, &line))
-	{
-		tmp = line;
-		stock = ft_free_join(stock, line);
-		stock = ft_free_join(stock, "\n");
-		// free(tmp);
-		i++;
-	}
+		elist_add(&stock, (int *)line);
+	map = (char **)malloc(sizeof(char *) * elist_size(stock) + i);
 	i = 0;
-	while (stock[i])
+	while (stock)
 	{
-		(stock[i] == '\n' && stock[i + 1] == '\n') ? ft_putendl("ERROR") : 0;
+		map[i] = (char *)stock->edges;
+		elist_delone(&stock, 0);
 		i++;
 	}
-	map = ft_strsplit(stock, '\n');
+	map[i] = NULL;
 	map = append_return(map);
-	ft_strdel(&stock);
 	return (map);
 }
 
@@ -117,7 +113,7 @@ char		**get_map(char **av, char **map) // get map from standard input using GNL.
 int     	main(int ac, char **av) // testing main for parsing
 {
 	int		i;
-	// int		j;
+	int		j;
 	t_info	info;
     char    **map;
 	t_path	*path_tab; // debug; fake path_tab object created for testing.
@@ -134,31 +130,29 @@ int     	main(int ac, char **av) // testing main for parsing
 		return (0);
 	ant_init(&info); // initialize the ants according to their numbers. all initial positions should point to 0 aka start room's id.
 	// path_tab_init(&path_tab, &info); // debug; fake path_tab initializer & filler for testing.
+	ft_printf("Room counter\n");
     info.room_nb = room_counter(map);
 	if (!(info.room_tab = malloc(sizeof(t_room) * info.room_nb))) // malloc the array of struct in which the rooms and their data are stored
 		return (0);
     lem_in_parser(map, &info); // parse the map data and stock it accordingly.
 	if (troubleshooter(&info))
 		return (lem_in_map_free_error(map));
-	//printf("Creating adj matrix\n");
 	if (!(adj_matrix(map, &info)))	// creates the adjacency matrix
 		return (lem_in_map_free_error(map));
-	//print_matrix(info.matrix, info.room_nb);
-	//printf("Creating dir matrix\n");
 	if (!(directed_matrix(&info)))	// creates the directed matrix
 		return (lem_in_map_free_error(map));
-	//print_matrix(info.dir_matrix, info.room_nb);
 	if (!(pathfinder(&info, &path_tab)))	// stores the best t_path tab in path_tab
 		return (lem_in_map_free_error(map));
-	// printf("Efficiency : %d\n", pathtab_efficiency(path_tab, info.ant_nb));
-	// i = -1;
-	// while (path_tab[++i].len > 0 && (j = -1))
-	// {
-	// 	printf("%d |\t", i);
-	// 	while (path_tab[i].edges[++j] != info.room_nb - 1)
-	// 		printf("%s ", info.room_tab[path_tab[i].edges[j]].name);
-	// 	printf("%s\n", info.room_tab[path_tab[i].edges[j]].name);
-	// }
+	ft_printf("Efficiency : %d\n", pathtab_efficiency(path_tab, info.ant_nb));
+	i = -1;
+	while (path_tab[++i].len > 0 && (j = -1))
+	{
+		ft_printf("%d |\t", i);
+		while (path_tab[i].edges[++j] != info.room_nb - 1)
+			ft_printf("%s ", info.room_tab[path_tab[i].edges[j]].name);
+		ft_printf("%s\n", info.room_tab[path_tab[i].edges[j]].name);
+	}
+	assign_path(path_tab, &info);
 	// i = 0; // debug
 	// while (i < info.ant_nb) // debug
 	// {
@@ -180,15 +174,15 @@ int     	main(int ac, char **av) // testing main for parsing
 	// } // debug
 	// printf("%s.\n", get_room_name(&info, path_tab.edges[i]));
 	// ft_putchar('\n');
-	i = 0;
-	while (i < info.ant_nb) // debug for as long as we dont have assigned paths to ants
-	{
-		info.ant[i].path = path_tab[0].edges;
-		i++;
-	}
+	// i = 0;
+	// while (i < info.ant_nb) // debug for as long as we dont have assigned paths to ants
+	// {
+	// 	info.ant[i].path = path_tab[0].edges;
+	// 	i++;
+	// }
 	lem_in_displayer(&info, path_tab, map); // debug
 	// map ? tab_free(map) : 0;
-	// ant_free(&info);
-	// room_free(&info);
+	ant_free(&info);
+	room_free(&info);
     return (0);
 }

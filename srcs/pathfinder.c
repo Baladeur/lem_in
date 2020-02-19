@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 23:05:08 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/18 23:52:44 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/19 20:46:56 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static void	path_bt(t_path *paths, t_path *curr, t_path *best, t_info *info)
 {
 	int	i;
 
+	i = -1;
 	if (curr[0].len && (!best[0].len || is_better(curr, best, info->ant_nb)))
 		pathtab_clone(curr, best, info);
 	if (paths[0].len < 0)
