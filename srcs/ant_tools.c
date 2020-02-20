@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 21:04:26 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/19 21:33:57 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/20 18:34:37 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	assign_path(t_path *pathtab, t_info *info)
 	remain = remain % i[0];
 	i[1] = -1;
 	i[2] = 0;
-	while (pathtab[++i[1]].len > 0 && (i[3] == -1))
+	while (pathtab[++i[1]].len > 0 && (i[3] = -1))
 		while (++i[3] < split + longest - pathtab[i[1]].len
 			+ (i[0] - i[1] <= remain ? 1 : 0))
 		{

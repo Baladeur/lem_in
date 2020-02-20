@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2020/02/19 21:45:16 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/20 18:22:50 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ char		**get_map(char **av, char **map) // get map from standard input using GNL.
 	line = NULL;
 	while (get_next_line(fd, &line))
 		elist_add(&stock, (int *)line);
-	map = (char **)malloc(sizeof(char *) * elist_size(stock) + i);
+	if (!(map = (char **)malloc(sizeof(char *) * (elist_size(stock) + 1))))
+		return (NULL);
 	i = 0;
 	while (stock)
 	{

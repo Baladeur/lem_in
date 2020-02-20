@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:58:11 by myener            #+#    #+#             */
-/*   Updated: 2020/02/19 17:17:24 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/20 18:29:15 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	info_init(t_info *info)
 	info->start_nb = 0;
 	info->end_nb = 0;
 	info->ant_nb = 0;
+	info->s_enc = 0;
+	info->e_enc = 0;
 	info->ant = NULL;
 	info->path_nb = 0;
 	info->edges_line = 0;
