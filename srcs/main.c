@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2020/02/20 18:22:50 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/20 21:49:08 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,6 @@ int     	main(int ac, char **av) // testing main for parsing
 		return (0);
 	ant_init(&info); // initialize the ants according to their numbers. all initial positions should point to 0 aka start room's id.
 	// path_tab_init(&path_tab, &info); // debug; fake path_tab initializer & filler for testing.
-	ft_printf("Room counter\n");
     info.room_nb = room_counter(map);
 	if (!(info.room_tab = malloc(sizeof(t_room) * info.room_nb))) // malloc the array of struct in which the rooms and their data are stored
 		return (0);
@@ -153,6 +152,7 @@ int     	main(int ac, char **av) // testing main for parsing
 			ft_printf("%s ", info.room_tab[path_tab[i].edges[j]].name);
 		ft_printf("%s\n", info.room_tab[path_tab[i].edges[j]].name);
 	}
+	return (0);
 	assign_path(path_tab, &info);
 	// i = 0; // debug
 	// while (i < info.ant_nb) // debug

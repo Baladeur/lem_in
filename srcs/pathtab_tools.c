@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 18:36:05 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/18 23:06:22 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/20 21:52:10 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,25 +36,6 @@ int		pathtab_efficiency(t_path *pathtab, int n)
 }
 
 /*
-** Frees an allocated t_path tab.
-*/
-
-t_path	*pathtab_destroy(t_path **pathtab, int b)
-{
-	int	i;
-
-	if (!pathtab || *pathtab)
-		return (NULL);
-	i = -1;
-	while (b && pathtab[0][++i].len > 0)
-		if (pathtab[0][i].edges)
-			free(pathtab[0][i].edges);
-	free(pathtab[0]);
-	pathtab[0] = NULL;
-	return (NULL);
-}
-
-/*
 ** Initialize a t_path tab of size 's'.
 */
 
@@ -70,7 +51,7 @@ t_path	*pathtab_init(int s, t_info *info)
 		pathtab[i].len = 0;
 	pathtab[s].len = -1;
 	if (!(pathtab[s].edges = (int *)malloc(sizeof(int) * info->room_nb)))
-		return (pathtab_destroy(&pathtab, 0));
+		return (pathtab_free(&pathtab, 0));
 	i = -1;
 	while (++i < info->room_nb)
 		pathtab[s].edges[i] = i == 0 || i == info->room_nb - 1 ? 1 : 0;

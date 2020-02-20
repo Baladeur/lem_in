@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dispatcher.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:22:11 by myener            #+#    #+#             */
-/*   Updated: 2020/02/18 20:43:04 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/20 19:06:02 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void			lem_in_dispatcher(t_info *info, t_path *path_tab)
 	int		n; // index in path_tab's edges.
 	char	*room_name; // pretty self-explanatory.
 
-	info->path_nb = 1; // for testing with map_1
+	// info->path_nb = 1; // for testing with map_1
 	a = 0; // ants IDs start at 1, but we took care of it earlier so that it doesn't affect iteration.
 	n = 0;
 	i = 0;

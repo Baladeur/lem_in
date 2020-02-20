@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 23:05:08 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/19 20:46:56 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/20 21:52:41 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ static void	path_bt(t_path *paths, t_path *curr, t_path *best, t_info *info)
 			pathtab_remove(curr, info);
 		}
 	}
-	return ;
 }
 
 /*
@@ -86,11 +85,11 @@ static void	path_bt(t_path *paths, t_path *curr, t_path *best, t_info *info)
 static int	pathfinder_exit(t_path **paths, t_path **curr, t_path **best)
 {
 	if (paths && *paths)
-		pathtab_destroy(paths, 1);
+		pathtab_free(paths, 1);
 	if (curr && *curr)
-		pathtab_destroy(curr, 0);
+		pathtab_free(curr, 0);
 	if (best && *best)
-		pathtab_destroy(best, 0);
+		pathtab_free(best, 0);
 	return (0);
 }
 
@@ -119,5 +118,6 @@ int			pathfinder(t_info *info, t_path **best)
 			if (best[0][i].edges == paths[i].edges && !(paths[i].edges = NULL))
 				break ;
 	pathfinder_exit(&paths, &curr, NULL);
+	info->path_nb = i;
 	return (1);
 }

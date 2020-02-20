@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:59:26 by myener            #+#    #+#             */
-/*   Updated: 2020/02/19 17:41:45 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/20 21:35:26 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,26 @@ int		**matrix_free(int ***matrix, int count)
 		free(**matrix + i);
 	free(*matrix);
 	*matrix = NULL;
+	return (NULL);
+}
+
+
+/*
+** Frees an allocated t_path tab.
+*/
+
+t_path	*pathtab_free(t_path **pathtab, int b)
+{
+	int	i;
+
+	if (!pathtab || *pathtab)
+		return (NULL);
+	i = -1;
+	while (b && pathtab[0][++i].len > 0)
+		if (pathtab[0][i].edges)
+			free(pathtab[0][i].edges);
+	free(pathtab[0]);
+	pathtab[0] = NULL;
 	return (NULL);
 }
 
