@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2020/02/20 21:49:08 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/24 19:41:42 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ int     	main(int ac, char **av) // testing main for parsing
 			ft_printf("%s ", info.room_tab[path_tab[i].edges[j]].name);
 		ft_printf("%s\n", info.room_tab[path_tab[i].edges[j]].name);
 	}
-	return (0);
+	// return (0);
 	assign_path(path_tab, &info);
 	// i = 0; // debug
 	// while (i < info.ant_nb) // debug

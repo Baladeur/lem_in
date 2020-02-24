@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dispatcher.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:22:11 by myener            #+#    #+#             */
-/*   Updated: 2020/02/20 19:06:02 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/24 20:04:33 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,10 @@ void			lem_in_dispatcher(t_info *info, t_path *path_tab)
 				}
 				j--;
 			}
+			// ft_printf("i = %d, j = %d, a = %d, n = %d\n", i, j, a, n); // debug
 			i++; // this path is filled, let's move on.
 		}
+		// ft_putchar('\n');
 		a != 0 ? ft_putchar('\n') : 0; // separates the turns displayed.
 		n++; // that level of the path is now full, let's look further.
 	}
