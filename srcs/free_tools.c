@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:59:26 by myener            #+#    #+#             */
-/*   Updated: 2020/02/20 21:35:26 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/25 19:53:58 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,18 @@ int		**matrix_free(int ***matrix, int count)
 ** Frees an allocated t_path tab.
 */
 
-t_path	*pathtab_free(t_path **pathtab, int b)
+t_path	*path_free(t_path **path, int b)
 {
 	int	i;
 
-	if (!pathtab || *pathtab)
+	if (!path || *path)
 		return (NULL);
 	i = -1;
-	while (b && pathtab[0][++i].len > 0)
-		if (pathtab[0][i].edges)
-			free(pathtab[0][i].edges);
-	free(pathtab[0]);
-	pathtab[0] = NULL;
+	while (b && path[0][++i].len > 0)
+		if (path[0][i].edges)
+			free(path[0][i].edges);
+	free(path[0]);
+	path[0] = NULL;
 	return (NULL);
 }
 

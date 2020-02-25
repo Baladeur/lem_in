@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 17:07:36 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/19 19:45:53 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/25 19:43:36 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** graph.
 */
 
-static int	pathtab_max(int **directed, t_info *info)
+static int	path_max(int **directed, t_info *info)
 {
 	int c1;
 	int c2;
@@ -112,9 +112,9 @@ t_path		*allpath(t_info *info, int *max)
 	list = NULL;
 	allpath = NULL;
 	info->dir_matrix[0][0] = info->room_nb;
-	*max = pathtab_max(info->dir_matrix, info);
+	*max = path_max(info->dir_matrix, info);
 	if (!(allpath_bt(NULL, info->dir_matrix, 0, &list))
-		|| !(allpath = pathtab_init(elist_size(list), info)))
+		|| !(allpath = path_init(elist_size(list), info)))
 	{
 		while (list)
 			elist_delone(&list, 1);
@@ -122,7 +122,7 @@ t_path		*allpath(t_info *info, int *max)
 		return (NULL);
 	}
 	info->dir_matrix[0][0] = 0;
-	while (list && pathtab_add(allpath, list->edges, info, 1))
+	while (list && path_add(allpath, list->edges, info, 1))
 		elist_delone(&list, 0);
 	return (allpath);
 }

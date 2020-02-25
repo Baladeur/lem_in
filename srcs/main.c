@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2020/02/24 19:41:42 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/25 19:54:15 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ int     	main(int ac, char **av) // testing main for parsing
 		return (lem_in_map_free_error(map));
 	if (!(pathfinder(&info, &path_tab)))	// stores the best t_path tab in path_tab
 		return (lem_in_map_free_error(map));
-	ft_printf("Efficiency : %d\n", pathtab_efficiency(path_tab, info.ant_nb));
+	ft_printf("Efficiency : %d\n", path_efficiency(path_tab, info.ant_nb));
 	i = -1;
 	while (path_tab[++i].len > 0 && (j = -1))
 	{

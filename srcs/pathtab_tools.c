@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pathtab_tools.c                                    :+:      :+:    :+:   */
+/*   path_tools.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,24 +14,24 @@
 
 /*
 ** Returns the number of instructions it would
-** take for n ants to go through pathtab.
+** take for n ants to go through path.
 */
 
-int		pathtab_efficiency(t_path *pathtab, int n)
+int		path_efficiency(t_path *path, int n)
 {
 	int longest;
 	int remain;
 	int i;
 
 	i = 0;
-	longest = pathtab[0].len;
-	while (pathtab[++i].len > 0)
-		if (pathtab[i].len > longest)
-			longest = pathtab[i].len;
+	longest = path[0].len;
+	while (path[++i].len > 0)
+		if (path[i].len > longest)
+			longest = path[i].len;
 	remain = n;
 	i = -1;
-	while (pathtab[++i].len > 0)
-		remain -= longest - pathtab[i].len;
+	while (path[++i].len > 0)
+		remain -= longest - path[i].len;
 	return (remain / i + longest - 1 + (remain % i ? 1 : 0));
 }
 
@@ -39,23 +39,23 @@ int		pathtab_efficiency(t_path *pathtab, int n)
 ** Initialize a t_path tab of size 's'.
 */
 
-t_path	*pathtab_init(int s, t_info *info)
+t_path	*path_init(int s, t_info *info)
 {
-	t_path	*pathtab;
+	t_path	*path;
 	int		i;
 
-	if (!(pathtab = (t_path *)malloc(sizeof(t_path) * (s + 1))))
+	if (!(path = (t_path *)malloc(sizeof(t_path) * (s + 1))))
 		return (NULL);
 	i = -1;
-	while (++i < s && !(pathtab[i].edges = NULL))
-		pathtab[i].len = 0;
-	pathtab[s].len = -1;
-	if (!(pathtab[s].edges = (int *)malloc(sizeof(int) * info->room_nb)))
-		return (pathtab_free(&pathtab, 0));
+	while (++i < s && !(path[i].edges = NULL))
+		path[i].len = 0;
+	path[s].len = -1;
+	if (!(path[s].edges = (int *)malloc(sizeof(int) * info->room_nb)))
+		return (path_free(&path, 0));
 	i = -1;
 	while (++i < info->room_nb)
-		pathtab[s].edges[i] = i == 0 || i == info->room_nb - 1 ? 1 : 0;
-	return (pathtab);
+		path[s].edges[i] = i == 0 || i == info->room_nb - 1 ? 1 : 0;
+	return (path);
 }
 
 /*
@@ -63,29 +63,29 @@ t_path	*pathtab_init(int s, t_info *info)
 ** successful, 0 if the set is incompatible with the other sets.
 */
 
-int		pathtab_add(t_path *pathtab, int *edges, t_info *info, int b)
+int		path_add(t_path *path, int *edges, t_info *info, int b)
 {
 	int i;
 	int s;
 	int l;
 
 	s = 0;
-	while (pathtab[s].len >= 0)
+	while (path[s].len >= 0)
 		s++;
 	i = 0;
 	l = 1;
 	while (edges[++i] != info->room_nb - 1)
-		if ((++l) && pathtab[s].edges[edges[i]] && !b)
+		if ((++l) && path[s].edges[edges[i]] && !b)
 			return (0);
 	i = -1;
-	while (pathtab[++i].len > 0)
+	while (path[++i].len > 0)
 		;
-	pathtab[i].len = l;
-	pathtab[i].edges = edges;
+	path[i].len = l;
+	path[i].edges = edges;
 	i = 0;
 	if (!b)
 		while (edges[++i] != info->room_nb - 1)
-			pathtab[s].edges[edges[i]] = 1;
+			path[s].edges[edges[i]] = 1;
 	return (1);
 }
 
@@ -93,7 +93,7 @@ int		pathtab_add(t_path *pathtab, int *edges, t_info *info, int b)
 ** Removes the last set of edges from a t_path tab.
 */
 
-int		pathtab_remove(t_path *pathtab, t_info *info)
+int		path_remove(t_path *path, t_info *info)
 {
 	int i;
 	int n;
@@ -101,19 +101,19 @@ int		pathtab_remove(t_path *pathtab, t_info *info)
 
 	s = 0;
 	n = 0;
-	while (pathtab[s].len >= 0 && ++s)
-		if (pathtab[n + 1].len > 0)
+	while (path[s].len >= 0 && ++s)
+		if (path[n + 1].len > 0)
 			n++;
-	if (!s || !pathtab[n].len)
+	if (!s || !path[n].len)
 		return (0);
 	i = 0;
-	while (pathtab[n].edges[++i] != info->room_nb - 1)
-		pathtab[s].edges[pathtab[n].edges[i]] = 0;
-	pathtab[n].edges = NULL;
-	pathtab[n].len = 0;
+	while (path[n].edges[++i] != info->room_nb - 1)
+		path[s].edges[path[n].edges[i]] = 0;
+	path[n].edges = NULL;
+	path[n].len = 0;
 	n = -1;
-	while (pathtab[++n].len > 0 && !(i = 0))
-		while (pathtab[n].edges[++i] != info->room_nb - 1)
-			pathtab[s].edges[pathtab[n].edges[i]] = 1;
+	while (path[++n].len > 0 && !(i = 0))
+		while (path[n].edges[++i] != info->room_nb - 1)
+			path[s].edges[path[n].edges[i]] = 1;
 	return (1);
 }

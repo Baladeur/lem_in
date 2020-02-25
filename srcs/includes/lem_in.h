@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/02/20 21:53:38 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/25 19:54:11 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,11 +118,11 @@ t_branch	*destroy_branching(t_branch **branch);
 int			directed_matrix(t_info *info);
 int			fill_gaps(t_info *info);
 
-t_path		*pathtab_free(t_path **pathtab, int b);
-t_path		*pathtab_init(int s, t_info *info);
-int			pathtab_add(t_path *pathtab, int *edges, t_info *info, int b);
-int			pathtab_remove(t_path *pathtab, t_info *info);
-int			pathtab_efficiency(t_path *pathtab, int n);
+t_path		*path_free(t_path **path, int b);
+t_path		*path_init(int s, t_info *info);
+int			path_add(t_path *path, int *edges, t_info *info, int b);
+int			path_remove(t_path *path, t_info *info);
+int			path_efficiency(t_path *path, int n);
 
 t_elist		*elist_new(int *edges);
 void		elist_delone(t_elist **list, int b);
@@ -132,6 +132,6 @@ int			elist_size(t_elist *list);
 t_path		*allpath(t_info *info, int *max);
 int			pathfinder(t_info *info, t_path **best);
 
-void		assign_path(t_path *pathtab, t_info *info);
+void		assign_path(t_path *path, t_info *info);
 
 #endif
