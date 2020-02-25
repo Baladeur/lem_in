@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:22:11 by myener            #+#    #+#             */
-/*   Updated: 2020/02/25 15:56:00 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/25 15:59:04 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void			lem_in_dispatcher(t_info *info, t_path *path_tab)
 			}
 			j = n - 1; // set j to the room right before.
 			// ft_printf("a = %d, j = %d\n", a, j); // debug
-			while (a < info->ant_nb && j > 0 && room_is_empty(info, path_tab[i].edges[j])) // while the room j is on is empty and isn't START
+			while (a < info->ant_nb && j > 0 && room_is_empty(info, path_tab[i].edges[j])) // while a is within the ant_nb range and the room j is on is empty
 			{
 				// ft_putchar('3');
 				// ft_putchar('B');
