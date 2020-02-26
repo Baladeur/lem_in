@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2020/02/25 19:54:15 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/26 16:56:35 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,7 @@ int     	main(int ac, char **av) // testing main for parsing
 	// 	info.ant[i].path = path_tab[0].edges;
 	// 	i++;
 	// }
-	lem_in_displayer(&info, path_tab, map); // debug
+	lem_in_displayer(&info, map);
 	// map ? tab_free(map) : 0;
 	ant_free(&info);
 	room_free(&info);
