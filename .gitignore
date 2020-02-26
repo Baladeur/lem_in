@@ -11,3 +11,4 @@ faster
 .vscode/settings.json
 map
 *.dSYM
+tmp

@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 18:18:29 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/18 23:21:46 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/26 17:45:00 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,16 @@ t_queue	*queue_new(int id)
 ** Removes and frees the first element of the queue.
 */
 
-void	queue_delone(t_queue **queue)
+int		queue_delone(t_queue **queue)
 {
 	t_queue *tmp;
 
 	if (!queue || !(*queue))
-		return ;
+		return (0);
 	tmp = (*queue)->next;
 	free(*queue);
 	*queue = tmp;
+	return (0);
 }
 
 /*

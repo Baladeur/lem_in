@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 17:07:36 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/25 19:43:36 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/26 15:16:07 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,7 @@ static int	allpath_bt(t_queue *parent, int **dir, int pos, t_elist **list)
 	while (++i < dir[0][0])
 		if (dir[pos][i] > 0 && pos != i && (!parent || parent->id != i))
 			if (!(allpath_bt(current, dir, i, list)))
-			{
-				queue_delone(&current);
-				return (0);
-			}
+				return (queue_delone(&current));
 	queue_delone(&current);
 	return (1);
 }
@@ -118,7 +115,6 @@ t_path		*allpath(t_info *info, int *max)
 	{
 		while (list)
 			elist_delone(&list, 1);
-		info->dir_matrix[0][0] = 0;
 		return (NULL);
 	}
 	info->dir_matrix[0][0] = 0;
