@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/02/25 19:54:11 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/26 18:13:18 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ char		**get_map(char **av, char **data);
 char		*get_room_name(t_info *info, int room_id);
 void		info_init(t_info *info);
 int			is_room(char *line);
-void		lem_in_dispatcher(t_info *info, t_path *path_tab);
-void		lem_in_displayer(t_info *info, t_path *path_tab, char **map);
+void		lem_in_dispatcher(t_info *info);
+void		lem_in_displayer(t_info *info, char **map);
 int			lem_in_error_output(void);
 int			lem_in_map_free_error(char **map);
 void		lem_in_parser(char **map, t_info *info);
