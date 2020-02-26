@@ -14,29 +14,29 @@
 
 void	assign_path(t_path *path, t_info *info)
 {
-	int longest;
-	int remain;
-	int	split;
+	int l;	// Longest
+	int r;	// Remain
+	int	s;	// Split
 	int i[4];
 
 	i[0] = 0;
-	longest = path[0].len;
+	l = path[0].len;
 	while (path[++i[0]].len > 0)
-		if (path[i[0]].len > longest)
-			longest = path[i[0]].len;
-	remain = info->ant_nb;
+		if (path[i[0]].len > l)
+			l = path[i[0]].len;
+	r = info->ant_nb;
 	i[0] = -1;
 	while (path[++i[0]].len > 0)
-		remain -= longest - path[i[0]].len;
-	split = remain / i[0];
-	remain = remain % i[0];
+		r -= l - path[i[0]].len;
+	s = r / i[0];
+	r = r % i[0];
 	i[1] = -1;
 	i[2] = 0;
 	while (path[++i[1]].len > 0 && (i[3] = -1))
-		while (++i[3] < split + longest - path[i[1]].len
-			+ (i[0] - i[1] <= remain ? 1 : 0))
+		while (++i[3] < s + l - path[i[1]].len + (i[0] - i[1] <= r ? 1 : 0))
 		{
 			info->ant[i[2]].path = path[i[1]].edges;
+			info->ant[i[2]].i = 0;
 			i[2]++;
 		}
 }

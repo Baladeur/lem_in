@@ -25,8 +25,8 @@
 
 typedef struct 			s_ant		// every ant, its ID and the path it musts follow.
 {
-	int				id;				// ant's id.
-	int				pos;			// ant's current position.
+	int				i;
+	int				pos;
 	int				*path;			// ant's given path.
 }						t_ant;
 
@@ -107,7 +107,7 @@ void		sum_matrix(int **dest, int **src, int size);
 void		print_matrix(int **matrix, int count);
 
 t_queue		*queue_new(int id);
-void		queue_delone(t_queue **queue);
+int			queue_delone(t_queue **queue);
 t_queue		*queue_add(t_queue **queue, int id);
 int			queue_get_at(t_queue *queue, int i);
 int			queue_size(t_queue *queue);
