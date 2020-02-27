@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/02/26 18:13:18 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/27 15:24:47 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@
 
 typedef struct 			s_ant		// every ant, its ID and the path it musts follow.
 {
-	int				i;
-	int				pos;
+	int				id;				// ant's ID (starts from 1 to ant_nb).
+	int				i;				// index for given path.
+	int				pos;			// ant's current position.
 	int				*path;			// ant's given path.
 }						t_ant;
 
@@ -90,7 +91,7 @@ char		**get_map(char **av, char **data);
 char		*get_room_name(t_info *info, int room_id);
 void		info_init(t_info *info);
 int			is_room(char *line);
-void		lem_in_dispatcher(t_info *info);
+void		lem_in_dispatcher(t_info *info, t_ant *ant);
 void		lem_in_displayer(t_info *info, char **map);
 int			lem_in_error_output(void);
 int			lem_in_map_free_error(char **map);

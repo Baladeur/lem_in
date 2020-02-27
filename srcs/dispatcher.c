@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:22:11 by myener            #+#    #+#             */
-/*   Updated: 2020/02/26 18:28:38 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/27 15:50:22 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,116 +37,67 @@ static int		room_is_empty(t_info *info, int room_id) // checks if an ant is alre
 	return (1); // otherwise, if none is, the room is empty ; return 1.
 }
 
-void			lem_in_dispatcher(t_info *info)
-{
-	int		id;
+// void			lem_in_dispatcher(t_info *info)
+// {
+// 	int		id;
 
-	while (info->ant[info->ant_nb - 1].pos != info->room_nb -1 && (id = -1)) // While the last ant isn't in the end room.
+// 	while (info->ant[info->ant_nb - 1].pos != info->room_nb -1 && (id = -1)) // While the last ant isn't in the end room.
+// 	{
+// 		while (++id < info->ant_nb)	// Goes through each ant
+// 			if (info->ant[id].pos != info->room_nb -1					// Check if ant isn't at the end of the farm
+// 				&& room_is_empty(info, info->ant[id].path[info->ant[id].i + 1]))	// Check if ant can move next room is empty
+// 			{
+// 				ft_printf("L%d-%s ", id + 1,
+// 					get_room_name(info, info->ant[id].pos));
+// 				info->ant[id].i++;
+// 				info->ant[id].pos = info->ant[id].path[info->ant[id].i];
+// 			}
+// 		ft_printf("\n");
+// 	}
+// }
+
+static int		is_end_room(t_info *info, int room_id)
+{
+	int i;
+
+	i = 0;
+	while (i < info->room_nb) // while we go through the rooms,
 	{
-		while (++id < info->ant_nb)	// Goes through each ant
-			if (info->ant[id].pos != info->room_nb -1					// Check if ant isn't at the end of the farm
-				&& room_is_empty(info, info->ant[id].path[info->ant[id].i + 1]))	// Check if ant can move next room is empty
-			{
-				ft_printf("L%d-%s ", id + 1,
-					get_room_name(info, info->ant[id].pos));
-				info->ant[id].i++;
-				info->ant[id].pos = info->ant[id].path[info->ant[id].i];
-			}
-		ft_printf("\n");
+		if (info->room_tab[i].type == 'e') // if the room type is 'e',
+			break ; // then it's the end room ; we must stay on it, so break.
+		i++;
 	}
+	if (room_id == info->room_tab[i].id) // if the room ID matches end's, return 1.
+		return (1);
+	return (0);
 }
 
-// static int		is_end_room(t_info *info, int room_id)
-// {
-// 	int i;
+void			lem_in_dispatcher(t_info *info, t_ant *ant)
+{
+	int		a;
+	char	*room_name;
 
-// 	i = 0;
-// 	while (i < info->room_nb) // while we go through the rooms,
-// 	{
-// 		if (info->room_tab[i].type == 'e') // if the room type is 'e',
-// 			break ; // then it's the end room ; we must stay on it, so break.
-// 		i++;
-// 	}
-// 	if (room_id == info->room_tab[i].id) // if the room ID matches end's, return 1.
-// 		return (1);
-// 	return (0);
-// }
-
-// void			lem_in_dispatcher(t_info *info)
-// {
-// 	int		a; // ant index
-// 	int		i; // path index
-// 	int		j; // index to decrement back to START to get the possibly remaining ants to fill up the possibly empty rooms
-// 	char	*room_name;
-
-// 	i = 1; // 1 to jump room 0 aka START.
-// 	a = 0; // (ant 1 is at 0, ant 2 at 1, and so on.)
-// 	j = 0; // just to initialize.
-// 	room_name = NULL;
-// 	while (!is_end_room(info, info->ant[info->ant_nb - 1].pos)) // while last ant isn't in end room,
-// 	{
-// 		a = 0;
-// 		j = 0;
-// 		// ft_printf("i = %d, ant %d, position %d, info->ant[a].path[i] = %d\n", i, a + 1, info->ant[a].pos, info->ant[a].path[i]); // debug
-// 		if ((room_is_empty(info, info->ant[a].path[i]) || is_end_room(info, info->ant[a].path[i])) && !is_end_room(info, info->ant[a].pos))
-// 		{
-// 			info->ant[a].pos = info->ant[a].path[i];
-// 			room_name = get_room_name(info, info->ant[a].path[i]);
-// 			room_name ? ft_printf("L%d-%s ", info->ant[a].id, room_name) : 0; // was there a room_name at all ? if yes print it.
-// 		}
-// 		i++; // that level is now complete, move on.
-// 		a++;
-// 		a != 0 ? ft_putchar('\n') : 0;
-// 	}
-// }
-
-// void			lem_in_dispatcher(t_info *info)
-// {
-// 	int		a; // ant index
-// 	int		i; // path index
-// 	int		j; // index to decrement back to START to get the possibly remaining ants to fill up the possibly empty rooms
-// 	char	*room_name;
-
-// 	i = 1; // 1 to jump room 0 aka START.
-// 	a = 0; // (ant 1 is at 0, ant 2 at 1, and so on.)
-// 	j = 0; // just to initialize.
-// 	room_name = NULL;
-// 	while (!is_end_room(info, info->ant[info->ant_nb - 1].pos)) // while last ant isn't in end room,
-// 	{
-// 		a = 0;
-// 		j = 0;
-// 		// ft_printf("i = %d, ant %d, position %d, info->ant[a].path[i] = %d\n", i, a + 1, info->ant[a].pos, info->ant[a].path[i]); // debug
-// 		if ((room_is_empty(info, info->ant[a].path[i]) || is_end_room(info, info->ant[a].path[i])) && !is_end_room(info, info->ant[a].pos))
-// 		{
-// 			info->ant[a].pos = info->ant[a].path[i];
-// 			room_name = get_room_name(info, info->ant[a].path[i]);
-// 			room_name ? ft_printf("L%d-%s ", info->ant[a].id, room_name) : 0; // was there a room_name at all ? if yes print it.
-// 			a++;
-// 			i++; // that level is now complete, move on.
-// 		}
-// 		else // else if every room is full,
-// 			i++; // that level is already complete, move on.
-// 		if (i - 1  > 0) // if there is space between current level & START (and thus potentially empty rooms),
-// 		{
-// 			j = i - 1;
-// 			while (is_end_room(info, info->ant[a].pos))
-// 				a++;
-// 			while (j > 0 && a < info->ant_nb)
-// 			{
-// 				if (room_is_empty(info, info->ant[a].path[j]))
-// 				{
-// 					info->ant[a].pos = info->ant[a].path[j];
-// 					room_name = get_room_name(info, info->ant[a].path[j]);
-// 					room_name ? ft_printf("L%d-%s! ", info->ant[a].id, room_name) : 0; // // was there a room_name at all ? if yes print it.
-// 					a++;
-// 				}
-// 				j--;
-// 			}
-// 		}
-// 		a != 0 ? ft_putchar('\n') : 0;
-// 	}
-// }
-
+	a = 0;
+	room_name = NULL;
+	while (!is_end_room(info, info->ant[info->ant_nb - 1].pos))
+	{
+		a = 0;
+		while (a < info->ant_nb) // while we didn't try all ants, we increment.
+		{
+			if ((room_is_empty(info, ant[a].path[ant[a].i + 1])
+				|| is_end_room(info, ant[a].path[ant[a].i + 1]))
+				&& !is_end_room(info, ant[a].pos)) // if current ant can move to her next room, we make her.
+			{
+				ant[a].i++;
+				ant[a].pos = ant[a].path[ant[a].i];
+				room_name = get_room_name(info, ant[a].path[ant[a].i]);
+				room_name ? ft_printf("L%d-%s ", ant[a].id, room_name) : 0; // was there a room_name at all ? if yes print it.
+			}
+				a++;
+		}
+		ft_putchar('\n');
+	}
+}
 
 // void			lem_in_dispatcher(t_info *info, t_path *path_tab)
 // {

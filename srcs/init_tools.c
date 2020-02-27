@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:58:11 by myener            #+#    #+#             */
-/*   Updated: 2020/02/26 18:13:13 by myener           ###   ########.fr       */
+/*   Updated: 2020/02/27 15:32:13 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	ant_init(t_info *info)
 	while (i < info->ant_nb)
 	{
 		info->ant[i].id = i + 1;
+		info->ant[i].i = 0;
 		info->ant[i].pos = 0;
 		info->ant[i].path = NULL;
 		i++;
