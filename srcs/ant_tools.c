@@ -36,7 +36,6 @@ void	assign_path(t_path *path, t_info *info)
 		while (++i[3] < s + l - path[i[1]].len + (i[0] - i[1] <= r ? 1 : 0))
 		{
 			info->ant[i[2]].path = path[i[1]].edges;
-			info->ant[i[2]].i = 0;
 			i[2]++;
 		}
 }
