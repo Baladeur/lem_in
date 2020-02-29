@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 23:05:08 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/25 19:55:08 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/02/29 18:34:19 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	path_clone(t_path *src, t_path *dest, t_info *info)
 ** Backtracking algorithm testing every path combination to find the best one.
 */
 
-static void	path_bt(t_path *paths, t_path *curr, t_path *best, t_info *info)
+static void	pathfind_bt(t_path *paths, t_path *curr, t_path *best, t_info *info)
 {
 	int	i;
 
@@ -111,7 +111,7 @@ int			pathfinder(t_info *info, t_path **best)
 		|| !(curr = path_init(max, info))
 		|| !(*best = path_init(max, info)))
 		return (pathfinder_exit(&paths, &curr, best));
-	path_bt(paths, curr, *best, info);
+	pathfind_bt(paths, curr, *best, info);
 	i = -1;
 	while (best[0][++i].len > 0 && (max = -1))
 		while (paths[++max].len > 0)
