@@ -3,18 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pathfinder.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 23:05:08 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/29 18:34:19 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/03 16:42:22 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/lem_in.h"
-
-/*
-** Compare src with dest. Returns 1 if src is better, 0 otherwise.
-*/
 
 static int	is_better(t_path *src, t_path *dst, int ant_nb)
 {
@@ -37,10 +33,6 @@ static int	is_better(t_path *src, t_path *dst, int ant_nb)
 	return (l1 < l2);
 }
 
-/*
-** Duplicates src path values into dest path values.
-*/
-
 static void	path_clone(t_path *src, t_path *dest, t_info *info)
 {
 	int i;
@@ -53,10 +45,6 @@ static void	path_clone(t_path *src, t_path *dest, t_info *info)
 	while (++j < info->room_nb - 1)
 		dest[i].edges[j] = src[i].edges[j];
 }
-
-/*
-** Backtracking algorithm testing every path combination to find the best one.
-*/
 
 static void	pathfind_bt(t_path *paths, t_path *curr, t_path *best, t_info *info)
 {
@@ -78,10 +66,6 @@ static void	pathfind_bt(t_path *paths, t_path *curr, t_path *best, t_info *info)
 	}
 }
 
-/*
-** Destroys the pathfinder's allocated variables in case of failure.
-*/
-
 static int	pathfinder_exit(t_path **paths, t_path **curr, t_path **best)
 {
 	if (paths && *paths)
@@ -92,10 +76,6 @@ static int	pathfinder_exit(t_path **paths, t_path **curr, t_path **best)
 		path_free(best, 0);
 	return (0);
 }
-
-/*
-** Returns the best combination of paths given a specified map.
-*/
 
 int			pathfinder(t_info *info, t_path **best)
 {

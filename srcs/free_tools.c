@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:59:26 by myener            #+#    #+#             */
-/*   Updated: 2020/02/25 19:53:58 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/03 16:57:50 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,11 @@ void	ant_free(t_info *info)
 	i = 0;
 	while (i < info->ant_nb)
 	{
-		// free(info->ant[i].path);
+		free(info->ant[i].path);
 		i++;
 	}
 	// info->ant ? free(info->ant) : 0;
 }
-
-/*
-**	Free the memory of an int** where every allocated int* is found before the
-**	first NULL int*. Will leak if there is a NULL int* in-between the allocated
-**	int*
-*/
 
 int		**matrix_free(int ***matrix, int count)
 {
@@ -42,11 +36,6 @@ int		**matrix_free(int ***matrix, int count)
 	*matrix = NULL;
 	return (NULL);
 }
-
-
-/*
-** Frees an allocated t_path tab.
-*/
 
 t_path	*path_free(t_path **path, int b)
 {
@@ -70,8 +59,8 @@ void	room_free(t_info *info)
 	i = 0;
 	while (i < info->room_nb)
 	{
-		// free(info->room_tab[i].name);
+		free(info->room_tab[i].name);
 		i++;
 	}
-	// info->room_tab ? free(info->room_tab) : 0;
+	info->room_tab ? free(info->room_tab) : 0;
 }

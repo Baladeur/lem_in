@@ -6,18 +6,18 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:12:18 by myener            #+#    #+#             */
-/*   Updated: 2019/11/20 18:13:27 by myener           ###   ########.fr       */
+/*   Updated: 2020/03/03 16:16:57 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int     ft_linelen(char *stock)
+int				ft_linelen(char *stock)
 {
-    int     i;
+	int		i;
 
-    i = 0;
-    while (stock[i] != '\n' && stock[i])
+	i = 0;
+	while (stock[i] != '\n' && stock[i])
 		i++;
-    return (i);
+	return (i);
 }

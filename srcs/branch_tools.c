@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   branch_tools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 16:20:38 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/18 23:04:05 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/03 16:43:54 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/lem_in.h"
 
 /*
-** initialize the branch structure used by the directed matrix.
+** Initializes the branch structure used by the directed matrix.
 ** Empty by default, values must be set for each branching.
 ** size = Ant farm's size (info->room_nb)
 */

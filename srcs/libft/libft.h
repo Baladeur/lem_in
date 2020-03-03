@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/14 13:57:15 by myener            #+#    #+#             */
-/*   Updated: 2019/11/26 18:56:52 by myener           ###   ########.fr       */
+/*   Updated: 2020/03/03 16:06:22 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int				ft_isprint(int c);
 char			*ft_itoa(int n);
 char			*ft_itoa_base(long long int n, const char *base);
 char			ft_itoc(int n);
-int     		ft_linelen(char *stock);
+int				ft_linelen(char *stock);
 char			*ft_lltoa(long long int n);
 t_list			*ft_lstnew(void const *content, size_t content_size);
 void			ft_lstdelone(t_list **alst, void (*del)(void*, size_t));

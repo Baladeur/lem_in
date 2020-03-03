@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ant_tools.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 21:04:26 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/25 19:53:45 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/03 16:44:00 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	assign_path(t_path *path, t_info *info)
 {
-	int l;	// Longest
-	int r;	// Remain
-	int	s;	// Split
+	int l;
+	int r;
+	int	s;
 	int i[4];
 
 	i[0] = 0;

@@ -6,12 +6,11 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:58:11 by myener            #+#    #+#             */
-/*   Updated: 2020/02/27 15:32:13 by myener           ###   ########.fr       */
+/*   Updated: 2020/03/03 14:50:16 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/lem_in.h"
-
 
 void	ant_init(t_info *info)
 {
@@ -50,6 +49,6 @@ void	room_init(t_room *room)
 	room->name = NULL;
 	room->x = 0;
 	room->y = 0;
-	room->type = 'c'; // default room type is classic
+	room->type = 'c';
 	room->ant_nb_curr = 0;
 }

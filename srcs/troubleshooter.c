@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:20:15 by myener            #+#    #+#             */
-/*   Updated: 2020/02/06 10:10:40 by myener           ###   ########.fr       */
+/*   Updated: 2020/03/03 15:07:21 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		coord_double(t_room *tab, int nb)
 		j = 0;
 		while (j < nb)
 		{
-			if (i != j && tab[i].x == tab[j].x && tab[i].y == tab[j].y )
+			if (i != j && tab[i].x == tab[j].x && tab[i].y == tab[j].y)
 				return (1);
 			j++;
 		}
@@ -56,18 +56,18 @@ int		troubleshooter(t_info *info)
 {
 	int		i;
 
-	if (name_double(info->room_tab, info->room_nb)) // if we encounter the same room name twice
+	if (name_double(info->room_tab, info->room_nb))
 		return (1);
-	if (coord_double(info->room_tab, info->room_nb)) // if two rooms have the same coordinates
+	if (coord_double(info->room_tab, info->room_nb))
 		return (1);
-	if (!info->room_tab[0].name || !info->room_tab[info->room_nb - 1].name) // if there is no start and/or end rooms
+	if (!info->room_tab[0].name || !info->room_tab[info->room_nb - 1].name)
 		return (1);
 	i = 0;
-	while (i < info->room_nb) // if coordinates have non-positive integers
+	while (i < info->room_nb)
 	{
-		if (i != 0 && info->room_tab[i].id == 0) // if an id isn't initialized
+		if (i != 0 && info->room_tab[i].id == 0)
 			return (1);
-		if (!info->room_tab[i].name) // if a name isn't initialized
+		if (!info->room_tab[i].name)
 			return (1);
 		if (info->room_tab[i].x < 0 || info->room_tab[i].y < 0)
 			return (1);

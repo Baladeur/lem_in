@@ -6,16 +6,11 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:08:50 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/19 17:17:07 by myener           ###   ########.fr       */
+/*   Updated: 2020/03/03 16:05:48 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/lem_in.h"
-
-
-/*
-**	Allocates an int** matrix of size count*count, setting each value at 0.
-*/
 
 int		**init_matrix(int count)
 {
@@ -43,10 +38,6 @@ int		**init_matrix(int count)
 	return (matrix);
 }
 
-/*
-**	Duplicates an existing matrix.
-*/
-
 int		**dupe_matrix(int **matrix, int count)
 {
 	int	**new;
@@ -67,11 +58,6 @@ int		**dupe_matrix(int **matrix, int count)
 	return (new);
 }
 
-/*
-**	Adds values from src matrix to dest matrix.
-**	Both matrix should have the same size.
-*/
-
 void	sum_matrix(int **dest, int **src, int size)
 {
 	int x;
@@ -82,10 +68,6 @@ void	sum_matrix(int **dest, int **src, int size)
 		while (++x < size)
 			dest[y][x] += src[y][x];
 }
-
-/*
-**	Displays the matrix of count*count size on standart outpout
-*/
 
 void	print_matrix(int **matrix, int count)
 {

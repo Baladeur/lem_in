@@ -3,18 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   elist_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 20:07:41 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/18 23:04:31 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/03 16:42:15 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/lem_in.h"
-
-/*
-** Returns the current size of the edges list.
-*/
 
 int		elist_size(t_elist *list)
 {
@@ -31,10 +27,6 @@ int		elist_size(t_elist *list)
 	return (n);
 }
 
-/*
-** Initialize a chained list t_elist with it's first element edges.
-*/
-
 t_elist	*elist_new(int *edges)
 {
 	t_elist *list;
@@ -45,11 +37,6 @@ t_elist	*elist_new(int *edges)
 	list->next = NULL;
 	return (list);
 }
-
-/*
-** Removes and frees the first element of the list.
-** if b != 0, also frees the edges stored in the element.
-*/
 
 void	elist_delone(t_elist **list, int b)
 {
@@ -63,10 +50,6 @@ void	elist_delone(t_elist **list, int b)
 	free(*list);
 	*list = tmp;
 }
-
-/*
-** Add an element with the given edges at the bottom of the list.
-*/
 
 t_elist	*elist_add(t_elist **list, int *edges)
 {
