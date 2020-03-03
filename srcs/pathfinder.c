@@ -72,7 +72,7 @@ static void	pathfind_bt(t_path *paths, t_path *curr, t_path *best, t_info *info)
 	{
 		if (path_add(curr, paths[i].edges, info, 0))
 		{
-			path_bt(&(paths[i + 1]), curr, best, info);
+			pathfind_bt(&(paths[i + 1]), curr, best, info);
 			path_remove(curr, info);
 		}
 	}
