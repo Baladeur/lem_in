@@ -12,3 +12,4 @@ faster
 map
 *.dSYM
 tmp
+printf
