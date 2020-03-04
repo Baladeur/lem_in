@@ -6,11 +6,17 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:59:26 by myener            #+#    #+#             */
-/*   Updated: 2020/03/03 16:57:50 by myener           ###   ########.fr       */
+/*   Updated: 2020/03/04 16:21:00 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/lem_in.h"
+
+int		command_free(char *str, int ret)
+{
+	str ? free(str) : 0;
+	return (ret);
+}
 
 void	ant_free(t_info *info)
 {

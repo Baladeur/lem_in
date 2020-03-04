@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:20:24 by myener            #+#    #+#             */
-/*   Updated: 2020/03/03 15:05:36 by myener           ###   ########.fr       */
+/*   Updated: 2020/03/04 16:30:38 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ static int		room_parser(char *line, t_info *info, int j)
 {
 	int		i;
 	int		start;
+	char	*tmp;
 
 	i = 0;
+	tmp = NULL;
 	room_init(&info->room_tab[j]);
 	while (line[i] && line[i] != ' ')
 		i++;
@@ -27,12 +29,14 @@ static int		room_parser(char *line, t_info *info, int j)
 	start = i;
 	while (line[i] && line[i] != ' ')
 		i++;
-	info->room_tab[j].x = ft_atoi(ft_strsub(line, start, i));
+	info->room_tab[j].x = ft_atoi(tmp = ft_strsub(line, start, i));
+	tmp ? free(tmp) : 0;
 	i++;
 	start = i;
 	while (line[i] && line[i] != ' ')
 		i++;
-	info->room_tab[j].y = ft_atoi(ft_strsub(line, start, i));
+	info->room_tab[j].y = ft_atoi(tmp = ft_strsub(line, start, i));
+	tmp ? free(tmp) : 0;
 	return (1);
 }
 
@@ -75,11 +79,11 @@ static int		hash_line_manager(char **map, int i)
 		{
 			command = ft_strsub(map[i], 2, ft_strlen(map[i]));
 			if (!(ft_strcmp(command, "start\n")))
-				return (2);
+				return (command_free(command, 2));
 			else if (!(ft_strcmp(command, "end\n")))
-				return (3);
+				return (command_free(command, 3));
 			else
-				return (1);
+				return (command_free(command,1));
 		}
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/03/03 15:57:07 by myener           ###   ########.fr       */
+/*   Updated: 2020/03/04 16:21:16 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct		s_elist		// simple chained list to store path edges.
 
 void				ant_free(t_info *info);
 void				ant_init(t_info *info);
+int					command_free(char *str, int ret);
 char				**get_map(char **av, char **data);
 char				*get_room_name(t_info *info, int room_id);
 void				info_init(t_info *info);
