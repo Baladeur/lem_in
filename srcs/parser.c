@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:20:24 by myener            #+#    #+#             */
-/*   Updated: 2020/03/04 17:42:48 by myener           ###   ########.fr       */
+/*   Updated: 2020/03/04 20:43:09 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ static int		room_parser(char *line, t_info *info, int j)
 	return (1);
 }
 
-static int		room_add_start_end(char **map, t_info *info)
+static int	room_add_start_end(char **map, t_info *info)
 {
 	if (!info->end_nb || !info->start_nb)
-		return(0);
+		return (0);
 	room_parser(map[info->start_nb], info, 0);
 	info->room_tab[0].type = 's';
 	room_parser(map[info->end_nb], info, info->room_nb - 1);
@@ -52,22 +52,22 @@ static int		room_add_start_end(char **map, t_info *info)
 	return (1);
 }
 
-static int		gates_manager(char **map, t_info *info, int ret, int i)
+static int	gates_manager(char **map, t_info *info, int ret, int i)
 {
 	int		j;
 
 	i += 1;
 	j = 0;
 	if ((ret == 2 && info->s_enc) || (ret == 3 && info->e_enc))
-		return(0);
+		return (0);
 	if ((info->s_enc = (ret == 2)))
 		info->start_nb = i;
 	else if ((info->e_enc = (ret == 3)))
 		info->end_nb = i;
-		return (1);
+	return (1);
 }
 
-static int		hash_line_manager(char **map, int i)
+static int	hash_line_manager(char **map, int i)
 {
 	char	*command;
 
@@ -122,5 +122,5 @@ int			lem_in_parser(char **map, t_info *info)
 				info->edges_line = i;
 		}
 	}
-	return (room_add_start_end(map, info) ? 1 :0);
+	return (room_add_start_end(map, info) ? 1 : 0);
 }

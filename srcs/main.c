@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2020/03/04 17:49:52 by myener           ###   ########.fr       */
+/*   Updated: 2020/03/04 19:28:04 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,9 @@ int				main(int ac, char **av)
 	map ? tab_free(map) : 0;
 	// ant_free(&info);
 	room_free(&info);
-	while (42); // leak search
+	matrix_free(&(info.matrix), info.room_nb);
+	matrix_free(&(info.dir_matrix), info.room_nb);
+	path_free(&path_tab, 1);
+	free(info.ant);
 	return (0);
 }

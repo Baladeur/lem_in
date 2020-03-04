@@ -13,3 +13,4 @@ map
 *.dSYM
 tmp
 printf
+leaks

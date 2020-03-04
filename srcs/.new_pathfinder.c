@@ -203,7 +203,7 @@ static int	allminpath_bt(t_queue_c *parent, int **m, int **c, int min_cost, int 
 	current->next = parent;
 	while (++i < m[0][0])
 		if (m[pos][i] > 0 && pos != i && (!parent || parent->pos != i))
-			if (!(allpath_bt(current, m, c, min_cost, i, list)))
+			if (!(allminpath_bt(current, m, c, min_cost, i, list)))
 				return (queue_c_delone(&current));
 	queue_c_delone(&current);
 	return (1);
@@ -319,6 +319,7 @@ int				pathfinding_bt(t_path *best, t_path *curr, int **m, int **c, t_info *info
 		|| !(new_c = init_matrix(info->room_nb)))
 		return (pathfinding_bt_exit(&tab, &new_m, &new_c, info));
 	// CREATE RESIDUAL GRAPH
+	// CREATE SHORTEST PATH COMBINATION LIST
 	// FOR EACH SHORTEST PATH COMBINATION
 		// UPDATE RESIDUAL GRAPH
 		// BT WITH CURRENT SHORTEST PATH COMBINATION

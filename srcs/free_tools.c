@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:59:26 by myener            #+#    #+#             */
-/*   Updated: 2020/03/04 16:21:00 by myener           ###   ########.fr       */
+/*   Updated: 2020/03/04 19:26:09 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		**matrix_free(int ***matrix, int count)
 
 	i = -1;
 	while (++i < count)
-		free(**matrix + i);
+		free((*matrix)[i]);
 	free(*matrix);
 	*matrix = NULL;
 	return (NULL);
@@ -50,11 +50,11 @@ t_path	*path_free(t_path **path, int b)
 	if (!path || *path)
 		return (NULL);
 	i = -1;
-	while (b && path[0][++i].len > 0)
-		if (path[0][i].edges)
-			free(path[0][i].edges);
-	free(path[0]);
-	path[0] = NULL;
+	while (b && (*path)[++i].len > 0)
+		if ((*path)[i].edges)
+			free((*path)[i].edges);
+	free((*path));
+	(*path) = NULL;
 	return (NULL);
 }
 

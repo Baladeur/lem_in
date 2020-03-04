@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pathfinder.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 23:05:08 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/03/03 16:42:22 by myener           ###   ########.fr       */
+/*   Updated: 2020/03/04 20:35:25 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int			pathfinder(t_info *info, t_path **best)
 		while (paths[++max].len > 0)
 			if (best[0][i].edges == paths[i].edges && !(paths[i].edges = NULL))
 				break ;
-	pathfinder_exit(&paths, &curr, NULL);
 	info->path_nb = i;
+	pathfinder_exit(&paths, &curr, NULL);
 	return (1);
 }
