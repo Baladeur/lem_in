@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:20:24 by myener            #+#    #+#             */
-/*   Updated: 2020/03/04 16:30:38 by myener           ###   ########.fr       */
+/*   Updated: 2020/03/04 17:42:48 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,39 +29,42 @@ static int		room_parser(char *line, t_info *info, int j)
 	start = i;
 	while (line[i] && line[i] != ' ')
 		i++;
-	info->room_tab[j].x = ft_atoi(tmp = ft_strsub(line, start, i));
+	tmp = ft_strsub(line, start, i);
+	info->room_tab[j].x = ft_atoi(tmp);
 	tmp ? free(tmp) : 0;
-	i++;
-	start = i;
+	start = i++;
 	while (line[i] && line[i] != ' ')
 		i++;
-	info->room_tab[j].y = ft_atoi(tmp = ft_strsub(line, start, i));
+	tmp = ft_strsub(line, start, i);
+	info->room_tab[j].y = ft_atoi(tmp);
 	tmp ? free(tmp) : 0;
 	return (1);
 }
 
-static void		room_add_start_end(char **map, t_info *info)
+static int		room_add_start_end(char **map, t_info *info)
 {
 	if (!info->end_nb || !info->start_nb)
-		lem_in_map_free_error(map);
+		return(0);
 	room_parser(map[info->start_nb], info, 0);
 	info->room_tab[0].type = 's';
 	room_parser(map[info->end_nb], info, info->room_nb - 1);
 	info->room_tab[info->room_nb - 1].type = 'e';
+	return (1);
 }
 
-static void		gates_manager(char **map, t_info *info, int ret, int i)
+static int		gates_manager(char **map, t_info *info, int ret, int i)
 {
 	int		j;
 
 	i += 1;
 	j = 0;
 	if ((ret == 2 && info->s_enc) || (ret == 3 && info->e_enc))
-		lem_in_map_free_error(map);
+		return(0);
 	if ((info->s_enc = (ret == 2)))
 		info->start_nb = i;
 	else if ((info->e_enc = (ret == 3)))
 		info->end_nb = i;
+		return (1);
 }
 
 static int		hash_line_manager(char **map, int i)
@@ -83,27 +86,31 @@ static int		hash_line_manager(char **map, int i)
 			else if (!(ft_strcmp(command, "end\n")))
 				return (command_free(command, 3));
 			else
-				return (command_free(command,1));
+				return (command_free(command, 1));
 		}
 	}
 	return (0);
 }
 
-void			lem_in_parser(char **map, t_info *info)
+int			lem_in_parser(char **map, t_info *info)
 {
 	int		i;
 	int		j;
 	int		ret;
 
-	i = 1;
+	i = 0;
 	j = 0;
-	while (map[i])
+	while (map[++i])
 	{
-		map[i][0] == 'L' ? lem_in_map_free_error(map) : 0;
+		if (map[i][0] == 'L')
+			return (0);
 		if (map[i][0] == '#')
 		{
-			ret = hash_line_manager(map, i);
-			((ret == 2) || (ret == 3)) ? gates_manager(map, info, ret, i) : 0;
+			if ((ret = hash_line_manager(map, i)) == 0)
+				return (0);
+			if ((ret == 2) || (ret == 3))
+				if (!gates_manager(map, info, ret, i))
+					return (0);
 			i += (ret == 1) ? 0 : 1;
 		}
 		else if ((map[i][0] >= 33 && map[i][0] <= 126))
@@ -114,7 +121,6 @@ void			lem_in_parser(char **map, t_info *info)
 			if ((i - 1) > 1 && is_room(map[i - 1]) && !is_room(map[i]))
 				info->edges_line = i;
 		}
-		i++;
 	}
-	room_add_start_end(map, info);
+	return (room_add_start_end(map, info) ? 1 :0);
 }

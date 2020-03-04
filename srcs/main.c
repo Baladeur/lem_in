@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2020/03/03 17:17:05 by myener           ###   ########.fr       */
+/*   Updated: 2020/03/04 17:49:52 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,9 +125,10 @@ int				main(int ac, char **av)
 	info.room_nb = room_counter(map);
 	if (!(info.room_tab = malloc(sizeof(t_room) * info.room_nb)))
 		return (0);
-	lem_in_parser(map, &info);
-	if (troubleshooter(&info) || !(adj_matrix(map, &info))
-		|| !(directed_matrix(&info)) || !(pathfinder(&info, &path_tab)))
+	if (!lem_in_parser(map, &info))
+		return (lem_in_map_free_error(map));
+	if (troubleshooter(&info) || !(adj_matrix(map, &info)) // le probleme de double free est soit ici
+		|| !(directed_matrix(&info)) || !(pathfinder(&info, &path_tab))) // soit ici
 		return (lem_in_map_free_error(map));
 	assign_path(path_tab, &info);
 	lem_in_displayer(&info, map);
