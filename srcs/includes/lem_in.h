@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/03/04 16:21:16 by myener           ###   ########.fr       */
+/*   Updated: 2020/03/04 17:38:24 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void				lem_in_dispatcher(t_info *info, t_ant *ant);
 void				lem_in_displayer(t_info *info, char **map);
 int					lem_in_error_output(void);
 int					lem_in_map_free_error(char **map);
-void				lem_in_parser(char **map, t_info *info);
+int					lem_in_parser(char **map, t_info *info);
 void				room_free(t_info *info);
 void				room_init(t_room *room);
 int					troubleshooter(t_info *info);
