@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:59:26 by myener            #+#    #+#             */
-/*   Updated: 2020/03/04 19:26:09 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/05 18:22:15 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,13 @@ t_path	*path_free(t_path **path, int b)
 {
 	int	i;
 
-	if (!path || *path)
+	if (!path || !(*path))
 		return (NULL);
 	i = -1;
-	while (b && (*path)[++i].len > 0)
-		if ((*path)[i].edges)
+	while ((*path)[++i].len >= 0)
+		if (b && (*path)[i].edges)
 			free((*path)[i].edges);
+	free((*path)[i].edges);
 	free((*path));
 	(*path) = NULL;
 	return (NULL);
