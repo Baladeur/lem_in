@@ -125,7 +125,7 @@ int				pathlist_add(t_pathlist **pathlist, t_path *path)
 ** Stores the distance to each vertex from the starting room, given a graph.
 */
 
-int				bfs_dist(int **m, int **c, t_info *info, t_tab *tab)
+int				bfs_dist(int ***matrix, t_info *info, t_tab *tab)
 {
 	t_queue_c	*queue;
 	int			i;
@@ -137,9 +137,9 @@ int				bfs_dist(int **m, int **c, t_info *info, t_tab *tab)
 	{
 		i = -1;
 		while (++i < info->room_nb - 1)
-			if (m[queue->pos][i] && tab[i].c < 0)
+			if (matrix[0][queue->pos][i] && tab[i].c < 0)
 			{
-				tab[i].c = queue->cost + c[queue->pos][i];
+				tab[i].c = queue->cost + matrix[1][queue->pos][i];
 				tab[i].p = queue->pos;
 				if (!(queue_c_add(&queue, i, tab[i].c)))
 				{
@@ -184,55 +184,55 @@ static int	add_to_list(t_queue_c *parent, int pos, t_elist **list, int size)
 	return (1);
 }
 
-static int	allminpath_bt(t_queue_c *parent, int **m, int **c, int min_cost, int pos, t_elist *list)
+/*
+** Backtracking used to find all edges with the minimal cost from start to end.
+*/
+
+static int	allminpath_bt(t_queue_c *parent, int ***matrix, int pos, t_elist *list)
 {
 	t_queue_c	*current;
 	int			i;
 	int			b;
 
-	if ((i = -1) && m[pos][m[0][0] - 1])
-		return (add_to_list(pos, parent, list, m[0][0]));
+	if ((i = -1) && matrix[0][pos][matrix[0][0][0] - 1])
+		return (add_to_list(pos, parent, list, matrix[0][0][0]));
 	b = 0;
-	while (++i < m[0][0])
-		if (m[pos][i] > 0 && pos != i && (b = 1))
+	while (++i < matrix[0][0][0])
+		if (matrix[0][pos][i] > 0 && pos != i && (b = 1))
 			break ;
-	if ((i = -1) && !b || parent->cost + c[parent->pos][pos] > min_cost)
+	if ((i = -1) && !b || parent->cost + matrix[1][parent->pos][pos] > matrix[1][0][0])
 		return (1);
-	if (!(current = queue_c_add(&current, 0, parent->cost + c[parent->pos][pos])))
+	if (!(current = queue_c_add(&current, 0, parent->cost + matrix[1][parent->pos][pos])))
 		return (0);
 	current->next = parent;
-	while (++i < m[0][0])
-		if (m[pos][i] > 0 && pos != i && (!parent || parent->pos != i))
-			if (!(allminpath_bt(current, m, c, min_cost, i, list)))
+	while (++i < matrix[0][0][0])
+		if (matrix[0][pos][i] > 0 && pos != i && (!parent || parent->pos != i))
+			if (!(allminpath_bt(current, matrix, i, list)))
 				return (queue_c_delone(&current));
 	queue_c_delone(&current);
 	return (1);
 }
 
-t_elist			*allminpath(int **m, int c, int min_cost, t_info *info)
+/*
+** Returns a list of all edges with the minimal cost from start to end.
+*/
+
+t_elist			*allminpath(int ***matrix, int min_cost, t_info *info)
 {
 	t_elist	*list;
 
 	list = NULL;
-	m[0][0] = info->room_nb;
-	m[1][1] = min_cost;
-	if (!(allminpath_bt(NULL, m, c, min_cost, 0, &list)))
+	matrix[0][0][0] = info->room_nb;
+	matrix[1][0][0] = min_cost;
+	if (!(allminpath_bt(NULL, matrix, 0, &list)))
 	{
 		while (list)
 			elist_delone(&list, 1);
 		return (NULL);
 	}
-	m[0][0] = 0;
-	m[1][1] = 0;
+	matrix[0][0][0] = 0;
+	matrix[1][0][0] = 0;
 	return (list);
-}
-
-/*
-** Returns a list of combination of every path with the minimal cost.
-*/
-
-int			minpathlist(t_elist *allpath, t_pathlist **list, t_info *info)
-{
 }
 
 /*
@@ -277,28 +277,51 @@ static int	is_better(t_path *src, t_path *dst, int ant_nb)
 	return (l1 < l2);
 }
 
-int				pathfinding_bt_exit(t_tab **tab, int ***new_m, int ***new_c, t_info *info)
+int				***suurmatrix_free(int ****matrix, int size)
+{
+	if (!matrix || !(*matrix))
+		return (NULL);
+	if ((*matrix)[0])
+		matrix_free(&((*matrix[0])), size);
+	if ((*matrix)[1])
+		matrix_free(&((*matrix[1])), size);
+	free(*matrix);
+	*matrix = NULL;
+	return (NULL);
+}
+
+int				***init_suurmatrix(int size)
+{
+	int	***matrix;
+
+	if (!(matrix = (int ***)malloc(sizeof(int **) * 2)))
+		return (NULL);
+	matrix[0] = NULL;
+	matrix[1] = NULL;
+	if (!(matrix[0] = init_matrix(size))
+		|| !(matrix[0] = init_matrix(size)))
+		return (suurmatrix_free(&matrix, size));
+	return (matrix);
+}
+
+int				pathfinding_bt_exit(t_tab **tab, int ****new, t_info *info)
 {
 	if (tab && *tab)
 		free(*tab);
-	if (new_m && *new_m)
-		matrix_free(new_m, info->room_nb);
-	if (new_c && *new_c)
-		matrix_free(new_c, info->room_nb);
+	if (new && *new)
+		suurmatrix_free(new, info->room_nb);
 	return (0);
 }
 
-int				pathfinding_bt(t_path *best, t_path *curr, int **m, int **c, t_info *info)
+int				pathfinding_bt(t_path *best, t_path *curr, int ***matrix, t_info *info)
 {
-	t_pathlist	*pathlist;
+	t_elist		*allpath;
 	t_tab		*tab;
-	int			**new_m;
-	int			**new_c;
+	int			***new;
 	int			i;
 
-	pathlist = NULL;
-	new_m = NULL;
-	new_c = NULL;
+	allpath = NULL;
+	new = NULL;
 	tab = NULL;
 	if (curr[0].len && (!best[0].len || is_better(curr, best, info->ant_nb)))
 		path_clone(best, curr, info);
@@ -307,17 +330,16 @@ int				pathfinding_bt(t_path *best, t_path *curr, int **m, int **c, t_info *info
 	i = -1;
 	while (++i < info->room_nb - 1 && (tab[i].p = -1))
 		tab[i].c = -1;
-	if (!(bfs_dist(m, c, info, tab)))
-		return (pathfinding_bt_exit(&tab, &new_m, &new_c, info));
+	if (!(bfs_dist(matrix, info, tab)))
+		return (pathfinding_bt_exit(&tab, &new, info));
 	if (tab[i].p < 0)
 	{
 		free(tab);
 		return (1);
 	}
-	if (!(minpathlist(allminpath(m, c, tab[i].c, info), &pathlist, info))
-		|| !(new_m = init_matrix(info->room_nb))
-		|| !(new_c = init_matrix(info->room_nb)))
-		return (pathfinding_bt_exit(&tab, &new_m, &new_c, info));
+	if (!(allpath = allminpath(new, tab[i].c, info))
+		|| !(new = init_suurmatrix(info->room_nb)))
+		return (pathfinding_bt_exit(&tab, &new, info));
 	// CREATE RESIDUAL GRAPH
 	// CREATE SHORTEST PATH COMBINATION LIST
 	// FOR EACH SHORTEST PATH COMBINATION
