@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2020/03/04 19:28:04 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/09 14:11:15 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	room_counter(char **map)
 	return (room_nb);
 }
 
-char		**append_return(char **in)
+static char	**append_return(char **in)
 {
 	int		i;
 
@@ -60,20 +60,17 @@ char		**append_return(char **in)
 	return (in);
 }
 
-char		**get_map(char **av, char **map)
+static char	**get_map()
 {
-	int		nb;
 	int		i;
-	int		fd;
 	char	*line;
+	char	**map;
 	t_elist	*stock;
 
-	if ((fd = open((av[1]), O_RDONLY)) < 0)
-		return (NULL);
 	stock = NULL;
 	map = NULL;
 	line = NULL;
-	while (get_next_line(fd, &line))
+	while (get_next_line(0, &line))
 		elist_add(&stock, (int *)line);
 	if (!(map = (char **)malloc(sizeof(char *) * (elist_size(stock) + 1))))
 		return (NULL);
@@ -89,32 +86,14 @@ char		**get_map(char **av, char **map)
 	return (map);
 }
 
-// static void	display_map(char **map) // debug
-// {
-// 	int i;
-
-// 	i = 0;
-// 	ft_putstr("MAP:\n");
-// 	while (map[i])
-// 	{
-// 		ft_putstr(map[i]);
-// 		i++;
-// 	}
-// 	ft_putstr("FIN\n");
-// }
-
-int				main(int ac, char **av)
+int			main()
 {
-	int		i;
-	int		j;
 	t_info	info;
-	char    **map;
+	char	**map;
 	t_path	*path_tab;
 
-	if (ac == 1)
-		return (0);
 	map = NULL;
-	if (!(map = get_map(av, map)))
+	if (!(map = get_map()))
 		return (lem_in_error_output());
 	info_init(&info);
 	if ((info.ant_nb = ft_atoi(map[0])) <= 0)
@@ -127,14 +106,12 @@ int				main(int ac, char **av)
 		return (0);
 	if (!lem_in_parser(map, &info))
 		return (lem_in_map_free_error(map));
-	if (troubleshooter(&info) || !(adj_matrix(map, &info)) // le probleme de double free est soit ici
-		|| !(directed_matrix(&info)) || !(pathfinder(&info, &path_tab))) // soit ici
+	if (troubleshooter(&info) || !(adj_matrix(map, &info))
+		|| !(directed_matrix(&info)) || !(pathfinder(&info, &path_tab)))
 		return (lem_in_map_free_error(map));
 	assign_path(path_tab, &info);
 	lem_in_displayer(&info, map);
-	// display_map(map); // debug
 	map ? tab_free(map) : 0;
-	// ant_free(&info);
 	room_free(&info);
 	matrix_free(&(info.matrix), info.room_nb);
 	matrix_free(&(info.dir_matrix), info.room_nb);

@@ -6,13 +6,13 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:20:24 by myener            #+#    #+#             */
-/*   Updated: 2020/03/04 20:43:09 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/09 14:11:37 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/lem_in.h"
 
-static int		room_parser(char *line, t_info *info, int j)
+static int	room_parser(char *line, t_info *info, int j)
 {
 	int		i;
 	int		start;
@@ -52,7 +52,7 @@ static int	room_add_start_end(char **map, t_info *info)
 	return (1);
 }
 
-static int	gates_manager(char **map, t_info *info, int ret, int i)
+static int	gates_manager(t_info *info, int ret, int i)
 {
 	int		j;
 
@@ -109,7 +109,7 @@ int			lem_in_parser(char **map, t_info *info)
 			if ((ret = hash_line_manager(map, i)) == 0)
 				return (0);
 			if ((ret == 2) || (ret == 3))
-				if (!gates_manager(map, info, ret, i))
+				if (!gates_manager(info, ret, i))
 					return (0);
 			i += (ret == 1) ? 0 : 1;
 		}

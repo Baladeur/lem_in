@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:59:26 by myener            #+#    #+#             */
-/*   Updated: 2020/03/05 18:22:15 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/09 14:17:51 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,19 @@ void	ant_free(t_info *info)
 		free(info->ant[i].path);
 		i++;
 	}
-	// info->ant ? free(info->ant) : 0;
+	info->ant ? free(info->ant) : 0;
 }
 
 int		**matrix_free(int ***matrix, int count)
 {
 	int i;
 
+	if (!matrix || !(*matrix))
+		return (NULL);
 	i = -1;
 	while (++i < count)
-		free((*matrix)[i]);
+		if ((*matrix)[i])
+			free((*matrix)[i]);
 	free(*matrix);
 	*matrix = NULL;
 	return (NULL);

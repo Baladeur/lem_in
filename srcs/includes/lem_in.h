@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/03/08 18:50:42 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/09 13:51:21 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,39 +85,9 @@ typedef struct		s_elist		// simple chained list to store path edges.
 	int				*edges;			// path node of the current element.
 }					t_elist;
 
-/*
-** SUURBALLE STRUCTURES
-*/
-
-typedef struct	s_suurballe
-{
-	t_info	*info;
-	t_path	*curr;
-	t_path	*best;
-}				t_suurballe;
-
-typedef struct	s_pathlist
-{
-	struct s_pathlist	*next;
-	t_path				*path;
-}				t_pathlist;
-
-typedef struct	s_tab
-{
-	int	c;
-	int	e;
-}				t_tab;
-
-typedef struct	s_residual
-{
-	t_tab	**layout;
-	t_tab	*bfs;
-}				t_residual;
-
 void				ant_free(t_info *info);
 void				ant_init(t_info *info);
 int					command_free(char *str, int ret);
-char				**get_map(char **av, char **data);
 char				*get_room_name(t_info *info, int room_id);
 void				info_init(t_info *info);
 int					is_room(char *line);

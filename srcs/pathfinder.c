@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 23:05:08 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/03/04 20:35:25 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/09 12:17:47 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ int			pathfinder(t_info *info, t_path **best)
 	i = -1;
 	while (best[0][++i].len > 0 && (max = -1))
 		while (paths[++max].len > 0)
-			if (best[0][i].edges == paths[i].edges && !(paths[i].edges = NULL))
-				break ;
+			if (best[0][i].edges == paths[max].edges)
+				paths[max].edges = NULL;
 	info->path_nb = i;
 	pathfinder_exit(&paths, &curr, NULL);
 	return (1);
