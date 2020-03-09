@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:20:24 by myener            #+#    #+#             */
-/*   Updated: 2020/03/09 14:11:37 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/09 16:49:02 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,22 +74,16 @@ static int	hash_line_manager(char **map, int i)
 	command = NULL;
 	if (!map[i][1] || map[i][1] != '#')
 		return (1);
-	else if (map[i][1] == '#')
+	else
 	{
-		if (map[i][2] == '#')
-			return (1);
+		command = ft_strsub(map[i], 2, ft_strlen(map[i]));
+		if (!(ft_strcmp(command, "start\n")))
+			return (command_free(command, 2));
+		else if (!(ft_strcmp(command, "end\n")))
+			return (command_free(command, 3));
 		else
-		{
-			command = ft_strsub(map[i], 2, ft_strlen(map[i]));
-			if (!(ft_strcmp(command, "start\n")))
-				return (command_free(command, 2));
-			else if (!(ft_strcmp(command, "end\n")))
-				return (command_free(command, 3));
-			else
-				return (command_free(command, 1));
-		}
+			return (command_free(command, 1));
 	}
-	return (0);
 }
 
 int			lem_in_parser(char **map, t_info *info)
@@ -106,17 +100,13 @@ int			lem_in_parser(char **map, t_info *info)
 			return (0);
 		if (map[i][0] == '#')
 		{
-			if ((ret = hash_line_manager(map, i)) == 0)
-				return (0);
-			if ((ret == 2) || (ret == 3))
+			if ((ret = hash_line_manager(map, i)) > 1)
 				if (!gates_manager(info, ret, i))
 					return (0);
 			i += (ret == 1) ? 0 : 1;
 		}
-		else if ((map[i][0] >= 33 && map[i][0] <= 126))
+		else if (map[i][0] >= 33 && map[i][0] <= 126 && (j = (j == 0) ? 1 : j))
 		{
-			// ((is_room(map[i])) == 0) ? lem_in_map_free_error(map) : 0;
-			j = (j == 0) ? 1 : j;
 			j += is_room(map[i]) ? room_parser(map[i], info, j) : 0;
 			if ((i - 1) > 1 && is_room(map[i - 1]) && !is_room(map[i]))
 				info->edges_line = i;
