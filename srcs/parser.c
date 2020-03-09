@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:20:24 by myener            #+#    #+#             */
-/*   Updated: 2020/03/09 16:49:02 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/09 17:54:22 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,11 +106,7 @@ int			lem_in_parser(char **map, t_info *info)
 			i += (ret == 1) ? 0 : 1;
 		}
 		else if (map[i][0] >= 33 && map[i][0] <= 126 && (j = (j == 0) ? 1 : j))
-		{
 			j += is_room(map[i]) ? room_parser(map[i], info, j) : 0;
-			if ((i - 1) > 1 && is_room(map[i - 1]) && !is_room(map[i]))
-				info->edges_line = i;
-		}
 	}
 	return (room_add_start_end(map, info) ? 1 : 0);
 }

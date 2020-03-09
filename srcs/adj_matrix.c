@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   adj_matrix.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:10:44 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/19 17:17:14 by myener           ###   ########.fr       */
+/*   Updated: 2020/03/09 17:55:36 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,21 @@ static int	get_link(char *line, t_info *info)
 }
 
 /*
+** Gets the position of the first link
+*/
+
+static int	get_link_start(char **data, t_info *info)
+{
+	int i;
+
+	i = 0;
+	while (data[++i])
+		if (get_link(data[i], info))
+			return (info->edges_line = i);
+	return (0);
+}
+
+/*
 **	Stores the adjency matrix (int **) matching the given data in the info.
 **	Returns 1 if the operation is successfull, 0 otherwise.
 */
@@ -73,9 +88,10 @@ int			adj_matrix(char **data, t_info *info)
 	int		id2;
 	int		i;
 
+	if (!(i = get_link_start(data, info)))
+		return (0);
 	if (!(info->matrix = init_matrix(info->room_nb)))
 		return (0);
-	i = info->edges_line;
 	while (data[i])
 	{
 		if (get_link(data[i], info))
