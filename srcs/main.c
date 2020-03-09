@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2020/03/09 14:11:15 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/09 14:45:22 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static char	**append_return(char **in)
 	return (in);
 }
 
-static char	**get_map()
+static char	**get_map(void)
 {
 	int		i;
 	char	*line;
@@ -86,7 +86,7 @@ static char	**get_map()
 	return (map);
 }
 
-int			main()
+int			main(void)
 {
 	t_info	info;
 	char	**map;

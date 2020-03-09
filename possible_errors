@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    possible_errors                                    :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: myener <myener@student.42.fr>              +#+  +:+       +#+         #
+#    By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/26 16:30:35 by myener            #+#    #+#              #
-#    Updated: 2020/03/04 17:40:30 by myener           ###   ########.fr        #
+#    Updated: 2020/03/09 14:44:09 by tferrieu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,8 @@ ________________
 [x] if two rooms have the same coordinates
 [x] if there are more than two rooms per path line
 [x]	if the rooms mentioned in the connection lines don't match the rooms before
-[ ] if start is connected to end, every ant can go from start to end in a single turn.
-[ ] if the same path exist twice (eg. 2-1 and 1-2), it  is simply ignored the second time.
+[x] if start is connected to end, every ant can go from start to end in a single turn.
+[x] if the same path exist twice (eg. 2-1 and 1-2), it  is simply ignored the second time.
 	(The adjacency matrix should take care of that)
 [x] if the map contains a start or room command badly formated (i.e "##enn" instead of "##end")
 [x] map argument doesn't exist.
