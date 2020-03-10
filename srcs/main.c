@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2020/03/09 14:45:22 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/10 16:05:10 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,12 @@ int			is_room(char *line)
 
 	i = 0;
 	if (line[0] == '#')
-		return (0);
+		return (-1);
 	while (line[i] && line[i] != ' ' && line[i] != '-')
 		i++;
 	if (line[i] == ' ')
 		return (1);
 	return (0);
-}
-
-static int	room_counter(char **map)
-{
-	int i;
-	int	room_nb;
-
-	i = 0;
-	room_nb = 0;
-	while (map[i])
-	{
-		if (is_room(map[i]) == 1)
-			room_nb++;
-		i++;
-	}
-	return (room_nb);
 }
 
 static char	**append_return(char **in)
@@ -93,29 +77,17 @@ int			main(void)
 	t_path	*path_tab;
 
 	map = NULL;
+	path_tab = NULL;
 	if (!(map = get_map()))
 		return (lem_in_error_output());
-	info_init(&info);
-	if ((info.ant_nb = ft_atoi(map[0])) <= 0)
-		return (lem_in_map_free_error(map));
-	if (!(info.ant = malloc(sizeof(t_ant) * info.ant_nb)))
-		return (0);
-	ant_init(&info);
-	info.room_nb = room_counter(map);
-	if (!(info.room_tab = malloc(sizeof(t_room) * info.room_nb)))
-		return (0);
+	if (!(lem_init(&info, map)))
+		return (lem_in_free(map, &info, &path_tab, 0));
 	if (!lem_in_parser(map, &info))
-		return (lem_in_map_free_error(map));
+		return (lem_in_free(map, &info, &path_tab, 0));
 	if (troubleshooter(&info) || !(adj_matrix(map, &info))
 		|| !(directed_matrix(&info)) || !(pathfinder(&info, &path_tab)))
-		return (lem_in_map_free_error(map));
+		return (lem_in_free(map, &info, &path_tab, 0));
 	assign_path(path_tab, &info);
 	lem_in_displayer(&info, map);
-	map ? tab_free(map) : 0;
-	room_free(&info);
-	matrix_free(&(info.matrix), info.room_nb);
-	matrix_free(&(info.dir_matrix), info.room_nb);
-	path_free(&path_tab, 1);
-	free(info.ant);
-	return (0);
+	return (lem_in_free(map, &info, &path_tab, 1));
 }

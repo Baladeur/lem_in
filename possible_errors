@@ -6,7 +6,7 @@
 #    By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/26 16:30:35 by myener            #+#    #+#              #
-#    Updated: 2020/03/09 14:44:09 by tferrieu         ###   ########.fr        #
+#    Updated: 2020/03/10 18:36:47 by tferrieu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ ________________
 
 [x] if we encounter the same room name twice
 [x] if no start and/or no end were encountered when parsing is finished
-[x] if the room's coordinates aren't positive integers
+// [x] if the room's coordinates aren't positive integers || NOT AN ERROR
 [x] if the room's id, name, are incomplete (ex: one of them is 0)
 [x] if two rooms have the same coordinates
 [x] if there are more than two rooms per path line
@@ -25,3 +25,10 @@ ________________
 	(The adjacency matrix should take care of that)
 [x] if the map contains a start or room command badly formated (i.e "##enn" instead of "##end")
 [x] map argument doesn't exist.
+
+[ ] Errors during parsing shouldn't exit immediately. Instead, it stops parsing data
+	and tries to solve it with the parsed data. Only then will it exit if there isn't enough data.
+[ ] Ant nbr is too big/too small (-2147483649 etc)
+[ ] Ant nbr is invalid/has spacing, with chars etc after the numbers. (  98 s|   98+|    + 23)
+[ ] Room is missing the y position integers
+[ ] Room has too much info

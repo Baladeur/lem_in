@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:59:26 by myener            #+#    #+#             */
-/*   Updated: 2020/03/09 14:17:51 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/10 16:27:38 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,9 @@ void	room_free(t_info *info)
 	i = 0;
 	while (i < info->room_nb)
 	{
-		free(info->room_tab[i].name);
+		if (info->room_tab[i].name)
+			free(info->room_tab[i].name);
 		i++;
 	}
-	info->room_tab ? free(info->room_tab) : 0;
+	free(info->room_tab);
 }

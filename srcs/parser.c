@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:20:24 by myener            #+#    #+#             */
-/*   Updated: 2020/03/09 17:54:22 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/10 16:23:18 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,12 @@ static int	room_add_start_end(char **map, t_info *info)
 	return (1);
 }
 
-static int	gates_manager(t_info *info, int ret, int i)
+static int	gates_manager(t_info *info, int ret, int i, char **map)
 {
 	int		j;
 
+	if (!(is_room(map[i + 1]) > 0))
+		return (0);
 	i += 1;
 	j = 0;
 	if ((ret == 2 && info->s_enc) || (ret == 3 && info->e_enc))
@@ -92,7 +94,7 @@ int			lem_in_parser(char **map, t_info *info)
 	int		j;
 	int		ret;
 
-	i = 0;
+	i = -1;
 	j = 0;
 	while (map[++i])
 	{
@@ -101,12 +103,12 @@ int			lem_in_parser(char **map, t_info *info)
 		if (map[i][0] == '#')
 		{
 			if ((ret = hash_line_manager(map, i)) > 1)
-				if (!gates_manager(info, ret, i))
+				if (!gates_manager(info, ret, i, map))
 					return (0);
 			i += (ret == 1) ? 0 : 1;
 		}
 		else if (map[i][0] >= 33 && map[i][0] <= 126 && (j = (j == 0) ? 1 : j))
-			j += is_room(map[i]) ? room_parser(map[i], info, j) : 0;
+			j += is_room(map[i]) == 1 ? room_parser(map[i], info, j) : 0;
 	}
 	return (room_add_start_end(map, info) ? 1 : 0);
 }

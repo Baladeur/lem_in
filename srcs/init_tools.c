@@ -6,11 +6,31 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:58:11 by myener            #+#    #+#             */
-/*   Updated: 2020/03/09 17:54:57 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/10 15:56:38 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/lem_in.h"
+
+int		lem_init(t_info *info, char **map)
+{
+	int	i;
+
+	info_init(info);
+	i = 0;
+	while (map[i] && is_room(map[i]) < 0)
+		i++;
+	if ((info->ant_nb = ft_atoi(map[i])) <= 0
+		|| !(info->ant = malloc(sizeof(t_ant) * info->ant_nb)))
+		return (0);
+	ant_init(info);
+	while (map[++i] && is_room(map[i]))
+		if (is_room(map[i]) == 1)
+			info->room_nb++;
+	if (!(info->room_tab = malloc(sizeof(t_room) * info->room_nb)))
+		return (0);
+	return (1);
+}
 
 void	ant_init(t_info *info)
 {
