@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dispatcher.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:22:11 by myener            #+#    #+#             */
-/*   Updated: 2020/03/04 20:38:23 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/10 19:34:10 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,10 @@ static void		lem_in_displayer_helper(int id, char *name)
 
 void			lem_in_displayer(t_info *info, char **map)
 {
-	int		i;
 	int		a;
 	char	*room_name;
 
-	i = 0;
-	while (map[i])
-	{
-		ft_putstr(map[i]);
-		i++;
-	}
-	ft_putchar('\n');
+	display_map(map);
 	a = 0;
 	room_name = NULL;
 	while (!is_end_room(info, info->ant[info->ant_nb - 1].pos))
