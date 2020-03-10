@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/03/10 16:06:01 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/10 18:47:26 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,8 @@ typedef struct		s_elist		// simple chained list to store path edges.
 }					t_elist;
 
 void				ant_free(t_info *info);
-void				ant_init(t_info *info);
 int					command_free(char *str, int ret);
 char				*get_room_name(t_info *info, int room_id);
-void				info_init(t_info *info);
 int					is_room(char *line);
 void				lem_in_dispatcher(t_info *info, t_ant *ant);
 void				lem_in_displayer(t_info *info, char **map);
@@ -97,7 +95,6 @@ int					lem_in_error_output(void);
 int					lem_in_free(char **map, t_info *info, t_path **path, int b);
 int					lem_in_parser(char **map, t_info *info);
 void				room_free(t_info *info);
-void				room_init(t_room *room);
 int					troubleshooter(t_info *info);
 
 int					lem_init(t_info *info, char **map);

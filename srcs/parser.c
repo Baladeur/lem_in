@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:20:24 by myener            #+#    #+#             */
-/*   Updated: 2020/03/10 16:23:18 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/10 19:03:43 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static int	room_parser(char *line, t_info *info, int j)
 
 	i = 0;
 	tmp = NULL;
-	room_init(&info->room_tab[j]);
 	while (line[i] && line[i] != ' ')
 		i++;
 	info->room_tab[j].id = j;
@@ -52,6 +51,8 @@ static int	room_add_start_end(char **map, t_info *info)
 	return (1);
 }
 
+// ERROR HERE WHEN 2 ##start / 2 ##end
+
 static int	gates_manager(t_info *info, int ret, int i, char **map)
 {
 	int		j;
@@ -68,6 +69,7 @@ static int	gates_manager(t_info *info, int ret, int i, char **map)
 		info->end_nb = i;
 	return (1);
 }
+
 
 static int	hash_line_manager(char **map, int i)
 {
@@ -103,8 +105,15 @@ int			lem_in_parser(char **map, t_info *info)
 		if (map[i][0] == '#')
 		{
 			if ((ret = hash_line_manager(map, i)) > 1)
+			{
+				printf("## detected\n");
 				if (!gates_manager(info, ret, i, map))
+				{
+					printf("## invalid\n");
 					return (0);
+				}
+				printf("## handled\n");
+			}
 			i += (ret == 1) ? 0 : 1;
 		}
 		else if (map[i][0] >= 33 && map[i][0] <= 126 && (j = (j == 0) ? 1 : j))
