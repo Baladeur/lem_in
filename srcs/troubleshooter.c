@@ -6,7 +6,7 @@
 /*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:20:15 by myener            #+#    #+#             */
-/*   Updated: 2020/03/10 19:30:24 by myener           ###   ########.fr       */
+/*   Updated: 2020/03/11 14:09:45 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ int		troubleshooter(t_info *info)
 		if (i != 0 && info->room_tab[i].id == 0)
 			return (1);
 		if (!info->room_tab[i].name)
-			return (1);
-		if (info->room_tab[i].x < 0 || info->room_tab[i].y < 0) // maybe not an error? (cf. possible_errors)
 			return (1);
 		i++;
 	}
