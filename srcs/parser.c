@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:20:24 by myener            #+#    #+#             */
-/*   Updated: 2020/03/11 15:23:17 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/11 16:45:10 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,65 @@
 
 static int	room_parser(char *line, t_info *info, int j)
 {
-	int		i;
-	int		start;
+	int 	i;
+	int		end;
 	char	*tmp;
 
 	i = 0;
 	tmp = NULL;
-	while (line[i] && line[i] != ' ')
-		i++;
 	info->room_tab[j].id = j;
-	info->room_tab[j].name = ft_strsub(line, 0, i);
-	i++;
-	start = i;
-	while (line[i] && line[i] != ' ')
+	while (line[i]) // get to the end of the line
 		i++;
-	tmp = ft_strsub(line, start, i);
-	info->room_tab[j].x = ft_atoi(tmp);
-	tmp ? free(tmp) : 0;
-	start = i++;
-	while (line[i] && line[i] != ' ')
-		i++;
-	tmp = ft_strsub(line, start, i);
-	info->room_tab[j].y = ft_atoi(tmp);
-	tmp ? free(tmp) : 0;
+	i--; // goes right before \0
+	end = i; // stocks the last character's position (and end of y)
+	while (line[i] != ' ') // while we didn't encounter a space, we go back up
+		i--;
+	// tmp = ft_strsub(line, i, end);
+	if (!lem_in_atoi(line, i, end, &info->room_tab[j].y))
+		return (0);
+	// tmp ? free(tmp) : 0;
+	i--; // jumps over the space
+	end = i; // stocks the theoretical end of x
+	while (line[i] != ' ') // while we didn't encounter a space, we go back up
+		i--;
+	// tmp = ft_strsub(line, i, end);
+	// info->room_tab[j].x = ft_atoi(tmp);
+	if (!lem_in_atoi(line, i, end, &info->room_tab[j].x))
+		return (0);
+	// tmp ? free(tmp) : 0;
+	i--;
+	end = i; // stocks the theoretical end of name
+	info->room_tab[j].name = ft_strsub(line, 0, end + 1); // everything before x and y can supposedly be the name so we grab it all.
 	return (1);
 }
+
+// static int	room_parser(char *line, t_info *info, int j)
+// {
+// 	int		i;
+// 	int		start;
+// 	char	*tmp;
+
+// 	i = 0;
+// 	tmp = NULL;
+// 	while (line[i] && line[i] != ' ')
+// 		i++;
+// 	info->room_tab[j].id = j;
+// 	info->room_tab[j].name = ft_strsub(line, 0, i);
+// 	i++;
+// 	start = i;
+// 	while (line[i] && line[i] != ' ')
+// 		i++;
+// 	tmp = ft_strsub(line, start, i);
+// 	info->room_tab[j].x = ft_atoi(tmp);
+// 	tmp ? free(tmp) : 0;
+// 	start = i++;
+// 	while (line[i] && line[i] != ' ')
+// 		i++;
+// 	tmp = ft_strsub(line, start, i);
+// 	info->room_tab[j].y = ft_atoi(tmp);
+// 	tmp ? free(tmp) : 0;
+// 	return (1);
+// }
 
 static int	room_add_start_end(char **map, t_info *info)
 {
@@ -108,7 +142,9 @@ int			lem_in_parser(char **map, t_info *info)
 			i += (ret == 1) ? 0 : 1;
 		}
 		else if (map[i][0] >= 33 && map[i][0] <= 126 && (j = (j == 0) ? 1 : j))
-			j += is_room(map[i]) == 1 ? room_parser(map[i], info, j) : 0;
+			if (j += is_room(map[i]) == 1)
+				if (!room_parser(map[i], info, j))
+					return (room_add_start_end(map, info) ? 1 : 0);
 	}
 	return (room_add_start_end(map, info) ? 1 : 0);
 }
