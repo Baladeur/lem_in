@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+         #
+#    By: myener <myener@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/20 19:31:14 by myener            #+#    #+#              #
-#    Updated: 2020/03/11 14:51:23 by tferrieu         ###   ########.fr        #
+#    Updated: 2020/03/11 15:34:29 by myener           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ LIBFT = srcs/libft/libft.a
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS) srcs/includes/lem_in.h
-	@printf "\e[36m Creating: \e[32m$(NAME)\n"
+	@printf "\e[36m Creating: \e[32m$(NAME)\e[0m\n"
 	@gcc $(OBJS) $(LIBFT) -o $(NAME)
 
 $(LIBFT):
