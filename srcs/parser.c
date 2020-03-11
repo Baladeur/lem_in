@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:20:24 by myener            #+#    #+#             */
-/*   Updated: 2020/03/11 16:57:25 by myener           ###   ########.fr       */
+/*   Updated: 2020/03/11 19:16:53 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,35 @@
 static int	room_parser(char *line, t_info *info, int j)
 {
 	int		i;
-	int		start;
+	int		end;
 	char	*tmp;
 
-	i = 0;
+	i = ft_strlen(line) - 2;
+	end = i;
 	tmp = NULL;
-	while (line[i] && line[i] != ' ')
-		i++;
+	while (i > 0 && line[i] != ' ' && line[i] != '-')
+		i--;
+	if (!i || line[++i - 2] == '-')
+		return (0);
+	ft_printf("From '%c'(%d) to '%c'(%d) : %s\n",line[i], i, line[end], end, (tmp = ft_strsub(line, i, end - i + 1)));
+	if (!lem_in_atoi(tmp, &(info->room_tab[j].y)))
+		return (0);
+	free(tmp);
+	i -= 2;
+	end = i;
+	while (i > 0 && line[i] != ' ' && line[i] != '-')
+		i--;
+	if (!i || line[++i - 2] == '-')
+		return (0);
+	ft_printf("From '%c'(%d) to '%c'(%d) : %s\n",line[i], i, line[end], end, (tmp = ft_strsub(line, i, end - i + 1)));
+	if (!lem_in_atoi(tmp, &(info->room_tab[j].x)))
+		return (0);
+	i -= 1;
+	free(tmp);
 	info->room_tab[j].id = j;
 	info->room_tab[j].name = ft_strsub(line, 0, i);
-	i++;
-	start = i;
-	while (line[i] && line[i] != ' ')
-		i++;
-	tmp = ft_strsub(line, start, i);
-	if (!lem_in_atoi(tmp, &info->room_tab[j].x))
-		return (0);
-	tmp ? free(tmp) : 0;
-	start = i++;
-	while (line[i] && line[i] != ' ')
-		i++;
-	tmp = ft_strsub(line, start, i);
-	if (!lem_in_atoi(tmp, &info->room_tab[j].y))
-		return (0);
-	tmp ? free(tmp) : 0;
+	ft_printf("Valid line : %s", line);
+	ft_printf("Room info : name: \"%s\" | x: %d | y: %d\n", info->room_tab[j].name, info->room_tab[j].x, info->room_tab[j].y);
 	return (1);
 }
 
@@ -158,7 +163,7 @@ int			lem_in_parser(char **map, t_info *info)
 	int		j;
 	int		ret;
 
-	i = -1;
+	i = info->rooms_line;
 	j = 0;
 	while (map[++i])
 	{

@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:58:11 by myener            #+#    #+#             */
-/*   Updated: 2020/03/11 15:35:14 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/11 19:07:04 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void	info_init(t_info *info)
 	info->ant = NULL;
 	info->path_nb = 0;
 	info->edges_line = MAX_INT;
+	info->rooms_line = 1;
 	info->room_tab = NULL;
 	info->matrix = NULL;
 	info->dir_matrix = NULL;
@@ -61,10 +62,11 @@ int			lem_init(t_info *info, char **map)
 	i = 0;
 	while (map[i] && is_room(map[i]) < 0)
 		i++;
-	if (!(lem_in_atoi(map[i], 0, ft_strlen(map[i]), &info->ant_nb))
+	if (!(lem_in_atoi(map[i], &info->ant_nb))
 		|| info->ant_nb < 1 || !(info->ant = malloc(sizeof(t_ant) * info->ant_nb)))
 		return (0);
 	ant_init(info);
+	info->rooms_line = i;
 	while (map[++i] && is_room(map[i]))
 		if (is_room(map[i]) == 1)
 			info->room_nb++;

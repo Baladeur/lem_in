@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 21:04:26 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/03/11 15:57:59 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/11 19:07:21 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Sets the path each ant will use once pathfinding is done.
 */
 
-void		assign_path(t_path *path, t_info *info)
+void	assign_path(t_path *path, t_info *info)
 {
 	int l;
 	int r;
@@ -44,12 +44,20 @@ void		assign_path(t_path *path, t_info *info)
 		}
 }
 
-static int	strnumcheck(char *str, int nb)
+/*
+** An atoi for lem_in. ret is the result of the conversion.
+** Returns 0 if an error was met.
+*/
+
+int		lem_in_atoi(char *str, int *ret)
 {
 	int i;
+	int nb;
 	int c1;
 	int c2;
 
+	*ret = ft_atoi(str);
+	nb = *ret;
 	i = str[0] == '-' || str[0] == '+' ? 1 : 0;
 	c1 = 0;
 	c2 = 0;
@@ -59,25 +67,5 @@ static int	strnumcheck(char *str, int nb)
 		c1++;
 	while (nb != 0 && ++c2)
 		nb /= 10;
-	return (c1 != c2);
-}
-
-/*
-** atoi for lem_in. st is the start index of the numer in str
-** ret is the result of the conversion. Returns 0 if an error was met.
-*/
-
-int			lem_in_atoi(char *str, int st, int len, int *ret)
-{
-	char	*nb;
-	int		i;
-
-	if (!(nb = ft_strsub(str, st, len)))
-		return (0);
-	i = 1;
-	*ret = ft_atoi(nb);
-	if ((strnumcheck(nb, *ret)))
-		i = 0;
-	free(nb);
-	return (i);
+	return (c1 == c2);
 }

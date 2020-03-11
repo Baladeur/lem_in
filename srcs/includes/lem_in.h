@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/03/11 15:12:16 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/11 18:53:52 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct		s_info		// useful information that may bee needed regularly.
 	int				start_nb;		// line number of start room coordinates, from input data array.
 	int				end_nb;			// line number of the end room.
 	int				edges_line;		// line number of the beginning of the edges list.
+	int				rooms_line;		// line number of the beginning of the rooms list.
 	bool			s_enc;			// true if start is encountered, false if not.
 	bool			e_enc;			// true if end is encountered, false if not.
 	int				path_nb;		// number of simultaneous paths found.
@@ -99,7 +100,7 @@ void				room_free(t_info *info);
 int					troubleshooter(t_info *info);
 
 int					lem_init(t_info *info, char **map);
-int					lem_in_atoi(char *str, int st, int len, int *ret);
+int					lem_in_atoi(char *str, int *ret);
 
 int					**init_matrix(int count);
 int					**matrix_free(int ***matrix, int count);
