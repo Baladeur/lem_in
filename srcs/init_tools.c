@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:58:11 by myener            #+#    #+#             */
-/*   Updated: 2020/03/11 12:54:17 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/11 15:20:54 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	room_init(t_room *room)
 	room->ant_nb_curr = 0;
 }
 
-int		lem_init(t_info *info, char **map)
+int			lem_init(t_info *info, char **map)
 {
 	int	i;
 
@@ -68,8 +68,9 @@ int		lem_init(t_info *info, char **map)
 	while (map[++i] && is_room(map[i]))
 		if (is_room(map[i]) == 1)
 			info->room_nb++;
-	if ((i = -1) && !(info->room_tab = malloc(sizeof(t_room) * info->room_nb)))
+	if (!(info->room_tab = malloc(sizeof(t_room) * info->room_nb)))
 		return (0);
+	i = -1;
 	while (++i < info->room_nb)
 		room_init(&info->room_tab[i]);
 	return (1);
@@ -79,7 +80,7 @@ int		lem_init(t_info *info, char **map)
 ** Initialize a t_path tab of size 's'.
 */
 
-t_path	*path_init(int s, t_info *info)
+t_path		*path_init(int s, t_info *info)
 {
 	t_path	*path;
 	int		i;

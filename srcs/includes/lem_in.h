@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/03/11 12:53:43 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/11 15:12:16 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void				room_free(t_info *info);
 int					troubleshooter(t_info *info);
 
 int					lem_init(t_info *info, char **map);
+int					lem_in_atoi(char *str, int st, int len, int *ret);
 
 int					**init_matrix(int count);
 int					**matrix_free(int ***matrix, int count);

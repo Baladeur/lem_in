@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:20:24 by myener            #+#    #+#             */
-/*   Updated: 2020/03/11 13:22:43 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/11 15:23:17 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ static int	gates_manager(t_info *info, int ret, int i, char **map)
 		info->end_nb = i;
 	return (1);
 }
-
 
 static int	hash_line_manager(char **map, int i)
 {

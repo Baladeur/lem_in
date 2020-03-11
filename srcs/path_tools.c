@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 15:58:49 by myener            #+#    #+#             */
-/*   Updated: 2020/03/11 12:40:33 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/11 15:22:25 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** take for n ants to go through path.
 */
 
-int		path_efficiency(t_path *path, int n)
+int			path_efficiency(t_path *path, int n)
 {
 	int longest;
 	int remain;
@@ -40,7 +40,7 @@ int		path_efficiency(t_path *path, int n)
 ** successful, 0 if the set is incompatible with the other sets.
 */
 
-int		path_add(t_path *path, int *edges, t_info *info, int b)
+int			path_add(t_path *path, int *edges, t_info *info, int b)
 {
 	int i;
 	int s;
@@ -70,7 +70,7 @@ int		path_add(t_path *path, int *edges, t_info *info, int b)
 ** Removes the last set of edges from a t_path tab.
 */
 
-int		path_remove(t_path *path, t_info *info)
+int			path_remove(t_path *path, t_info *info)
 {
 	int i;
 	int n;
@@ -109,7 +109,7 @@ static int	path_exist_exit(t_queue **queue, int **prev)
 ** Check if start isn't connected to end.
 */
 
-int		path_exist(t_info *info)
+int			path_exist(t_info *info)
 {
 	t_queue	*queue;
 	int		*prev;

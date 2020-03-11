@@ -6,7 +6,7 @@
 #    By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/20 19:31:14 by myener            #+#    #+#              #
-#    Updated: 2020/03/09 15:49:24 by tferrieu         ###   ########.fr        #
+#    Updated: 2020/03/11 14:51:23 by tferrieu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,23 +16,23 @@ SRCDIR	:=	./srcs
 OBJDIR	:=	./objs
 
 SRCS_NAME =	adj_matrix.c \
-			dir_gaps.c \
-			free_tools.c \
-			output.c \
-			queue_tools.c \
 			allpath.c \
-			dir_matrix.c \
-			init_tools.c \
-			parser.c \
-			troubleshooter.c \
-			ant_tools.c \
-			dispatcher.c \
-			main.c \
-			path_tools.c \
 			branch_tools.c \
+			dir_gaps.c \
+			dir_matrix.c \
+			dispatcher.c \
 			elist_tools.c \
+			free_tools.c \
+			init_tools.c \
+			lem_in_tools.c \
+			main.c \
 			matrix_tools.c \
-			pathfinder.c
+			output.c \
+			parser.c \
+			path_tools.c \
+			pathfinder.c \
+			queue_tools.c \
+			troubleshooter.c
 
 FLAGS =	 -Wall -Wextra -Werror -I srcs/libft
 
