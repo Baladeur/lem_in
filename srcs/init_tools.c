@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:58:11 by myener            #+#    #+#             */
-/*   Updated: 2020/03/11 15:20:54 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/11 15:35:14 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ int			lem_init(t_info *info, char **map)
 	i = 0;
 	while (map[i] && is_room(map[i]) < 0)
 		i++;
-	if ((info->ant_nb = ft_atoi(map[i])) <= 0
-		|| !(info->ant = malloc(sizeof(t_ant) * info->ant_nb)))
+	if (!(lem_in_atoi(map[i], 0, ft_strlen(map[i]), &info->ant_nb))
+		|| info->ant_nb < 1 || !(info->ant = malloc(sizeof(t_ant) * info->ant_nb)))
 		return (0);
 	ant_init(info);
 	while (map[++i] && is_room(map[i]))

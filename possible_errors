@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    possible_errors                                    :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: myener <myener@student.42.fr>              +#+  +:+       +#+         #
+#    By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/26 16:30:35 by myener            #+#    #+#              #
-#    Updated: 2020/03/11 14:19:56 by myener           ###   ########.fr        #
+#    Updated: 2020/03/11 16:03:52 by tferrieu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ ________________
 
 [x] Errors during parsing shouldn't exit immediately. Instead, it stops parsing data
 	and tries to solve it with the parsed data. Only then will it exit if there isn't enough data.
-[ ] Ant nbr is too big/too small (i.e: -2147483649)
-[ ] Ant nbr is invalid/has spacing, with chars etc after the numbers. ( i.e: 98 s| ; 98+| ; + 23)
+[x] Ant nbr is too big/too small (i.e: -2147483649)
+[x] Ant nbr is invalid/has spacing, with chars etc after the numbers. ( i.e: 98 s| ; 98+| ; + 23)
 [ ] Room is missing the x or y position integers
 [ ] Room has too much/too little info (i.e: stuff after the coords, or no coords)

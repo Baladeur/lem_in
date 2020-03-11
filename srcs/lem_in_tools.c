@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 21:04:26 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/03/11 15:27:40 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/11 15:57:59 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	strnumcheck(char *str, int nb)
 	c2 = 0;
 	while (str[i] == '0')
 		i++;
-	while (ft_isalnum(str[i]) && ++i)
+	while (str[i] && str[i] != '\n' && ++i)
 		c1++;
 	while (nb != 0 && ++c2)
 		nb /= 10;
