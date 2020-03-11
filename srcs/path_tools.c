@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 15:58:49 by myener            #+#    #+#             */
-/*   Updated: 2020/03/03 15:58:53 by myener           ###   ########.fr       */
+/*   Updated: 2020/03/11 12:40:33 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,29 +33,6 @@ int		path_efficiency(t_path *path, int n)
 	while (path[++i].len > 0)
 		remain -= longest - path[i].len;
 	return (remain / i + longest - 1 + (remain % i ? 1 : 0));
-}
-
-/*
-** Initialize a t_path tab of size 's'.
-*/
-
-t_path	*path_init(int s, t_info *info)
-{
-	t_path	*path;
-	int		i;
-
-	if (!(path = (t_path *)malloc(sizeof(t_path) * (s + 1))))
-		return (NULL);
-	i = -1;
-	while (++i < s && !(path[i].edges = NULL))
-		path[i].len = 0;
-	path[s].len = -1;
-	if (!(path[s].edges = (int *)malloc(sizeof(int) * info->room_nb)))
-		return (path_free(&path, 0));
-	i = -1;
-	while (++i < info->room_nb)
-		path[s].edges[i] = i == 0 || i == info->room_nb - 1 ? 1 : 0;
-	return (path);
 }
 
 /*
@@ -116,4 +93,45 @@ int		path_remove(t_path *path, t_info *info)
 		while (path[n].edges[++i] != info->room_nb - 1)
 			path[s].edges[path[n].edges[i]] = 1;
 	return (1);
+}
+
+static int	path_exist_exit(t_queue **queue, int **prev)
+{
+	if (queue && *queue)
+		while (*queue)
+			queue_delone(queue);
+	if (prev && *prev)
+		free(*prev);
+	return (0);
+}
+
+/*
+** Check if start isn't connected to end.
+*/
+
+int		path_exist(t_info *info)
+{
+	t_queue	*queue;
+	int		*prev;
+	int		i;
+
+	queue = NULL;
+	i = -1;
+	if (!(prev = (int *)malloc(sizeof(int) * info->room_nb)))
+		return (1);
+	while (++i < info->room_nb)
+		prev[i] = -1;
+	if (!(queue_add(&queue, 0)))
+		return (path_exist_exit(&queue, &prev));
+	while (queue && (i = 0) >= 0)
+	{
+		while (++i < info->room_nb)
+			if (info->matrix[queue->id][i] && prev[i] < 0)
+				if ((prev[i] = queue->id) >= 0 && !(queue_add(&queue, i)))
+					return (path_exist_exit(&queue, &prev));
+		queue_delone(&queue);
+	}
+	i = prev[info->room_nb - 1] >= 0 ? 1 : 0;
+	free(prev);
+	return (i);
 }

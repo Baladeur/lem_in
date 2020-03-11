@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2020/03/10 19:32:58 by myener           ###   ########.fr       */
+/*   Updated: 2020/03/11 13:24:38 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,15 @@ int			main(void)
 		return (lem_in_free(map, &info, &path_tab, 0));
 	if (!lem_in_parser(map, &info))
 		return (lem_in_free(map, &info, &path_tab, 0));
-	if (troubleshooter(&info) || !(adj_matrix(map, &info))
-		|| !(directed_matrix(&info)) || !(pathfinder(&info, &path_tab)))
+	if (!(adj_matrix(map, &info)))
+		return (lem_in_free(map, &info, &path_tab, 0));
+	if (!(path_exist(&info)))
+		return (lem_in_free(map, &info, &path_tab, 0));
+	if (troubleshooter(&info))
+		return (lem_in_free(map, &info, &path_tab, 0));
+	if (!(directed_matrix(&info)))
+		return (lem_in_free(map, &info, &path_tab, 0));
+	if (!(pathfinder(&info, &path_tab)))
 		return (lem_in_free(map, &info, &path_tab, 0));
 	assign_path(path_tab, &info);
 	lem_in_displayer(&info, map);

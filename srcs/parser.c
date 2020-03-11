@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:20:24 by myener            #+#    #+#             */
-/*   Updated: 2020/03/10 19:03:43 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/11 13:22:43 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,21 +51,19 @@ static int	room_add_start_end(char **map, t_info *info)
 	return (1);
 }
 
-// ERROR HERE WHEN 2 ##start / 2 ##end
-
 static int	gates_manager(t_info *info, int ret, int i, char **map)
 {
 	int		j;
 
-	if (!(is_room(map[i + 1]) > 0))
+	if (!map[i + 1] || !(is_room(map[i + 1]) > 0))
 		return (0);
 	i += 1;
 	j = 0;
 	if ((ret == 2 && info->s_enc) || (ret == 3 && info->e_enc))
 		return (0);
-	if ((info->s_enc = (ret == 2)))
+	else if (ret == 2 && (info->s_enc = 1))
 		info->start_nb = i;
-	else if ((info->e_enc = (ret == 3)))
+	else if (ret == 3 && (info->e_enc = 1))
 		info->end_nb = i;
 	return (1);
 }
@@ -105,15 +103,9 @@ int			lem_in_parser(char **map, t_info *info)
 		if (map[i][0] == '#')
 		{
 			if ((ret = hash_line_manager(map, i)) > 1)
-			{
-				printf("## detected\n");
-				if (!gates_manager(info, ret, i, map))
-				{
-					printf("## invalid\n");
-					return (0);
-				}
-				printf("## handled\n");
-			}
+				if (!gates_manager(info, ret, i, map)
+					&& (info->edges_line = i) >= 0)
+					return (room_add_start_end(map, info) ? 1 : 0);
 			i += (ret == 1) ? 0 : 1;
 		}
 		else if (map[i][0] >= 33 && map[i][0] <= 126 && (j = (j == 0) ? 1 : j))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/03/10 19:33:16 by myener           ###   ########.fr       */
+/*   Updated: 2020/03/11 12:53:43 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ t_branch			*destroy_branching(t_branch **branch);
 int					directed_matrix(t_info *info);
 int					fill_gaps(t_info *info);
 
+int					path_exist(t_info *info);
 t_path				*path_free(t_path **path, int b);
 t_path				*path_init(int s, t_info *info);
 int					path_add(t_path *path, int *edges, t_info *info, int b);

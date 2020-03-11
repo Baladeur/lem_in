@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:10:44 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/03/09 17:55:36 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/11 13:24:18 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ static int	get_link_start(char **data, t_info *info)
 	int i;
 
 	i = 0;
-	while (data[++i])
+	while (data[++i] && i < info->edges_line)
 		if (get_link(data[i], info))
-			return (info->edges_line = i);
+			return (i);
 	return (0);
 }
 
@@ -92,7 +92,7 @@ int			adj_matrix(char **data, t_info *info)
 		return (0);
 	if (!(info->matrix = init_matrix(info->room_nb)))
 		return (0);
-	while (data[i])
+	while (data[i] && i < info->edges_line)
 	{
 		if (get_link(data[i], info))
 		{
@@ -103,9 +103,8 @@ int			adj_matrix(char **data, t_info *info)
 			data[i][ft_strlen(data[i])] = '-';
 			data[i][ft_strlen(data[i])] = '\n';
 		}
-		else if (!(data[i][0] == '#')
-			&& !(matrix_free(&(info->matrix), info->room_nb)))
-			return (0);
+		else if (!(data[i][0] == '#'))
+			return (1);
 		i++;
 	}
 	return (1);

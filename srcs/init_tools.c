@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:58:11 by myener            #+#    #+#             */
-/*   Updated: 2020/03/10 18:47:09 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/11 12:54:17 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	info_init(t_info *info)
 	info->e_enc = 0;
 	info->ant = NULL;
 	info->path_nb = 0;
-	info->edges_line = 0;
+	info->edges_line = MAX_INT;
 	info->room_tab = NULL;
 	info->matrix = NULL;
 	info->dir_matrix = NULL;
@@ -73,4 +73,27 @@ int		lem_init(t_info *info, char **map)
 	while (++i < info->room_nb)
 		room_init(&info->room_tab[i]);
 	return (1);
+}
+
+/*
+** Initialize a t_path tab of size 's'.
+*/
+
+t_path	*path_init(int s, t_info *info)
+{
+	t_path	*path;
+	int		i;
+
+	if (!(path = (t_path *)malloc(sizeof(t_path) * (s + 1))))
+		return (NULL);
+	i = -1;
+	while (++i < s && !(path[i].edges = NULL))
+		path[i].len = 0;
+	path[s].len = -1;
+	if (!(path[s].edges = (int *)malloc(sizeof(int) * info->room_nb)))
+		return (path_free(&path, 0));
+	i = -1;
+	while (++i < info->room_nb)
+		path[s].edges[i] = i == 0 || i == info->room_nb - 1 ? 1 : 0;
+	return (path);
 }
