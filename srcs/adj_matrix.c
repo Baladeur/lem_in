@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:10:44 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/03/11 13:24:18 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/12 18:09:46 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,10 @@ static int	find_room(char *name, t_info *info)
 {
 	int i;
 
-	i = 0;
-	while (i < info->room_nb)
-	{
+	i = -1;
+	while (++i < info->room_nb)
 		if (!(ft_strcmp(info->room_tab[i].name, name)))
 			return (i);
-		i++;
-	}
 	return (-1);
 }
 
@@ -70,11 +67,10 @@ static int	get_link_start(char **data, t_info *info)
 {
 	int i;
 
-	i = 0;
-	while (data[++i] && i < info->edges_line)
-		if (get_link(data[i], info))
-			return (i);
-	return (0);
+	i = info->rooms_line + 1;
+	while (is_room(data[i]))
+		i++;
+	return (i);
 }
 
 /*

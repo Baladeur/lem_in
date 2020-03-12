@@ -6,13 +6,13 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:59:26 by myener            #+#    #+#             */
-/*   Updated: 2020/03/10 16:27:38 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/12 17:06:36 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/lem_in.h"
 
-int		command_free(char *str, int ret)
+int		string_free(char *str, int ret)
 {
 	str ? free(str) : 0;
 	return (ret);

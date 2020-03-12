@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   dispatcher.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:22:11 by myener            #+#    #+#             */
-/*   Updated: 2020/03/10 19:34:10 by myener           ###   ########.fr       */
+/*   Updated: 2020/03/12 17:01:42 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/lem_in.h"
 
-char			*get_room_name(t_info *info, int room_id)
+static char		*get_room(t_info *info, int room_id)
 {
 	int	i;
 
@@ -53,7 +53,7 @@ static int		is_end_room(t_info *info, int room_id)
 	return (0);
 }
 
-static void		lem_in_displayer_helper(int id, char *name)
+static void		lem_in_displayhelp(int id, char *name)
 {
 	ft_putchar('L');
 	ft_putnbr(id);
@@ -81,8 +81,8 @@ void			lem_in_displayer(t_info *info, char **map)
 			{
 				info->ant[a].i++;
 				info->ant[a].pos = info->ant[a].path[info->ant[a].i];
-				room_name = get_room_name(info, info->ant[a].path[info->ant[a].i]);
-				room_name ? lem_in_displayer_helper(info->ant[a].id, room_name) : 0;
+				room_name = get_room(info, info->ant[a].path[info->ant[a].i]);
+				room_name ? lem_in_displayhelp(info->ant[a].id, room_name) : 0;
 			}
 		}
 		ft_putchar('\n');

@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2020/03/11 13:24:38 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/12 18:09:30 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,21 @@
 
 int			is_room(char *line)
 {
-	int		i;
+	int c;
+	int i;
 
-	i = 0;
 	if (line[0] == '#')
 		return (-1);
-	while (line[i] && line[i] != ' ' && line[i] != '-')
-		i++;
-	if (line[i] == ' ')
-		return (1);
-	return (0);
+	if (line[0] == 'L')
+		return (-0);
+	c = 0;
+	i = ft_strlen(line) - 2;
+	while (--i >= 0 && c < 2 && line[i] != '-')
+		if (line[i] == ' ')
+			c++;
+	if (i < 0 || line[i] == '-' || c < 2)
+		return (0);
+	return (1);
 }
 
 static char	**append_return(char **in)

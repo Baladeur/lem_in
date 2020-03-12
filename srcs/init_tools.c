@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:58:11 by myener            #+#    #+#             */
-/*   Updated: 2020/03/11 19:07:04 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/12 15:16:29 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,19 @@ static void	room_init(t_room *room)
 int			lem_init(t_info *info, char **map)
 {
 	int	i;
+	int	res;
 
 	info_init(info);
 	i = 0;
 	while (map[i] && is_room(map[i]) < 0)
 		i++;
-	if (!(lem_in_atoi(map[i], &info->ant_nb))
-		|| info->ant_nb < 1 || !(info->ant = malloc(sizeof(t_ant) * info->ant_nb)))
+	if (!(lem_in_atoi(map[i], &info->ant_nb)) || info->ant_nb < 1
+		|| !(info->ant = malloc(sizeof(t_ant) * info->ant_nb)))
 		return (0);
 	ant_init(info);
 	info->rooms_line = i;
-	while (map[++i] && is_room(map[i]))
-		if (is_room(map[i]) == 1)
+	while (map[++i] && (res = is_room(map[i])))
+		if (res == 1)
 			info->room_nb++;
 	if (!(info->room_tab = malloc(sizeof(t_room) * info->room_nb)))
 		return (0);
