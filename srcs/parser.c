@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:20:24 by myener            #+#    #+#             */
-/*   Updated: 2020/03/11 19:16:53 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/03/12 13:50:47 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,8 @@ static int	room_parser(char *line, t_info *info, int j)
 	tmp = NULL;
 	while (i > 0 && line[i] != ' ' && line[i] != '-')
 		i--;
-	if (!i || line[++i - 2] == '-')
+	if (!i || line[++i - 2] == '-' || !(tmp = ft_strsub(line, i, end - i + 1)))
 		return (0);
-	ft_printf("From '%c'(%d) to '%c'(%d) : %s\n",line[i], i, line[end], end, (tmp = ft_strsub(line, i, end - i + 1)));
 	if (!lem_in_atoi(tmp, &(info->room_tab[j].y)))
 		return (0);
 	free(tmp);
@@ -33,17 +32,14 @@ static int	room_parser(char *line, t_info *info, int j)
 	end = i;
 	while (i > 0 && line[i] != ' ' && line[i] != '-')
 		i--;
-	if (!i || line[++i - 2] == '-')
+	if (!i || line[++i - 2] == '-' || !(tmp = ft_strsub(line, i, end - i + 1)))
 		return (0);
-	ft_printf("From '%c'(%d) to '%c'(%d) : %s\n",line[i], i, line[end], end, (tmp = ft_strsub(line, i, end - i + 1)));
 	if (!lem_in_atoi(tmp, &(info->room_tab[j].x)))
 		return (0);
 	i -= 1;
 	free(tmp);
 	info->room_tab[j].id = j;
 	info->room_tab[j].name = ft_strsub(line, 0, i);
-	ft_printf("Valid line : %s", line);
-	ft_printf("Room info : name: \"%s\" | x: %d | y: %d\n", info->room_tab[j].name, info->room_tab[j].x, info->room_tab[j].y);
 	return (1);
 }
 
@@ -177,7 +173,7 @@ int			lem_in_parser(char **map, t_info *info)
 					break;
 			i += (ret == 1) ? 0 : 1;
 		}
-		else if (map[i][0] >= 33 && map[i][0] <= 126 && (j = (j == 0) ? 1 : j))
+		else if (map[i][0] >= 33 && map[i][0] <= 126)
 			if (j += is_room(map[i]) == 1)
 				if (!room_parser(map[i], info, j))
 					break;
