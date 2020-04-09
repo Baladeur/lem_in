@@ -6,11 +6,11 @@
 #    By: myener <myener@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/20 19:31:14 by myener            #+#    #+#              #
-#    Updated: 2020/03/11 15:34:29 by myener           ###   ########.fr        #
+#    Updated: 2020/04/09 16:02:08 by myener           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = lem_in
+NAME = lem-in
 
 SRCDIR	:=	./srcs
 OBJDIR	:=	./objs
