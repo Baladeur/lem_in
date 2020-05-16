@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2020/03/12 18:09:30 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/05/16 15:21:48 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,11 +108,16 @@ int			main(void)
 		return (lem_in_free(map, &info, &path_tab, 0));
 	if (troubleshooter(&info))
 		return (lem_in_free(map, &info, &path_tab, 0));
+	if (!(suurballe(&info, &path_tab)))
+		return (lem_in_free(map, &info, &path_tab, 0));
+	/* //OLD ALGORITHM, REUSABLE?
 	if (!(directed_matrix(&info)))
 		return (lem_in_free(map, &info, &path_tab, 0));
 	if (!(pathfinder(&info, &path_tab)))
 		return (lem_in_free(map, &info, &path_tab, 0));
+	*/
 	assign_path(path_tab, &info);
 	lem_in_displayer(&info, map);
+	ft_printf("%d\n",path_efficiency(path_tab, info.ant_nb));
 	return (lem_in_free(map, &info, &path_tab, 1));
 }

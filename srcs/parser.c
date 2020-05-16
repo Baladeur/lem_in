@@ -56,12 +56,9 @@ static int	end_parser(char **map, t_info *info)
 
 static int	gates_manager(t_info *info, int ret, int i, char **map)
 {
-	int		j;
-
 	if (!map[i + 1] || !(is_room(map[i + 1]) > 0))
 		return (0);
 	i += 1;
-	j = 0;
 	if ((ret == 2 && info->s_enc) || (ret == 3 && info->e_enc))
 		return (0);
 	else if (ret == 2 && (info->s_enc = 1))

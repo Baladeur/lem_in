@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/03/12 17:06:36 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/05/16 14:17:06 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 # define LEM_IN_H
 # define MAX_INT 2147483647
+# define INT32_MAX 2147483647
 # define MIN_INT -2147483648
 # include <errno.h>
 # include <fcntl.h>
@@ -136,5 +137,7 @@ t_path				*allpath(t_info *info, int *max);
 int					pathfinder(t_info *info, t_path **best);
 
 void				assign_path(t_path *path, t_info *info);
+
+int					suurballe(t_info *info, t_path **best);
 
 #endif

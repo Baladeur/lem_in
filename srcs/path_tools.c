@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 15:58:49 by myener            #+#    #+#             */
-/*   Updated: 2020/03/11 15:22:25 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/05/16 15:05:50 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ int			path_add(t_path *path, int *edges, t_info *info, int b)
 	while (edges[++i] != info->room_nb - 1)
 		if ((++l) && path[s].edges[edges[i]] && !b)
 			return (0);
-	i = -1;
-	while (path[++i].len > 0)
-		;
+	i = 0;
+	while (path[i].len > 0)
+		i++;
 	path[i].len = l;
 	path[i].edges = edges;
 	i = 0;

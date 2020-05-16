@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: myener <myener@student.42.fr>              +#+  +:+       +#+         #
+#    By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/20 19:31:14 by myener            #+#    #+#              #
-#    Updated: 2020/04/09 16:02:08 by myener           ###   ########.fr        #
+#    Updated: 2020/05/15 17:45:15 by tferrieu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRCS_NAME =	adj_matrix.c \
 			matrix_tools.c \
 			output.c \
 			parser.c \
+			suurballe.c \
 			path_tools.c \
 			pathfinder.c \
 			queue_tools.c \
