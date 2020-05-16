@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   suurballe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/25 18:26:17 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/05/16 15:22:03 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/05/16 23:38:17 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,7 +232,7 @@ int	suurballe(t_info *info, t_path **best)
 	t_elist	*paths;
 	int		**matrix;
 	int		*curr;
-	
+
 	paths = NULL;
 	curr = NULL;
 	if (!(matrix = adj_split(info)))
@@ -247,5 +247,5 @@ int	suurballe(t_info *info, t_path **best)
 	if (!(overlap_handler(paths, info, best)))
 		return (suurballe_exit(&matrix, &paths, info));
 	suurballe_exit(&matrix, &paths, info);
-	return (0);
+	return (1); // et non 0 :)
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    possible_errors                                    :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+         #
+#    By: myener <myener@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/26 16:30:35 by myener            #+#    #+#              #
-#    Updated: 2020/03/12 18:59:46 by tferrieu         ###   ########.fr        #
+#    Updated: 2020/05/16 23:36:43 by myener           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,3 +31,6 @@ ________________
 [x] Ant nbr is invalid/has spacing, with chars etc after the numbers. ( i.e: 98 s| ; 98+| ; + 23)
 [x] Room is missing the x or y position integers
 [x] Room has too much/too little info (i.e: stuff after the coords, or no coords)
+[] When handling flow-thousand maps, program can crash because of a variable that was modified after being freed.
+[] big and big-superposition maps output "ERROR" during suurballe.
+[] the line counter is incorrect.

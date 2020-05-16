@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dispatcher.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:22:11 by myener            #+#    #+#             */
-/*   Updated: 2020/03/12 19:21:26 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/05/16 23:38:46 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void			lem_in_displayer(t_info *info, char **map)
 				room_name ? lem_in_printer(info->ant[a].id, room_name) : 0;
 			}
 		}
+		info->line_nb += 1; // plus clair pour simplement compter le nb de lignes
 		ft_putchar('\n');
 	}
 }

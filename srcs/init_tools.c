@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:58:11 by myener            #+#    #+#             */
-/*   Updated: 2020/03/12 15:16:29 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/05/16 23:28:50 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void	info_init(t_info *info)
 {
 	info->room_nb = 0;
 	info->start_nb = 0;
+	info->line_nb = 0;
 	info->end_nb = 0;
 	info->ant_nb = 0;
 	info->s_enc = 0;

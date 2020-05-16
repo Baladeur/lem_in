@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/05/16 14:17:06 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/05/16 23:28:37 by myener           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct		s_info		// useful information that may bee needed regularly.
 {
 	int				room_nb;		// the number of rooms.
 	int				ant_nb;			// the total number of ants.
+	int				line_nb;		// the number of lines outputted.
 	t_ant			*ant;			// a tab containing all the ants numbered (ant 1 is in pos 0, and so on) + their position (room id).
 	int				start_nb;		// line number of start room coordinates, from input data array.
 	int				end_nb;			// line number of the end room.
