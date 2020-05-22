@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/05/16 23:28:37 by myener           ###   ########.fr       */
+/*   Updated: 2020/05/22 22:31:18 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 # define LEM_IN_H
 # define MAX_INT 2147483647
-# define INT32_MAX 2147483647
 # define MIN_INT -2147483648
 # include <errno.h>
 # include <fcntl.h>
@@ -51,7 +50,6 @@ typedef struct		s_info		// useful information that may bee needed regularly.
 	t_ant			*ant;			// a tab containing all the ants numbered (ant 1 is in pos 0, and so on) + their position (room id).
 	int				start_nb;		// line number of start room coordinates, from input data array.
 	int				end_nb;			// line number of the end room.
-	int				edges_line;		// line number of the beginning of the edges list.
 	int				rooms_line;		// line number of the beginning of the rooms list.
 	bool			s_enc;			// true if start is encountered, false if not.
 	bool			e_enc;			// true if end is encountered, false if not.
@@ -139,6 +137,8 @@ int					pathfinder(t_info *info, t_path **best);
 
 void				assign_path(t_path *path, t_info *info);
 
+int					*suurbfs(int **matrix, t_info *info);
+int         		overlap_handler(t_elist *paths, int **res, t_info *info, t_path **best);
 int					suurballe(t_info *info, t_path **best);
 
 #endif

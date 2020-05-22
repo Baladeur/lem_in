@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:10:44 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/03/12 18:09:46 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/05/20 00:26:55 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int			adj_matrix(char **data, t_info *info)
 		return (0);
 	if (!(info->matrix = init_matrix(info->room_nb)))
 		return (0);
-	while (data[i] && i < info->edges_line)
+	while (data[i])
 	{
 		if (get_link(data[i], info))
 		{

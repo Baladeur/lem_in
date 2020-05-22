@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:58:11 by myener            #+#    #+#             */
-/*   Updated: 2020/05/16 23:28:50 by myener           ###   ########.fr       */
+/*   Updated: 2020/05/20 00:28:15 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static void	info_init(t_info *info)
 	info->e_enc = 0;
 	info->ant = NULL;
 	info->path_nb = 0;
-	info->edges_line = MAX_INT;
 	info->rooms_line = 1;
 	info->room_tab = NULL;
 	info->matrix = NULL;

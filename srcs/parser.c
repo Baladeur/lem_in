@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:20:24 by myener            #+#    #+#             */
-/*   Updated: 2020/03/12 18:24:13 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/05/20 00:28:43 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,7 @@ int			lem_in_parser(char **map, t_info *info)
 		if (map[i][0] == '#')
 		{
 			if ((ret = hash_line_manager(map, i)) > 1)
-				if (!gates_manager(info, ret, i, map)
-					&& (info->edges_line = i) >= 0)
+				if (!gates_manager(info, ret, i, map))
 					break ;
 			i += (ret == 1) ? 0 : 1;
 		}

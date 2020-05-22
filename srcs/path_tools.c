@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 15:58:49 by myener            #+#    #+#             */
-/*   Updated: 2020/05/16 15:05:50 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/05/20 17:04:03 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,10 @@ int			path_exist(t_info *info)
 	queue = NULL;
 	i = -1;
 	if (!(prev = (int *)malloc(sizeof(int) * info->room_nb)))
-		return (1);
+		return (0);
 	while (++i < info->room_nb)
 		prev[i] = -1;
-	if (!(queue_add(&queue, 0)))
+	if (!(queue = queue_new(0)))
 		return (path_exist_exit(&queue, &prev));
 	while (queue && (i = 0) >= 0)
 	{

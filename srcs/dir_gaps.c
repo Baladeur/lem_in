@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dir_gaps.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 18:52:13 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/19 17:17:13 by myener           ###   ########.fr       */
+/*   Updated: 2020/05/20 00:27:36 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static int	bfs(t_info *info, int *dist)
 	while (++i < info->room_nb)
 	{
 		visited[i] = i == info->room_nb - 1 ? 1 : 0;
-		dist[i] = i == info->room_nb - 1 ? 0 : INT32_MAX;
+		dist[i] = i == info->room_nb - 1 ? 0 : MAX_INT;
 	}
 	if (!(bfs_loop(visited, dist, info)))
 	{

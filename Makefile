@@ -6,7 +6,7 @@
 #    By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/20 19:31:14 by myener            #+#    #+#              #
-#    Updated: 2020/05/15 17:45:15 by tferrieu         ###   ########.fr        #
+#    Updated: 2020/05/22 22:30:53 by tferrieu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,8 @@ SRCS_NAME =	adj_matrix.c \
 			matrix_tools.c \
 			output.c \
 			parser.c \
+			overlap_handler.c \
+			suurbfs.c \
 			suurballe.c \
 			path_tools.c \
 			pathfinder.c \

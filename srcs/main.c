@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2020/05/16 23:37:01 by myener           ###   ########.fr       */
+/*   Updated: 2020/05/22 22:22:26 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,15 +110,9 @@ int			main(void)
 		return (lem_in_free(map, &info, &path_tab, 0));
 	if (!(suurballe(&info, &path_tab)))
 	{
-		ft_printf("NOOT\n");
+		ft_printf("SUUROR\n");
 		return (lem_in_free(map, &info, &path_tab, 0));
 	}
-	/* //OLD ALGORITHM, REUSABLE?
-	if (!(directed_matrix(&info)))
-		return (lem_in_free(map, &info, &path_tab, 0));
-	if (!(pathfinder(&info, &path_tab)))
-		return (lem_in_free(map, &info, &path_tab, 0));
-	*/
 	assign_path(path_tab, &info);
 	lem_in_displayer(&info, map);
 	ft_printf("Number of lines: %d\n", info.line_nb);

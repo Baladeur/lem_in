@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   suurballe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myener <myener@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/25 18:26:17 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/05/16 23:38:17 by myener           ###   ########.fr       */
+/*   Updated: 2020/05/22 22:32:07 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/lem_in.h"
 
-int	**adj_split(t_info *info)
+static int	**adj_split(t_info *info)
 {
 	int	**new;
 	int i;
@@ -32,56 +32,7 @@ int	**adj_split(t_info *info)
 	return (new);
 }
 
-int	*suurbfs_exit(int **prev, t_queue **queue)
-{
-	if (prev && *prev)
-		free(*prev);
-	if (queue && *queue)
-		while (*queue)
-			queue_delone(queue);
-	return (0);
-}
-
-int	*suurbfs(int **matrix, t_info *info)
-{
-	t_queue	*queue;
-	int		*prev;
-	int		i;
-
-	if (!(prev = (int*)malloc(sizeof(int) * info->room_nb * 3 - 4)))
-		return (0);
-	i = -1;
-	while (++i < info->room_nb * 3 - 4)
-		prev[i] = -1;
-	if (!(queue = queue_new(0)))
-		return (suurbfs_exit(&prev, NULL));
-	while (queue && (i = -1))
-	{
-		while (++i < info->room_nb * 3 - 4)
-			if (matrix[queue->id][i] > 0 && prev[i] < 0)
-			{
-				if (!(queue_add(&queue, i)))
-					return (suurbfs_exit(&prev, &queue));
-				prev[i] = queue->id;
-				if (i == info->room_nb * 3 - 5 && !(suurbfs_exit(NULL, &queue)))
-					return (prev);
-			}
-		queue_delone(&queue);
-	}
-	return (suurbfs_exit(&prev, &queue));
-}
-
-int	suurballe_exit(int ***matrix, t_elist **paths, t_info *info)
-{
-	if (matrix && *matrix)
-		matrix_free(matrix, info->room_nb * 3 - 4);
-	if (paths && *paths)
-		while (*paths)
-			elist_delone(paths, 1);
-	return (0);
-}
-
-void	split_node(int **matrix, int node, int *curr, t_info *info)
+static void	split_node(int **matrix, int node, int *curr, t_info *info)
 {
 	int next;
 	int i;
@@ -89,7 +40,7 @@ void	split_node(int **matrix, int node, int *curr, t_info *info)
 	i = info->room_nb * 3 - 5;
 	while ((i = curr[i]))
 		if (curr[i] == node && (next = curr[i]))
-			break;
+			break ;
 	i = -1;
 	while (++i < info->room_nb * 3 - 4)
 	{
@@ -110,7 +61,7 @@ void	split_node(int **matrix, int node, int *curr, t_info *info)
 	}
 }
 
-void	extend_path(int **matrix, int *curr, t_info *info)
+static void	extend_path(int **matrix, int *curr, t_info *info)
 {
 	int pos;
 	int src;
@@ -134,118 +85,39 @@ void	extend_path(int **matrix, int *curr, t_info *info)
 	matrix[(pos - 1) % 3 ? pos : pos + 1][0] = 1;
 }
 
-int	add_to_paths(t_queue *pos, t_path *best, t_info *info)
-{
-	t_queue	*curr;
-	int		*edges;
-	int		len;
-
-	edges = NULL;
-	len = queue_size(pos);
-	if (!(edges = (int *)malloc(sizeof(int) * len)))
-		return (0);
-	curr = pos;
-	while (--len >= 0)
-	{
-		edges[len] = curr->id;
-		curr = curr->next;
-	}
-	if (!(path_add(best, edges, info, 0)))
-	{
-		free(edges);
-		return (0);
-	}
-	return (1);
-}
-
-int	extract_rec(int **matrix, t_queue *pos, t_info *info, t_path *best)
-{
-	t_queue	*current;
-
-	if (pos->id == info->room_nb - 1)
-		return (add_to_paths(pos, best, info));
-	if (!(current = queue_new(-1)))
-		return (0);
-	current->next = pos;
-	while (++current->id < info->room_nb)
-		if (matrix[pos->id][current->id] > 0)
-			if (!(extract_rec(matrix, current, info, best)))
-				return (queue_delone(&current));
-	queue_delone(&current);
-	return (1);
-}
-
-int extract_exit(int ***matrix, t_queue **queue, t_path **best, t_info *info)
+static int	suur_exit(int ***matrix, int ***res, t_elist **paths, t_info *info)
 {
 	if (matrix && *matrix)
-		matrix_free(matrix, info->room_nb);
-	if (queue && *queue)
-		queue_delone(queue);
-	if (best && *best)
-		path_free(best, 1);
+		matrix_free(matrix, info->room_nb * 3 - 4);
+	if (res && *res)
+		matrix_free(res, info->room_nb);
+	if (paths && *paths)
+		while (*paths)
+			elist_delone(paths, 1);
 	return (0);
 }
 
-int	extract_paths(int ***matrix, t_info *info, t_path **best)
-{
-	t_queue *start;
-
-	if (!(start = queue_new(0)))
-		return (extract_exit(matrix, NULL, NULL, info));
-	if (!(*best = path_init(info->path_nb, info)))
-		return (extract_exit(matrix, NULL, NULL, info));
-	if (!(extract_rec(*matrix, start, info, *best)))
-		return (extract_exit(matrix, &start, best, info));
-	queue_delone(&start);
-	matrix_free(matrix, info->room_nb);
-	return(1);
-}
-
-int	overlap_handler(t_elist *paths, t_info *info, t_path **best)
-{
-	t_elist	*curr;
-	int		**squished;
-	int		pos;
-	int		src;
-	int		dst;
-
-	if (!(squished = init_matrix(info->room_nb)))
-		return (0);
-	curr = paths;
-	while (curr && (pos = info->room_nb * 3 - 5))
-	{
-		while (pos)
-		{
-			dst = (pos + 2) / 3;
-			src = (curr->edges[pos] + 2) / 3;
-			squished[src][dst] += 1; 
-			squished[dst][src] -= 1;
-			pos = curr->edges[pos];
-		}
-		curr = curr->next;
-	}
-	return (extract_paths(&squished, info, best));
-}
-
-int	suurballe(t_info *info, t_path **best)
+int			suurballe(t_info *info, t_path **best)
 {
 	t_elist	*paths;
 	int		**matrix;
+	int		**res;
 	int		*curr;
 
 	paths = NULL;
 	curr = NULL;
 	if (!(matrix = adj_split(info)))
 		return (0);
+	if (!(res = init_matrix(info->room_nb)))
+		return (suur_exit(&matrix, NULL, NULL, info));
 	while ((curr = suurbfs(matrix, info)))
 	{
-		if (!(elist_add(&paths, curr)))
-			return (suurballe_exit(&matrix, &paths, info));
-		extend_path(matrix, curr, info);
 		info->path_nb++;
+		if (!(elist_add(&paths, curr))
+			|| !(overlap_handler(paths, res, info, best)))
+			return (suur_exit(&matrix, &res, &paths, info));
+		extend_path(matrix, curr, info);
 	}
-	if (!(overlap_handler(paths, info, best)))
-		return (suurballe_exit(&matrix, &paths, info));
-	suurballe_exit(&matrix, &paths, info);
-	return (1); // et non 0 :)
+	suur_exit(&matrix, &res, &paths, info);
+	return (1);
 }
