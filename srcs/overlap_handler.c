@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/22 22:24:21 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/05/22 22:33:13 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/05/25 16:49:41 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static int	add_to_paths(t_queue *pos, t_path *best, t_info *info)
 	t_queue	*curr;
 	int		*edges;
 	int		len;
+	int		i;
 
 	edges = NULL;
 	len = queue_size(pos);
@@ -28,8 +29,15 @@ static int	add_to_paths(t_queue *pos, t_path *best, t_info *info)
 		edges[len] = curr->id;
 		curr = curr->next;
 	}
+	len = queue_size(pos);
+	i = -1;
+	ft_printf("EDGES |");
+	while (++i < len)
+		ft_printf(" %d", edges[i]);
+	ft_printf("\n");
 	if (!(path_add(best, edges, info, 0)))
 	{
+		ft_printf("Path add fail\n");
 		free(edges);
 		return (0);
 	}
@@ -92,6 +100,10 @@ int			overlap_handler(t_elist *path, int **r, t_info *info, t_path **best)
 	int		src;
 	int		dst;
 
+	pos = -1;
+	while (++pos < info->room_nb && (src = -1))
+		while (++src < info->room_nb)
+			r[pos][src] = 0;
 	curr = path;
 	while (curr && (pos = info->room_nb * 3 - 5))
 	{

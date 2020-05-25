@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/05/22 22:31:18 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/05/25 15:57:39 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,12 +114,6 @@ t_queue				*queue_add(t_queue **queue, int id);
 int					queue_get_at(t_queue *queue, int i);
 int					queue_size(t_queue *queue);
 
-t_branch			*init_branching(int size);
-t_branch			*reset_branching(t_branch **branch, int i);
-t_branch			*destroy_branching(t_branch **branch);
-int					directed_matrix(t_info *info);
-int					fill_gaps(t_info *info);
-
 int					path_exist(t_info *info);
 t_path				*path_free(t_path **path, int b);
 t_path				*path_init(int s, t_info *info);
@@ -131,9 +125,6 @@ t_elist				*elist_new(int *edges);
 void				elist_delone(t_elist **list, int b);
 t_elist				*elist_add(t_elist **list, int *edges);
 int					elist_size(t_elist *list);
-
-t_path				*allpath(t_info *info, int *max);
-int					pathfinder(t_info *info, t_path **best);
 
 void				assign_path(t_path *path, t_info *info);
 

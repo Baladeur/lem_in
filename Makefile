@@ -6,7 +6,7 @@
 #    By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/20 19:31:14 by myener            #+#    #+#              #
-#    Updated: 2020/05/22 22:30:53 by tferrieu         ###   ########.fr        #
+#    Updated: 2020/05/25 15:56:40 by tferrieu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,10 +16,6 @@ SRCDIR	:=	./srcs
 OBJDIR	:=	./objs
 
 SRCS_NAME =	adj_matrix.c \
-			allpath.c \
-			branch_tools.c \
-			dir_gaps.c \
-			dir_matrix.c \
 			dispatcher.c \
 			elist_tools.c \
 			free_tools.c \
@@ -33,7 +29,6 @@ SRCS_NAME =	adj_matrix.c \
 			suurbfs.c \
 			suurballe.c \
 			path_tools.c \
-			pathfinder.c \
 			queue_tools.c \
 			troubleshooter.c
 
