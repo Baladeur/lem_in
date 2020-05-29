@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2020/05/25 16:49:28 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/05/29 22:15:01 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int			main(void)
 	t_info	info;
 	char	**map;
 	t_path	*path_tab;
-	int		i;
+	//int		i;
 
 	map = NULL;
 	path_tab = NULL;
@@ -116,10 +116,11 @@ int			main(void)
 	}
 	assign_path(path_tab, &info);
 	lem_in_displayer(&info, map);
-	i = -1;
+	// Affichage du nombre de lignes attendues/résultat, ignorer sur les maps qui ne viennent pas du générateur
+	/*i = -1;
 	while (map[++i])
 		;
 	ft_printf("%s", map[i - 1]);
-	ft_printf("Number of lines: \t\t       %d\n", info.line_nb);
+	ft_printf("Number of lines: \t\t       %d\n", info.line_nb);*/
 	return (lem_in_free(map, &info, &path_tab, 1));
 }

@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:58:11 by myener            #+#    #+#             */
-/*   Updated: 2020/05/20 00:28:15 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/05/28 15:19:22 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static void	info_init(t_info *info)
 	info->rooms_line = 1;
 	info->room_tab = NULL;
 	info->matrix = NULL;
-	info->dir_matrix = NULL;
 }
 
 static void	room_init(t_room *room)

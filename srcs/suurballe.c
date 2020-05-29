@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/25 18:26:17 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/05/25 16:49:58 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/05/29 22:13:11 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ int			suurballe(t_info *info, t_path **best)
 		return (suur_exit(&matrix, NULL, NULL, info));
 	while ((curr = suurbfs(matrix, info)))
 	{
-		ft_printf("%d PATHS\n", elist_size(paths) + 1);
 		info->path_nb++;
 		if (!(elist_add(&paths, curr))
 			|| !(overlap_handler(paths, res, info, best)))

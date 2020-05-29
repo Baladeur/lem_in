@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 10:17:05 by myener            #+#    #+#             */
-/*   Updated: 2020/03/10 16:24:54 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/05/29 01:50:59 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int		lem_in_free(char **map, t_info *info, t_path **path, int b)
 	info->ant ? free(info->ant) : 0;
 	info->room_tab ? room_free(info) : 0;
 	info->matrix ? matrix_free(&(info->matrix), info->room_nb) : 0;
-	info->dir_matrix ? matrix_free(&(info->dir_matrix), info->room_nb) : 0;
 	path_free(path, 1);
 	return (b ? 0 : lem_in_error_output());
 }
