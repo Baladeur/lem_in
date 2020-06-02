@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 19:33:20 by myener            #+#    #+#             */
-/*   Updated: 2020/05/25 15:57:39 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/06/02 18:15:44 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,6 @@ typedef struct		s_queue		// simple chained list to store room ids in a queue.
 	struct s_queue	*next;			// next element in the queue.
 	int				id;				// room id of the current element.
 }					t_queue;
-
-typedef struct		s_branch	// information stored for the pre_cleaner branching.
-{
-	t_queue			*queue;			// room queue for the BFS-inspired branching.
-	int				**matrix;		// resulting directed branch matrix.
-	int				*visited;		// the visited rooms, where visited[id] is the turn at which the room was visited, or -1.
-	int				*weight;		// weight of each room, ex: weight[id] = 3 if 3 paths arrived at id at once during the branching.
-	int				size;			// size of the ant farm aka the number of rooms.
-}					t_branch;
 
 typedef struct		s_elist		// simple chained list to store path edges.
 {

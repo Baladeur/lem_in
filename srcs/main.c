@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:40:33 by myener            #+#    #+#             */
-/*   Updated: 2020/05/29 22:15:01 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/06/02 17:56:19 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ int			main(void)
 	t_info	info;
 	char	**map;
 	t_path	*path_tab;
-	//int		i;
 
 	map = NULL;
 	path_tab = NULL;
@@ -110,17 +109,8 @@ int			main(void)
 	if (troubleshooter(&info))
 		return (lem_in_free(map, &info, &path_tab, 0));
 	if (!(suurballe(&info, &path_tab)))
-	{
-		ft_printf("SUURBALLE ERROR\n");
 		return (lem_in_free(map, &info, &path_tab, 0));
-	}
 	assign_path(path_tab, &info);
 	lem_in_displayer(&info, map);
-	// Affichage du nombre de lignes attendues/résultat, ignorer sur les maps qui ne viennent pas du générateur
-	/*i = -1;
-	while (map[++i])
-		;
-	ft_printf("%s", map[i - 1]);
-	ft_printf("Number of lines: \t\t       %d\n", info.line_nb);*/
 	return (lem_in_free(map, &info, &path_tab, 1));
 }
