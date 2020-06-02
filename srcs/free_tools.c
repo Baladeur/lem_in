@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:59:26 by myener            #+#    #+#             */
-/*   Updated: 2020/03/12 17:06:36 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/06/02 18:22:23 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,6 @@ int		string_free(char *str, int ret)
 {
 	str ? free(str) : 0;
 	return (ret);
-}
-
-void	ant_free(t_info *info)
-{
-	int i;
-
-	i = 0;
-	while (i < info->ant_nb)
-	{
-		free(info->ant[i].path);
-		i++;
-	}
-	info->ant ? free(info->ant) : 0;
 }
 
 int		**matrix_free(int ***matrix, int count)

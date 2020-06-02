@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/22 22:24:21 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/06/02 17:41:09 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/06/02 19:57:38 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static int	extract_paths(int **matrix, t_info *info, t_path **best)
 	return (1);
 }
 
-int			overlap_handler(t_elist *path, int **r, t_info *info, t_path **best)
+int			overlap_handler(t_elist *p, int **m, t_info *i, t_path **b)
 {
 	t_elist	*curr;
 	int		pos;
@@ -93,21 +93,21 @@ int			overlap_handler(t_elist *path, int **r, t_info *info, t_path **best)
 	int		dst;
 
 	pos = -1;
-	while (++pos < info->room_nb && (src = -1))
-		while (++src < info->room_nb)
-			r[pos][src] = 0;
-	curr = path;
-	while (curr && (pos = info->room_nb * 2 - 3))
+	while (++pos < i->room_nb && (src = -1))
+		while (++src < i->room_nb)
+			m[pos][src] = 0;
+	curr = p;
+	while (curr && (pos = i->room_nb * 2 - 3))
 	{
 		while (pos)
 		{
 			dst = (pos + 1) / 2;
 			src = (curr->edges[pos] + 1) / 2;
-			r[src][dst] += 1;
-			r[dst][src] -= 1;
+			m[src][dst] += 1;
+			m[dst][src] -= 1;
 			pos = curr->edges[pos];
 		}
 		curr = curr->next;
 	}
-	return (extract_paths(r, info, best));
+	return (extract_paths(m, i, b));
 }

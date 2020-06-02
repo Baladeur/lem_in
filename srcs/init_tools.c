@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:58:11 by myener            #+#    #+#             */
-/*   Updated: 2020/05/28 15:19:22 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/06/02 18:46:20 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ static void	room_init(t_room *room)
 	room->x = 0;
 	room->y = 0;
 	room->type = 'c';
-	room->ant_nb_curr = 0;
 }
 
 int			lem_init(t_info *info, char **map)

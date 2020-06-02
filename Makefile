@@ -6,7 +6,7 @@
 #    By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/20 19:31:14 by myener            #+#    #+#              #
-#    Updated: 2020/05/25 15:56:40 by tferrieu         ###   ########.fr        #
+#    Updated: 2020/06/02 18:42:34 by tferrieu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,18 +15,15 @@ NAME = lem-in
 SRCDIR	:=	./srcs
 OBJDIR	:=	./objs
 
-SRCS_NAME =	adj_matrix.c \
-			dispatcher.c \
+SRCS_NAME =	dispatcher.c \
 			elist_tools.c \
 			free_tools.c \
 			init_tools.c \
 			lem_in_tools.c \
 			main.c \
 			matrix_tools.c \
-			output.c \
 			parser.c \
 			overlap_handler.c \
-			suurbfs.c \
 			suurballe.c \
 			path_tools.c \
 			queue_tools.c \

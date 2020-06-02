@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 15:58:49 by myener            #+#    #+#             */
-/*   Updated: 2020/05/20 17:04:03 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/06/02 18:31:45 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,35 +66,6 @@ int			path_add(t_path *path, int *edges, t_info *info, int b)
 	return (1);
 }
 
-/*
-** Removes the last set of edges from a t_path tab.
-*/
-
-int			path_remove(t_path *path, t_info *info)
-{
-	int i;
-	int n;
-	int s;
-
-	s = 0;
-	n = 0;
-	while (path[s].len >= 0 && ++s)
-		if (path[n + 1].len > 0)
-			n++;
-	if (!s || !path[n].len)
-		return (0);
-	i = 0;
-	while (path[n].edges[++i] != info->room_nb - 1)
-		path[s].edges[path[n].edges[i]] = 0;
-	path[n].edges = NULL;
-	path[n].len = 0;
-	n = -1;
-	while (path[++n].len > 0 && !(i = 0))
-		while (path[n].edges[++i] != info->room_nb - 1)
-			path[s].edges[path[n].edges[i]] = 1;
-	return (1);
-}
-
 static int	path_exist_exit(t_queue **queue, int **prev)
 {
 	if (queue && *queue)
@@ -134,4 +105,36 @@ int			path_exist(t_info *info)
 	i = prev[info->room_nb - 1] >= 0 ? 1 : 0;
 	free(prev);
 	return (i);
+}
+
+/*
+** Sets the path each ant will use once pathfinding is done.
+*/
+
+void		assign_path(t_path *path, t_info *info)
+{
+	int l;
+	int r;
+	int	s;
+	int i[4];
+
+	i[0] = 0;
+	l = path[0].len;
+	while (path[++i[0]].len > 0)
+		if (path[i[0]].len > l)
+			l = path[i[0]].len;
+	r = info->ant_nb;
+	i[0] = -1;
+	while (path[++i[0]].len > 0)
+		r -= l - path[i[0]].len;
+	s = r / i[0];
+	r = r % i[0];
+	i[1] = -1;
+	i[2] = 0;
+	while (path[++i[1]].len > 0 && (i[3] = -1))
+		while (++i[3] < s + l - path[i[1]].len + (i[0] - i[1] <= r ? 1 : 0))
+		{
+			info->ant[i[2]].path = path[i[1]].edges;
+			i[2]++;
+		}
 }

@@ -6,7 +6,7 @@
 /*   By: tferrieu <tferrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 18:18:29 by tferrieu          #+#    #+#             */
-/*   Updated: 2020/02/26 17:45:00 by tferrieu         ###   ########.fr       */
+/*   Updated: 2020/06/02 18:27:55 by tferrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,29 +29,6 @@ int		queue_size(t_queue *queue)
 		current = current->next;
 	}
 	return (n);
-}
-
-/*
-** Returns the value stored in the i element of the queue.
-** If the list is smaller than i, returns -1.
-*/
-
-int		queue_get_at(t_queue *queue, int i)
-{
-	t_queue *current;
-	int		n;
-
-	n = 0;
-	current = queue;
-	while (current && n < i)
-	{
-		n++;
-		current = current->next;
-	}
-	if (current)
-		return (current->id);
-	else
-		return (-1);
 }
 
 /*
