@@ -29,7 +29,7 @@ A is the starting node while H is the destination.
 
 ![Preparatory step](https://i.imgur.com/Xi6h6SF.jpg)
 
-Before running the algorithm loop, we must turn the graph into a directed one.
+Before running the algorithm loop, we must turn the layout into a directed graph.
 
 To do so, we start by splitting every node into an input node (i) and an output node (o).
 
@@ -86,10 +86,16 @@ A->B->C->D->E->F->G->H
 
 Then, all there is left to do is overlapping the paths.
 
+One by one, every path is ovelapped with the previous ones.
+
 ![Overlap](https://i.imgur.com/l1bM6py.jpg)
 
 Edges that cross each other are cancelled out, and it leaves a new usable set of paths :
 
 ![Result](https://i.imgur.com/8Zwfxsk.jpg)
 
-The ants will follow these paths to reach the end of the ant-farm.
+For each added path, we run a formula to determine the efficiency of the resulting set of paths given a number of ants. This allows us to get the most efficient set according to the amount of ants to move.
+
+For instance, in the given example above, the central green path is more efficient for 1 or 2 ants while the 2 paths resulting from the overlap are more efficient for  2+ ants.
+
+Once the best set of paths is determined, all that is left to do is guiding the ants through them.
