@@ -77,12 +77,12 @@ With the loop over and the paths stored, we can now revert the graph to its init
 In the process, we also transform the paths we found to match the original layout of the graph.
 Thus, the following paths:
 
-A->Ei->Eo->Di->Do->H.
-A->Bi->Bo->Ci->Co->Di->Eo->Fi->Fo->Gi->Go->H.
+- A->Ei->Eo->Di->Do->H.
+- A->Bi->Bo->Ci->Co->Di->Eo->Fi->Fo->Gi->Go->H.
 
 become :
-A->E->D->H
-A->B->C->D->E->F->G->H
+- A->E->D->H
+- A->B->C->D->E->F->G->H
 
 Then, all there is left to do is overlapping the paths.
 
